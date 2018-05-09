@@ -166,7 +166,6 @@ React uses an explicit method for passing data between components that make it a
 Front-end frameworks like **Angular** and **Ember** make use of _two-way data bindings_. In two-way data binding the data is kept in sync throughout the app no matter where it is updated. If a model changes the data, then the data updates in the view. Alternatively, if the user changes the data in the view, then the data is updated in the model. Two-way data binding sounds really powerful, but it can make the application harder to reason about and know where the data is actually being updated.
 
 ### Further Research
-
 - [Angular's two way data binding](https://angular.io/guide/template-syntax#two-way)
 - [Ember's two way data binding](https://guides.emberjs.com/v2.13.0/object-model/bindings/)
 
@@ -177,3 +176,66 @@ The data lives in the parent component and is passed down to the child component
 
 ### Data Flow in React Recap
 In React, data flows in only one direction, from parent to child. If data is shared between sibling child components, then the data should be stored in the parent component and passed to both of the child components that need it.
+
+## It's just JavaScript
+You will notice that as we get deeper into this course, the API you need to learn for React is pretty small. React doesn't like to recreate functionality that you can already do in JavaScript. So if you feel confortable with JavaScript you will quickly feel confortable with React.
+
+> Bonus: React will make you a much better JavaScript developer.
+
+Over the past couple of years, functional programming has had a large impact on the JavaScript ecosystem and community. Functional programming is an advanced topic in JavaScript and fills hundreds of books. It's too complex to delve into the benefits of functional programming. But React builds on a lot of the techniques of functional programming...techniques that you'll learn as you go through this program. However, there are a couple of important JavaScript functions that are vital to functional programming that we should look at. These are the `.map()` and `.filter()` methods.
+
+### Array's `.map()` Method
+If you're not familiar with JavaScript's Array `.map()` method, it gets called on an existing array and returns a new array based on what is returned from the function that's passed as an argument. Let's take a look:
+
+```javascript
+const names = ['Edward', 'Alphonse', 'Hohenheim']
+const namesLengths = names.map( name => name.length );
+
+console.log(namesLengths) //-> [6, 8, 9]
+```
+
+Let's go over what's happening here. The `.map()` method works on arrays, so we have to have an array to start with the `names` array. We call `.map()` on the `names` array and pass it an arrow function as an argument. The arrow function that's passed to `.map()` gets called _for each item_ in the `names` array! The arrow function receives the first name in the array, stores it in the `name` variable and returns its length. Then it does that again for the remaining two names.
+
+So `nameLengths` will be a _new_ array `[6, 8, 9]`. This is important to understand; **the `.map()` method returns a new array, it does not modify the original array.**
+
+### Array's `.filter()` Method
+JavaScript's Array `.filter()` method is similar to the `.map()` method:
+
+- It is called on an array
+- It takes a function as an argument
+- It returns a new array
+
+The difference is that the function passed to `.filter()` is used as a test, and only items in the array that pass the test are included in the new array. Let's take a look at an example:
+
+```javascript
+const names = ['Edward', 'Alphonse', 'Hohenheim']
+const longNames = names.map( name => name.length > 7 );
+
+console.log(longNames) //-> ['Alphonse', 'Hohenheim']
+```
+
+Just as before, we have the starting `names` array; We call `.filter()` on the `names` array and pass it a function as an argument; Again, just like with `.map()` the arrow function that's passed to `.filter()` gets called _for each item_ in the names array. The first item (i.e. 'Edward') is stored in the `name` variable. Then the test is performed - this is what's doing the actual filtering. It checks the length of the name. If it's 7 or less, then it's skipped (and not included in the new array!). But if the length of the name is greater than 7, then `name.length > 7` returns true and the name is included in the new array!. Lastly, just like with `.map()` the `.filter()` method returns a _new_ array instead of modifying the original array.
+
+So `longNames` will be the new array `['Alphonse', 'Hohenheim']`. Notice that it only has two names in it now, because 'Edward' is 6 characters and was filtered out.
+
+### Combining `.map()` And `.filter` Together.
+What makes `.map()` and `.filter()` so powerful is that they can be combined. Because both methods return arrays, we can chain the method calls together so that the returned data from one can be a new array for the next.
+
+```javascript
+const names = ['Edward', 'Alphonse', 'Hohenheim']
+const longNamesLengths = names.map( name => name.length > 7 ).map( name => name.lenght );
+
+console.log(longNamesLengths) //-> ['8', '9']
+```
+
+> On a side note, you'll want to run things in this order (`.filter()` first and then `.map()`). Because `.map()` runs the function once for each item in the array, it will be faster if the array were already filtered.
+
+### React is Just JavaScript Recap
+React builds on what you already know - JavaScript! You don't have to learn a special template library or a new way of doing things.
+
+Two of the main methods that you'll be using quite a lot are:
+
+- `.map()`
+- `.filter()`
+
+It's important that you're comfortable using these methods, so take some time to practice using them. Why not look through some of your existing code and try converting your `for` loops to `.map()` calls or see if you can remove any `if` statements by using `.filter()`.
