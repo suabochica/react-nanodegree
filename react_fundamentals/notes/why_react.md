@@ -1,5 +1,4 @@
 # Why React?
-
 Before start with the React syntax, take a step back and talk about what makes React special:
 
 - Its compositional model
@@ -8,7 +7,6 @@ Before start with the React syntax, take a step back and talk about what makes R
 - React is really just Javascript
 
 ## What is Composition?
-
 Composition is:
 
 > to combine simple functions to build more complicated ones
@@ -41,6 +39,7 @@ function getProfileData (username) {
     }
 }
 ```
+
 There's nothing technically wrong with this at all; this is entirely accurate JavaScript code. But this isn't composition. There are also a couple of potential issues with this version that isn't using composition. If the user's link to GitHub is needed somewhere else, then duplicate code would be needed. A good function should follow the "DOT" rule:
 
 > Do One Thing
@@ -52,7 +51,6 @@ The last function is doing a couple of different (however minor) things; it's cr
 - `getProfileData` – returns a new object
 
 ### React and Composition
-
 React makes use of the power of composition, heavily! React builds up pieces of a UI using components. Let's take a look at some pseudo code for an example. Here are three different components:
 
 ```
@@ -75,7 +73,6 @@ Now the `Page` component has the `Article` and `Sidebar` components inside. This
 We'll dig into components soon, but just know that composition plays a huge part in building React components.
 
 ### Composition Recap
-
 Composition occurs when _simple_ functions are _combined_ together to create _more complex_ functions. Think of each function as a single building block that _does one thing_ (DOT). When you combine these simple functions together to form a more complex function, this is composition.
 
 ### Further Research
@@ -83,14 +80,12 @@ Composition occurs when _simple_ functions are _combined_ together to create _mo
 - [Functional JavaScript: Function Composition For Every Day Use](https://hackernoon.com/javascript-functional-composition-for-every-day-use-22421ef65a10)
 
 ## What is Declarative Code?
-
 To understand what declarative code means, it's a good idea compare it with imperative code. Both, are two different styles of thinking. A good example to understand the differences between both is set the temperature to 70 degrees inside a car.
 
-- *Imperative way:* You have a car with two knobs to reach the state. One knob controls the temperature, and the other one controls the airflow. When you get too hot o too cold, you have to do imperative work. It means, you have to manage these knobs the entire drive an then you accumulate over the time the state of 70 degrees, but I never talk about that state.
-- *Declarative way:* In another car, you don't have knobs. Instead, it lets you declare a temperature. Then you tell the car the state I want to be in (in this case 70 degrees), and it handles the imperative work for me.
+- _Imperative way:_ You have a car with two knobs to reach the state. One knob controls the temperature, and the other one controls the airflow. When you get too hot o too cold, you have to do imperative work. It means, you have to manage these knobs the entire drive an then you accumulate over the time the state of 70 degrees, but I never talk about that state.
+- _Declarative way:_ In another car, you don't have knobs. Instead, it lets you declare a temperature. Then you tell the car the state I want to be in (in this case 70 degrees), and it handles the imperative work for me.
 
 ### Imperative Code
-
 Imperative means:
 
 > expressing a command; commanding
@@ -108,7 +103,7 @@ for (let i = 0; i < people.length; i++) {
 
 Here, We're looping through each item in the `people` array, adding an exclamation mark to their name and storing the new string in the `excitedPeople` array.
 
-This is *imperative* code, though. We're commanding JavaScript what to do at every single step. We have to give it commands to:
+This is _imperative_ code, though. We're commanding JavaScript what to do at every single step. We have to give it commands to:
 
 - Set an initial value for the iterator - (`let i = 0`)
 - Tell the for loop when it needs to stop - (`i < people.length`)
@@ -117,10 +112,9 @@ This is *imperative* code, though. We're commanding JavaScript what to do at eve
 - Increment the `i` variable by one - (`i++`)
 
 ### Declarative Code
-
 With declarative code, we don't code up all of the steps to get us to the result. Instead, we declare what we want to be done, and JavaScript will take care of doing it. This explanation is a bit abstract, so let's look at an example. Let's take the imperative `for` loop code we were looking at and refactor it to be more declarative.
 
-With the imperative code, we were performing all of the steps to get to the result. What *is* the result that we want, though? Well, our starting point was just an array of names:
+With the imperative code, we were performing all of the steps to get to the result. What _is_ the result that we want, though? Well, our starting point was just an array of names:
 
 ```javascript
 const people = ['Amanda', 'Farrin', 'Geoff', 'Karen', 'Richard', 'Tyler']
@@ -148,7 +142,6 @@ That's it! Notice that with this code we haven't:
 ...all of those steps are taken care of by JavaScript's `.map()` Array method.
 
 ### React is Declarative
-
 We'll get to writing React code very soon, but let's take another glimpse at it to show how it's declarative.
 
     <button onClick={activateTeleporter}>Activate Teleporter</button>
@@ -156,11 +149,31 @@ We'll get to writing React code very soon, but let's take another glimpse at it 
 It might seem odd, but this is valid React code and should be pretty easy to understand. Notice that there's just an `onClick` attribute on the button...we aren't using `.addEventListener()` to set up event handling with all of the steps involved to set it up. Instead, we're just declaring that we want the `activateTeleporter` function to run when the button is clicked.
 
 ### Declarative Code Recap
-
-*Imperative* code instructs JavaScript on _how_ it should perform each step. With _declarative_ code, we tell JavaScript what we want to be done, and let JavaScript take care of performing the steps.
+_Imperative_ code instructs JavaScript on _how_ it should perform each step. With _declarative_ code, we tell JavaScript what we want to be done, and let JavaScript take care of performing the steps.
 
 React is declarative because we write the code that we _want_, and React is in charge of taking our declared code and performing all of the JavaScript/DOM steps to get us to our desired result.
 
 ### Further Research
 - [Imperative vs Declarative Programming by Tyler](https://tylermcginnis.com/imperative-vs-declarative-programming/)
 - [Difference between declarative and imperative in ReactJS from StackOverflow](https://stackoverflow.com/questions/33655534/difference-between-declarative-and-imperative-in-react-js)
+
+### Unidirectional Data Flow
+Before react, one popular technique for managing state changes in an app over time, was to use data bindings. So, the data change in one place, that changes automatically reflected in other places in the app. Any part of the app that had that data could also change it. But, as the app grows, this technique makes it difficult to determine how a change in one place automatically and implicitly affects the rest of the app.
+
+React uses an explicit method for passing data between components that make it a lot easier to track changes in the state, and how they affect another place of the app. This is called _unidirectional data flow_ because data flows one way, from parent element down to children.
+
+### Data-Binding in Other Frameworks
+Front-end frameworks like **Angular** and **Ember** make use of _two-way data bindings_. In two-way data binding the data is kept in sync throughout the app no matter where it is updated. If a model changes the data, then the data updates in the view. Alternatively, if the user changes the data in the view, then the data is updated in the model. Two-way data binding sounds really powerful, but it can make the application harder to reason about and know where the data is actually being updated.
+
+### Further Research
+
+- [Angular's two way data binding](https://angular.io/guide/template-syntax#two-way)
+- [Ember's two way data binding](https://guides.emberjs.com/v2.13.0/object-model/bindings/)
+
+### React's Data Flow
+Data moves differently with React's unidirectional data flow. In React, the data flows from the parent component to a child component.
+
+The data lives in the parent component and is passed down to the child component. Even though the data lives in the parent component, both the parent and the child components can use the data. However, if the data must be updated, then only the parent component should perform the update. If the child component needs to make a change to the data, then it would send the updated data to the parent component where the change will actually be made. Once the change is made in the parent component, the child component will be passed the data (that has just been updated!).
+
+### Data Flow in React Recap
+In React, data flows in only one direction, from parent to child. If data is shared between sibling child components, then the data should be stored in the parent component and passed to both of the child components that need it.
