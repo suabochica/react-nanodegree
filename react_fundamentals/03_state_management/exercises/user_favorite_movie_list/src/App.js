@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.svg';
 import UserFavoriteMovieList from './UserFavoriteMovieList';
+import MovieFavoriteByUsers from './MovieFavoriteByUsers';
 
 /*
 Use React and the data below to display a list of users alongside their favorite movies.
@@ -99,6 +100,25 @@ const movies = {
 };
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.usersByMovie = {};
+
+    /*
+    We can map the users by the movie they liked.
+    */
+    profiles.forEach(profile => {
+      const movieID = profile.favoriteMovieID;
+
+      if (this.usersByMovie[movieID]) {
+        this.usersByMovie[movieID].push(profile.userID);
+      } else {
+        this.usersByMovie[movieID] = [profile.userID];
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -107,7 +127,16 @@ class App extends Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <h2>Favorite Movies</h2>
-      	<UserFavoriteMovieList profiles={profiles} users={users} movies={movies}/>
+      	<UserFavoriteMovieList
+          profiles={profiles}
+          users={users}
+          movies={movies}
+        />
+        <h2>How Popular is Your Favorite Movie?</h2>
+        <MovieFavoriteByUsers
+          users={users}
+          movies={movies}
+          usersByMovie={this.usersByMovie}/>
       </div>
     );
   }

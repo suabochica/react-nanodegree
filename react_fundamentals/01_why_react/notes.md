@@ -209,7 +209,7 @@ The difference is that the function passed to `.filter()` is used as a test, and
 
 ```javascript
 const names = ['Edward', 'Alphonse', 'Hohenheim']
-const longNames = names.map( name => name.length > 7 );
+const longNames = names.filter( name => name.length > 7 );
 
 console.log(longNames) //-> ['Alphonse', 'Hohenheim']
 ```
