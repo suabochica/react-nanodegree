@@ -209,3 +209,48 @@ Components are reusable chunks that can be nested inside of each other, like Rus
 
 Oftentimes, the number of components an app should have is subjective, but it is always the case that they should follow the Single Responsibility Principle, be reusable, and manageable in size.
 
+## Functional components
+Until this point, we have used JavaScript class syntax with a render method to build out our components. Eventually, we'll be adding more methods to these classes, bur for now, it's good to know that if all your components has a render method you can actually use a regular old function to create your component.
+
+> If a component is only using a `render()` method to display content, then it can be converted into a _Stateless Functional Component_.
+
+Notice however, that we are no longer accessing the component's props by using `this` keyword. Instead, our functional component is being passed it's props as the first argument to the functions.
+
+```js
+function User(props) {
+  return (
+    <p>Username: {props.username}</p>
+  )
+}
+```
+
+### Stateless Functional Components Recap
+if your component does not keep track of internal state (i.e. all it has is a `render()` method), you cand delcare the component as _Stateless Functional Component_.
+
+Remember that React coponent are JavaScript function that return HTML for rendering. As such, the following two example of a simple Email component are equivalent:
+
+```js
+class Email extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.text}
+      </div>
+    );
+  }
+}
+```
+
+```js
+const Email = (props) => (
+  <div>
+    {props.text}
+  </div>
+);
+```
+
+In the latter example (written as an ES6 function with an implicit return), rather than accessing `props` from `this.props`, we can pass in props directly as an argument to the function itself. In turn, this regular JavaScript function can serve as the Email component's `render()` method.
+
+### Further Research
+- [Creating Stateless Function Components](https://www.reactenlightenment.com/react-state/8.4.html) from the React Enlightenment book
+- [Functional Components vs. Stateless Functional Components vs. Stateless Component](https://tylermcginnis.com/functional-components-vs-stateless-functional-components-vs-stateless-components/) from Tyler

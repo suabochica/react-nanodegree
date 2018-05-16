@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MovieCard from './MovieCard';
 
-class MovieFavoriteByUsers extends Component {
-  render() {
-    const {users, movies, usersByMovie} = this.props;
-    const movieCards = Object.keys(movies).map((movieId) => (
-      <MovieCard
-        key={movieId}
-        users = {users}
-        usersWhoLikedMovie={usersByMovie[movieId]}
-        movieInfo={movies[movieId]}
-      />
-    ))
+function MovieFavoriteByUsers(props) {
+  const { users, movies, usersByMovie } = props;
+  const movieCards = Object.keys(movies).map((movieId) => (
+    <MovieCard
+      key={movieId}
+      users={users}
+      usersWhoLikedMovie={usersByMovie[movieId]}
+      movieInfo={movies[movieId]}
+    />
+  ))
 
-    return (
-      <ul>
+  return(
+    <ul>
         {movieCards}
       </ul>
-    )
-  }
+  )
 }
 
 export default MovieFavoriteByUsers;
