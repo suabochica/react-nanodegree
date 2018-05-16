@@ -210,7 +210,7 @@ Components are reusable chunks that can be nested inside of each other, like Rus
 Oftentimes, the number of components an app should have is subjective, but it is always the case that they should follow the Single Responsibility Principle, be reusable, and manageable in size.
 
 ## Functional components
-Until this point, we have used JavaScript class syntax with a render method to build out our components. Eventually, we'll be adding more methods to these classes, bur for now, it's good to know that if all your components has a render method you can actually use a regular old function to create your component.
+Until this point, we have used JavaScript class syntax with a render method to build out our components. Eventually, we'll be adding more methods to these classes, but for now, it's good to know that if all your components have a render method you can  use a regular old function to create your component.
 
 > If a component is only using a `render()` method to display content, then it can be converted into a _Stateless Functional Component_.
 
@@ -225,9 +225,9 @@ function User(props) {
 ```
 
 ### Stateless Functional Components Recap
-if your component does not keep track of internal state (i.e. all it has is a `render()` method), you cand delcare the component as _Stateless Functional Component_.
+If your component does not keep track of internal state (i.e., all it has is a `render()` method), you cand delcare the component as _Stateless Functional Component_.
 
-Remember that React coponent are JavaScript function that return HTML for rendering. As such, the following two example of a simple Email component are equivalent:
+Remember that a React component is a JavaScript function that returns HTML for rendering. As such, the following two example of a simple Email component are equivalent:
 
 ```js
 class Email extends React.Component {
@@ -254,3 +254,57 @@ In the latter example (written as an ES6 function with an implicit return), rath
 ### Further Research
 - [Creating Stateless Function Components](https://www.reactenlightenment.com/react-state/8.4.html) from the React Enlightenment book
 - [Functional Components vs. Stateless Functional Components vs. Stateless Component](https://tylermcginnis.com/functional-components-vs-stateless-functional-components-vs-stateless-components/) from Tyler
+
+## Add State To A Component
+
+At this point you're learned:
+
+- Creating Components
+- Composing Components Together
+- Passing Data to Components
+
+However, we still have not talked about what may be the best part of React, **State Management.** Because of React's component model, we are able to encapsulate the complexity of the state management to individual components. This allow us to build a large application by building out a bunch of smaller applications -really, components–.
+
+### State
+We learned that `props` refer to attributes from parent components. In the end, props represent "read-only" data that are _immutable_.
+
+A component's `state`, on the other hand, represents _mutable_ data that ultimately affects what is rendered on the page. State is managed internally by the component itself and is meant to change over time, commonly due to user input (e.g., clicking on a button on the page).
+
+To encapsulate the complexity of state management to individual components, we have to add a `state` object inside the class _...not_ in the `constructor()`, to follow the [class field proposal](https://github.com/tc39/proposal-class-fields):
+
+```js
+class User extends React.Component {
+  state = {
+    username: 'Tyler'
+  }
+
+  render() {
+    return (
+      <p>Username: {this.state.username}</p>
+    )
+  }
+}
+```
+
+### (Warning) Props in Initial State
+When defining a component's initial state, avoid initializing that state with `props`. This is an error-prone _anti-pattern_, since state will only be initialized with `props` when the component is first created.
+
+```js
+state = {
+    username: props.user // anti-pattern
+}
+```
+
+In the above example, if `props` are ever updated, the current state will not change unless the component is "refreshed." Using `props` to produce a component's initial state also leads to duplication of data, deviating from a dependable "source of truth."
+
+> State is a key property of React components. Being familiar with how state is used and how state is set (and reset) will help streamline building the UI of your app.
+
+> In our `contacts-app` example, the contacts array should be part of the `state` object because we can add or remove contact from our contacts array.
+
+### State Recap
+By having a component manage its own state, any time there are changes made to that state, React will know and _automatically_ make the necessary updates to the page.
+
+This is one of the key benefits of using React to build UI components: when it comes to re-rendering the page, we just have to think about updating state. We don't have to keep track of exactly which parts of the page change each time there are updates. We don't need to decide how we will efficiently re-render the page. React compares the previous output and new output, determines what has changed, and makes these decisions for us. This process of determining what has changed in the previous and new outputs is called `Reconciliation`.
+
+### Further Research
+- [Identify Where Your State Should Live](https://facebook.github.io/react/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live)
