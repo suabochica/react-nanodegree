@@ -308,3 +308,52 @@ This is one of the key benefits of using React to build UI components: when it c
 
 ### Further Research
 - [Identify Where Your State Should Live](https://facebook.github.io/react/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live)
+
+## Update state with setState
+
+### How State is Set
+
+State reflects _mutable_ information that ultimately affects rendered output, a component may also update its state throughout its lifecycle using `this.setState()`. As we've learned, when local state changes, React will trigger a re-render of the component.
+
+> In React your UI is just a function of your state. When your UI changes your UI will automatically update accordingly.
+
+There are two ways to use `setState()`: usign an object or using a callback function. The first is to merge state updates. Consider a snippet of the following component:
+
+```js
+class Email extends React.Component {
+  state = {
+    subject: '',
+    message: ''
+  }
+// ...
+});
+```
+
+Though the initial state of this component contains two properties (`subject` and `message`), they can be updated independently. For example:
+
+```js
+this.setState({
+  subject: 'Hello! This is a new subject'
+})
+```
+
+This way, we can leave `this.state.message` as-is, but replace `this.state.subject` with a new value.
+
+The second way we can use `setState()` is by passing in a function rather than an object. For example:
+
+```js
+this.setState((prevState) => ({
+  count: prevState.count + 1
+}))
+```
+
+Here, the function passed in takes a single `prevState` argument. When a component's new state depends on the previous state (i.e., we are incrementing `count` in the previous state by 1), we want to use the functional `setState()`.
+
+The difference between the two ways is: If you are not updating the state of the component based on the previous state, then use the object set state. If not, then use the functional set state.
+
+### `setState()` Recap
+While a component can set its state when it initializes, we expect that state to change over time, usually due to user input. The component is able to change its own internal state using `this.setState()`. Each time state is changed, React knows and will call `render()` to re-render the component. This allows for fast, efficient updates to your app's UI.
+
+### Further Research
+- [Using State Correctly](https://facebook.github.io/react/docs/state-and-lifecycle.html) from the React Docs
+- [Build with React](http://buildwithreact.com/tutorial/state)'s article on State
