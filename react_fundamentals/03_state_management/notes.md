@@ -395,3 +395,50 @@ PropTypes is a great way to validate intended data types in our React app. Type 
 
 ### Further Research
 - [Typechecking With Proptypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html) from the React Docs
+
+## Controlled Components
+
+Typically when you are using forms inside in a web app, the form state lives inside of the DOM. But as we have talked about, the whole point of React is to manage state inside your application more effectively. So how we handle forms in react?. We can solve this problem with _Controlled Components_.
+
+Controlled Components are components which render a form, but the "source of truth" for the form state lives inside of the component state rather than inside of the DOM. The reason because they are called controlled components is that React is controlling the state of the form.
+
+The next snippet shows the structure related to a controlled component:
+
+```js
+class NameForm extends React.Component {
+  state = {
+    email: ""
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      email: event.target.value
+    });
+  }
+
+  render() {
+    return (
+      <form>
+        <input
+          type="text"
+          value={this.state.email}
+          onChange={this.handleChange}
+        />
+      </form>
+    )
+  }
+}
+```
+The critical action to connect the form with React is assigning to the `value` attribute value of the `state` object. Then every time you update the state object, this change will reflect in the form. If we want the input field to change, we create a `handleChange()` method that uses `setState()` to update the email address. Whenever the input email change, we can call this method by passing it to the `onChange` attribute.
+
+> The heart of React: If the state of out application changes, then our UI updates based off of that new state.
+
+### Controlled Components Recap
+Controlled components refer to components that render a form, but the "source of truth" for that form state lives inside of the component state rather than inside of the DOM. The benefits of Controlled Components are:
+
+- Instant input validation
+- Conditionally disable/enable buttons
+- Enforce input formats
+
+In our ListContacts component, not only does the component render a form, but it also controls what happens in that form based on user input. In this case, event handlers update the component's state with the user's search query. And as we've learned: any changes to React state will cause a re-render on the page, effectively displaying our live search results.
+
