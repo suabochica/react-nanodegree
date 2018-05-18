@@ -442,3 +442,25 @@ Controlled components refer to components that render a form, but the "source of
 
 In our ListContacts component, not only does the component render a form, but it also controls what happens in that form based on user input. In this case, event handlers update the component's state with the user's search query. And as we've learned: any changes to React state will cause a re-render on the page, effectively displaying our live search results.
 
+## Lesson Summary
+
+When it comes to keeping track of data in your app, think about what will be done with that data, and what that data will look like as your user interfaces with your app. If you want your component to store _mutable_ local data, consider using `state` to hold this information. Many times, it is state that will be used to manage controlled form elements in your components.
+
+On the other hand, if some information isn't expected to change over time, and is generally designed to be _read-only_ throughout your app, consider using `props` instead. Both `state` and `props` will generally be in the form of an object, and changes in either will trigger a re-render of the component, but they each play very different roles in your app.
+
+We covered a lot in this lesson, and you've made great progress - great work!
+
+## Lesson Challenge
+
+Read the next 4 articles:
+
+1. [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html)
+2. [Functional Components vs. Stateless Functional Components vs. Stateless Components](https://tylermcginnis.com/functional-components-vs-stateless-functional-components-vs-stateless-components/)
+3. [Controlled Components](https://facebook.github.io/react/docs/forms.html)
+4. [Avoiding React SetState() Pitfalls](http://duncanleung.com/avoiding-react-setstate-pitfalls)
+
+and then answer the following questions:
+
+1. What are _Functional Components_, _Stateless Functional Components_, and _Functional Components_? What are their respective advantages and when should each one be used?
+2. Describe the reasoning behind _Controlled Components_.
+3. What is the correct way to modify state? Make sure to explain what role a child component like “Add User” can have in the app.
