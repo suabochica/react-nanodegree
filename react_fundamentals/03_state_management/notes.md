@@ -357,3 +357,41 @@ While a component can set its state when it initializes, we expect that state to
 ### Further Research
 - [Using State Correctly](https://facebook.github.io/react/docs/state-and-lifecycle.html) from the React Docs
 - [Build with React](http://buildwithreact.com/tutorial/state)'s article on State
+
+## PropTypes
+
+As we implement additional features into our app, we may soon find ourselves debugging our components more frequently. For example, what if the props that we pass to our components end up being an unintended data type (e.g. an object instead of an array). _PropTypes_ is a package that lets us define the data type we want to see right from the get-go and warn us during development if the prop that's passed to the component doesn't match what is expected.
+
+To user PropType in our app, we need to install [prop-types](https://facebook.github.io/react/docs/typechecking-with-proptypes.html):
+
+    npm install --save prop-types
+
+If you are using yarn to manage package use:
+
+    yarn add prop-type
+
+Now check the next snippet to see how to use PropTypes:
+
+```js
+import PropTypes from 'prop-types';
+
+class Email extends React.Component {
+  render() {
+    return (
+      <h3>Message: {this.props.text}</h3>
+    );
+  }
+}
+
+Email.propTypes = {
+  text: PropTypes.string.isRequired
+};
+```
+
+Here, we are validating that the data type of the `text` prop should be a string.
+
+### PropTypes Recap
+PropTypes is a great way to validate intended data types in our React app. Type checking our data with PropTypes helps us identify these bugs during development to ensure a smooth experience for our app's users.
+
+### Further Research
+- [Typechecking With Proptypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html) from the React Docs
