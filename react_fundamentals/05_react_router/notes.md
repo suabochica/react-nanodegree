@@ -29,3 +29,41 @@ According to the React Router website:
 > React Router is a collection of navigational components that compose declaratively with your application.
 
 In the next section, we'll dynamically render content to the page based on a value in the project's this.state object. We'll use this basic example as an idea of how React Router works by controlling what's being seen via state. Then we'll switch over to using React Router. We'll walk you through installing React Router, adding it to the project, and hooking everything together so it can manage your links and URLs.
+
+## Dynamic Render Page
+
+To enable in the contact-app dynamic render pages, lets add a new feature to add contacts. To achieve it, lets create a standalone component. Remember that React favors composing components together. So we want to create our new piece of UI as a standalone component and use composition to include it in another component.
+
+Evaluating this feature, We don't want the form to display all of the time, so we'll start out by having the form show up only if a setting is enabled. We'll store this setting in `this.state`. Doing it this way will give us an idea of how React Router functions.
+
+### Short-circuit Evaluation Syntax
+To handling routes by own, we used somewhat odd looking syntax in our `render()`function of the `App.js` file inside the contact-app project:
+
+```js
+    {this.state.screen === 'list' && (
+    <ListContacts
+    contacts={this.state.contacts}
+    onDeleteContact={this.removeContact}
+    />
+)};
+```
+
+and
+
+```js
+    {this.state.screen === 'create' && (
+        <CreateContact />
+    )}
+```
+This can be a little confusing with both the JSX code for a component and the code to run an expression. But this is really just the logical expression `&&`:
+
+    expression && expression
+
+What we're using here is a JavaScript technique called **short-circuit evaluation**. If the first expression evaluates to `true`, then the second expression is run. However, if the first expression evaluates to `false`, then the second expression is skipped. We're using this as a guard to first verify the value of `this.state.screen` before displaying the correct component.
+
+For a deeper dive into this, check out [the short-circuit evaluation info on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Short-circuit_evaluation).
+
+### Dynamic Routing Recap
+In the code we added in this section, we tried our attempt at using `state` to control what content displays to the user. We saw things break down, though, when we used the back button.
+
+Now, let's switch over to using React Router to manage our app's screens.
