@@ -67,3 +67,43 @@ For a deeper dive into this, check out [the short-circuit evaluation info on MDN
 In the code we added in this section, we tried our attempt at using `state` to control what content displays to the user. We saw things break down, though, when we used the back button.
 
 Now, let's switch over to using React Router to manage our app's screens.
+
+## The BrowserRouter Component
+As we've just seen, when the user presses the 'back' button in the browser, they will probably have to refresh the page to see the proper content at that location. This isn't the best experience for our user! When we update location, we can update the app as well using JavaScript. This is where React Router comes in.
+
+### Install React Router
+To use React Router in our app, we need to install [react-router-dom](https://www.npmjs.com/package/react-router-dom)
+
+    npm install --save react-router-dom
+
+> Please note that the las word used is `dom`. We have to do this highlight, because also exist a package `react-router-native`
+
+### Browser Router
+The Browser Router component it's going to listen for changes in the URL and the make sure the correct screen shows up whenever the URL changes
+
+What's nice about React Router is that everything is just a component. This makes using it nice, but it also makes diving into the code more convenient as well. Let's take a look at what exactly BrowserRouter is doing under the hood.
+
+```js
+class BrowserRouter extends React.Component {
+    static propTypes = {
+        basename: PropTypes.string,
+        forceRefresh: PropTypes.bool,
+        getUserConfirmation: PropTypes.func,
+        keyLength: PropTypes.number,
+        children: PropTypes.node
+    }
+
+    history = createHistory(this.props)
+
+    render() {
+        return <Router history={this.history} children={this.props.children} />
+    }
+}
+```
+
+When you use `BrowserRouter`, what you're really doing is rendering a `Router` component and passing it a history prop. `history` comes from the [history library](https://github.com/ReactTraining/history) whose whole purpose is abstracts away the differences in various environments and provides a minimal API that lets you manage the history stack, navigate, confirm navigation, and persist state between sessions.
+
+So in a nutshell, when you use `BrowserRouter`, you're creating a `history` object which will listen to changes in the URL and make sure your app is made aware of those changes.
+
+### `BrowserRouter` Component Recap
+In summary, for React Router to work properly, you need to wrap your whole app in a `BrowserRouter` component. Also, `BrowserRouter` wraps the history library which makes it possible for your app to be made aware of changes in the URL.
