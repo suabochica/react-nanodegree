@@ -161,3 +161,23 @@ Here a snippet with the `Router` component code structure:
 The main takeaway from this section is that with a `Route` component if you want to be able to pass props to a specific component that the router is going to render, you'll need to use `Route`’s `render` prop. As you saw, render puts you in charge of rendering the component which in turn allows you to pass any props to the rendered component as you'd like.
 
 In summary, the `Route` component is a critical piece of building an application with React Router because it's the component which is going to decide which components are rendered based on the current URL path.
+
+## Create The Contact Form
+Right now, the page to create contacts is empty! Let's build out a form on that page so we start adding our own custom contacts.
+
+The `ImageInput` component is a custom <input> that dynamically reads and resizes image files before submitting them to the server as data URLs. It also shows a preview of the image. We chose to give this component to you rather than build it ourselves because it contains features related to files and images on the web that aren't crucial to your education in this context. If you're curious, feel free to dive into the code, but know it's not a requirement.
+
+### Serialize The Form Data
+At this point, our form will serialize the values from user input (i.e., the `name` and `handle`), adding them as a query string to the URL. We can add some additional functionality by having our app serialize these form fields on its own. After all, we want the app to ultimately handle creating the contact and saving it to the state.
+
+To accomplish this, we'll use the [form-serialize](https://www.npmjs.com/package/form-serialize) package to output this information as a regular JavaScript object for the app to use.
+
+    npm install --save form-serialize
+
+> The `form-serialize` package is used in `create-app/CreateContact.js`
+
+### Update Server With New Contact
+We have our contact form. We're serializing our data and passing it up to the parent component. All we need to do to have a fully functional app is to save the contact to the server.
+
+
+
