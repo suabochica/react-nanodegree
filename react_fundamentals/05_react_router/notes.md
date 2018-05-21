@@ -179,5 +179,22 @@ To accomplish this, we'll use the [form-serialize](https://www.npmjs.com/package
 ### Update Server With New Contact
 We have our contact form. We're serializing our data and passing it up to the parent component. All we need to do to have a fully functional app is to save the contact to the server.
 
+## React Router Outro
+Using React Router allow us to:
 
+- Click on back button to go back
+- Click on fordward button to go forward
+- Click refresh button to refresh the page
+- Rigth click to open a page in a new tab
+- Rigth clcik to share the URL
 
+If you are interesting in learning more about React Router check the [Build your own React Router v4](https://tylermcginnis.com/build-your-own-react-router-v4/) to understand implementation details.
+
+## Course Outro
+Great work! You've learned how to build applications in React, but there's always more to learn! Check out the following resources to up your skills:
+
+- [Tyler's Blog](https://tylermcginnis.com/)
+- [9 Things every React.js Beginner should know](https://camjackson.net/post/9-things-every-reactjs-beginner-should-know)
+- [React "Aha" Moments](https://tylermcginnis.com/react-aha-moments/)
+
+Thanks for joining us on this journey! Now it's time to move on to learning Redux!
