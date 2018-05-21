@@ -144,3 +144,20 @@ React Router provides a `Link` component which allows you to add declarative, ac
 ```
 
 Since the `<Link>` component fully renders a proper anchor tag (`<a>`) with the appropriate `href`, you can expect it to behave how a normal link on the web behaves.
+
+## The Router Component
+The `Route` component takes a path that will match the URL or not. If the path matches the URL then the route will endure some UI but it won't render anything . If it doesn't match much like the code that we had that was checking our component `state` to decide which screen we wanted to render route we will or that same sort of thing, but, instead of checking the component state it will check the URL. what does that mean?. It means that the back button still going to work.
+
+Here a snippet with the `Router` component code structure:
+
+```js
+<Route
+    path="/some/path"
+    render={ui}
+/>
+```
+
+### Router Component Recap
+The main takeaway from this section is that with a `Route` component if you want to be able to pass props to a specific component that the router is going to render, you'll need to use `Route`’s `render` prop. As you saw, render puts you in charge of rendering the component which in turn allows you to pass any props to the rendered component as you'd like.
+
+In summary, the `Route` component is a critical piece of building an application with React Router because it's the component which is going to decide which components are rendered based on the current URL path.
