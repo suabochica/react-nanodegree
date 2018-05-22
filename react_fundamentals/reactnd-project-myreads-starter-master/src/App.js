@@ -1,5 +1,6 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
+import Bookshelf from './Bookshelf'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -10,10 +11,31 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+    books: [],
     showSearchPage: false
   }
 
+  componentDidMount() {
+    BooksAPI.getAll()
+    .then((books) => {
+      this.setState(() => ({
+        books: books
+      }));
+    });
+  }
+
   render() {
+    const books = this.state.books;
+    const booksInCurrentlyReading = books.filter((book) => (
+      book.shelf === 'currentlyReading'
+    ));
+    const booksInWantToRead = books.filter((book) => (
+      book.shelf === 'wantToRead'
+    ));
+    const booksInRead = books.filter((book) => (
+      book.shelf === 'read'
+    ));
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -44,6 +66,19 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
+                <Bookshelf
+                  category={'Currently Reading'}
+                  books={booksInCurrentlyReading}
+                />
+                <Bookshelf
+                  category={'Want to Read'}
+                  books={booksInWantToRead}
+                />
+                <Bookshelf
+                  category={'Read'}
+                  books={booksInRead}
+                />
+{/*
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
@@ -191,6 +226,7 @@ class BooksApp extends React.Component {
                     </ol>
                   </div>
                 </div>
+*/}
               </div>
             </div>
             <div className="open-search">
