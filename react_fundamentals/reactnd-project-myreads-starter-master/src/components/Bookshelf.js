@@ -6,12 +6,8 @@ class Bookshelf extends React.Component {
     shelf: ""
   }
 
-  updateBookBookshelf = (book, shelf) => {
-    this.props.onUpdateBookBookshelf(book, shelf)
-  }
-
   render() {
-    const {category,  books } = this.props;
+    const {category,  books, onChangeBookshelf } = this.props;
 
     return (
       <div className="bookshelf">
@@ -22,9 +18,8 @@ class Bookshelf extends React.Component {
               <li key={book.id}>
                 <Book
                   book={book}
-                  onChangeBookshelf={(shelf) => {
-                    this.updateBookBookshelf(book, shelf)
-                  }}
+                  books={books}
+                  onChangeBookshelf={onChangeBookshelf}
                 />
               </li>
             ))}

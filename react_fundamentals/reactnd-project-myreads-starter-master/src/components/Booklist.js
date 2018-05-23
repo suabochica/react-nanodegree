@@ -3,7 +3,7 @@ import Bookshelf from './Bookshelf'
 
 class Booklist extends React.Component {
   render() {
-    const { books, onUpdateBookInfo } = this.props;
+    const { books, onChangeBookshelf } = this.props;
     const booksInCurrentlyReading = books.filter((book) => (
       book.shelf === 'currentlyReading'
     ));
@@ -24,17 +24,17 @@ class Booklist extends React.Component {
             <Bookshelf
               category={'Currently Reading'}
               books={booksInCurrentlyReading}
-              onUpdateBookBookshelf={onUpdateBookInfo}
+              onChangeBookshelf={onChangeBookshelf}
             />
             <Bookshelf
               category={'Want to Read'}
               books={booksInWantToRead}
-              onUpdateBookBookshelf={onUpdateBookInfo}
+              onChangeBookshelf={onChangeBookshelf}
             />
             <Bookshelf
               category={'Read'}
               books={booksInRead}
-              onUpdateBookBookshelf={onUpdateBookInfo}
+              onChangeBookshelf={onChangeBookshelf}
             />
           </div>
         </div>

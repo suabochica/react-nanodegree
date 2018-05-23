@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './utils/BooksAPI'
 import Booklist from './components/Booklist'
-import Searchbook from './components/Searchbook'
+import Search from './components/Search'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -29,11 +29,24 @@ class BooksApp extends React.Component {
       });
   }
 
-  updateBookInfo = (book, shelf) => {
+  changeBookshelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
       .then(() => {
-        this.fetchBookData();
+        this.updateBooks(book, shelf);
       })
+  }
+
+  updateBooks = (newBook, shelf) => {
+    const books = this.state.books;
+    const updatedBooks = books.filter((book) => book.id !== newBook.id)
+
+    newBook.shelf = shelf
+    updatedBooks.push(newBook);
+
+    this.setState(() => ({
+      books: updatedBooks
+    }))
+
   }
 
   render() {
@@ -42,14 +55,14 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <Searchbook
+          <Search
             books={books}
-            onUpdateBookInfo={this.updateBookInfo}
+            onChangeBookshelf={this.changeBookshelf}
           />
         ) : (
           <Booklist
             books={books}
-            onUpdateBookInfo={this.updateBookInfo}
+            onChangeBookshelf={this.changeBookshelf}
           />
         )}
         <div className="open-search">

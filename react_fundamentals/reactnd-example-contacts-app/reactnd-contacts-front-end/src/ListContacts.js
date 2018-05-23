@@ -24,7 +24,7 @@ class ListContacts extends Component {
 
   render() {
     const { query } = this.state;
-    const {contacts, onDeleteContact} = this.props
+    const { contacts, onDeleteContact } = this.props
     const showingContacts = query === ''
       ? contacts
       : contacts.filter((contact) => (
