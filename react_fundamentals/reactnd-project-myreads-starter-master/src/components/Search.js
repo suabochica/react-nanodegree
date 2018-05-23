@@ -1,8 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import * as BooksAPI from '../utils/BooksAPI';
 import Book from './Book';
 
 class Search extends React.Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onChangeBookshelf: PropTypes.func.isRequired
+  }
+
   state = {
     booksInSearch: [],
     query: '',

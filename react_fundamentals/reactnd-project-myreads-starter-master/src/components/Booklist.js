@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import Bookshelf from './Bookshelf'
 
 class Booklist extends React.Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onChangeBookshelf: PropTypes.func.isRequired
+  }
+
   render() {
     const { books, onChangeBookshelf } = this.props;
     const booksInCurrentlyReading = books.filter((book) => (
