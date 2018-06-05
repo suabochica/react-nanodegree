@@ -6,7 +6,6 @@ import Book from './Book';
 
 class Search extends React.Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
     onChangeBookshelf: PropTypes.func.isRequired
   }
 
@@ -31,8 +30,16 @@ class Search extends React.Component {
   }
 
   searchBooks = (query) => {
-    BooksAPI.search(query, 10)
+    let bookInShelf;
+
+    BooksAPI.search(query)
       .then((books) => {
+        books.forEach((bookInSearch) => {
+          bookInShelf = this.props.books.find((bookInHomepage) => bookInHomepage.id === bookInSearch.id)
+
+          bookInShelf ? bookInSearch.shelf = bookInShelf.shelf : bookInSearch.shelf = 'none'
+        })
+
         books.length > 0
           ? this.setState(() => ({
               booksInSearch: books,
@@ -51,7 +58,7 @@ class Search extends React.Component {
 
   render() {
     const { booksInSearch, query, hasNotSearchResult } = this.state;
-    const { books, onChangeBookshelf } = this.props;
+    const { onChangeBookshelf } = this.props;
 
     return (
       <div className="search-books">
@@ -64,7 +71,6 @@ class Search extends React.Component {
               value={query}
               onChange={this.handleInputChangeEvent}
             />
-
           </div>
         </div>
         <div className="search-books-results">
@@ -76,13 +82,11 @@ class Search extends React.Component {
               </div>
               <ol className="books-grid">
                 {booksInSearch.map((book) => (
-                  <li key={book.id}>
                     <Book
+                      key={book.id}
                       book={book}
-                      books={books}
                       onChangeBookshelf={onChangeBookshelf}
                     />
-                  </li>
                 ))}
               </ol>
             </div>

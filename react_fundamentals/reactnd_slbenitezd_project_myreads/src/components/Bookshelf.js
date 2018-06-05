@@ -5,7 +5,6 @@ import Book from './Book';
 class Bookshelf extends React.Component {
   static propTypes = {
     category: PropTypes.string.isRequired,
-    books: PropTypes.array.isRequired,
     onChangeBookshelf: PropTypes.func.isRequired
   }
 
@@ -18,13 +17,11 @@ class Bookshelf extends React.Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {books.map((book) => (
-              <li key={book.id}>
-                <Book
-                  book={book}
-                  books={books}
-                  onChangeBookshelf={onChangeBookshelf}
-                />
-              </li>
+              <Book
+                key={book.id}
+                book={book}
+                onChangeBookshelf={onChangeBookshelf}
+              />
             ))}
           </ol>
         </div>
