@@ -283,8 +283,86 @@ The next table summarizes the relationship between functionality and store metho
 | Modifies the state                                            | `.dispatch()`    |
 
 
-### Sumary
+### Summary
 
 In this section, we started creating our store by building out a `createStore()` function. So far, this function keeps track of the state and provides a method to get the state and one to keep track of listener functions that will be run whenever the state changes.
 
 Also, we learned about many important points about Redux. We learned about pure functions, a Reducer function (which, itself, needs to be a pure function), dispatching changes in our store, and identifying which parts of our code are generic library code and which are specific to our app.
+
+Pushing All Together
+--------------------
+
+The next snippet recopile all the parts of the store and also show how use it:
+
+```js
+// Library Code
+function createStore(reducer) {
+    let state;
+    let listeners = [];
+
+    const getState = () => {
+        return state;
+    }
+
+    const subscribe = (listener) => {
+        listeners.push(listener);
+
+        return () => {
+            listeners = listeners.filter((unsubscribeListener) => unsubscribeListener !== listener);
+        }
+    }
+
+    const dispatch = (action) => {
+        state = reducer(state, action);
+        listeners.forEach((listener) => listener());
+    }
+
+    return {
+        getState,
+        subscribe,
+        dispatch
+    }
+}
+
+// App Code
+function todos(state = [], action) {
+    if (action.type === 'ADD_TODO') {
+        return state.concat([action.todo]);
+    }
+
+    return state
+}
+
+const store = createStore(todos);
+
+store.subscribe(() => {
+    console.log('The new state is:', store.getState());
+});
+
+store.dispatch({
+    type: 'ADD_TODO',
+    id: 0,
+    name: 'Learn Redux',
+    complete: false
+})
+
+store.dispatch({
+    type: 'ADD_TODO',
+    id: 1,
+    name: 'Learn React',
+    complete: true
+})
+```
+
+Let's break down what we've accomplished:
+
+Let's break down what we've accomplished:
+
+- We created a function called `createStore()` that returns a _store_ object
+- `createStore()` must be passed a _reducer_ function when invoked
+- The store object has three methods on it:
+    - `.getState()`: Used to get the current state from the store
+    - `.subscribe()`: Used to provide a listener function the store will call when state changes
+    - `.dispatch()`: Used to make changes to the store's state
+- The store object's methods have access to the state of the store via closure
+
