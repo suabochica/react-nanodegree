@@ -522,7 +522,7 @@ store.dispatch({
 })
 ```
 
-Now we have to reducer to the `goals` context. However we got a problem: The `createStore()` function only handle a _single reducer function_. We can' call `createStore()`passing it two reducer functions. To solve this inconvenient, instead of passing `createStore()` out single `todos` reducer, we will create a `rootReducer` function which will responsible for calling the correct reducer whenever specific actions are dispatched. The next code handle shows an expamble of `rootReducer` function called `app()`.
+Now we have reducer function to the `goals` context. However, we got a problem: The `createStore()` function only handle a _single reducer function_. We can' call `createStore()` passing it two reducer functions. To solve this inconvenient, instead of passing `createStore()` out single `todos` reducer, we will create a `rootReducer` function which will be responsible for calling the correct reducer whenever specific actions are dispatched. The next code handle shows an example of `rootReducer` function called `app()`.
 
 ```js
 // Library Code
@@ -651,7 +651,7 @@ store.dispatch({
 })
 ```
 
-Reducer composition sounds intimidating, but it's simpler than you might think. The idea is that you can create a reducer to manage not only each section of your Redux store, but also any nested data as well. Let's say we were dealing with a state tree like had this structure
+Reducer composition sounds intimidating, but it's simpler than you might think. The idea is that you can create a reducer to manage not only each section of your Redux store but also any nested data as well. Let's say we were dealing with a state tree like had this structure:
 
 ```js
 {
@@ -671,7 +671,7 @@ Reducer composition sounds intimidating, but it's simpler than you might think. 
 }
 ```
 
-We have three main properties on our state tree: users, settings, and tweets. Naturally, we'd create an individual reducer for both of those and then create a single root reducer using Redux's "combineReducers" method.
+We have three main properties on our state tree: users, settings, and tweets. Naturally, we'd create a single reducer for both of those and then create a single root reducer using Redux's "combineReducers" method.
 
 ```js
 const reducer = combineReducers({
@@ -683,7 +683,7 @@ const reducer = combineReducers({
 
 `combineReducers`, under the hood, is our first look at reducer composition. `combineReducers` is responsible for invoking all the other reducers, passing them the portion of their state that they care about. We're making one root reducer, by composing a bunch of other reducers together. With that in mind, let's take a closer look at our tweets reducer and how we can leverage reducer composition again to make it more compartmentalized.
 
-Specifically, let's look how a user might change their avatar with the way our store is currently structured. Here's the skeleton with what we'll start out with:
+Specifically, let's look at how a user might change their avatar with the way our store is currently structured. Here's the skeleton with what we'll start out with:
 
 ```js
 function tweets (state = {}, action) {
@@ -722,7 +722,7 @@ switch(action.type){
 }
 ```
 
-That's a lot of spread operators. The reason for that is because, for every layer, we're wanting to spread all the properties of that layer on the new objects we're creating (because, immutability). What if, just like we separated our tweets, users, and settings reducers by passing them the slice of the state tree they care about, what if we do the same thing for our tweets reducer and its nested data. Doing that, the code above would be transformed to look like this
+That's a lot of spread operators. The reason for that is because, for every layer, we're wanting to spread all the properties of that layer on the new objects we're creating (because, immutability). What if, just like we separated our tweets, users, and settings reducers by passing them the slice of the state tree they care about, what if we do the same thing for our tweets reducer and its nested data. Doing that, the code above would be transformed to look like this:
 
 ```js
 function author (state, action) {
@@ -770,4 +770,33 @@ function tweets (state = {}, action) {
 }
 ```
 
-All we've done is separated out each layer of our nested tweets data into their own reducers. Then, just like we did with our root reducer, we're passing those reducers the slice of the state they care about.
+All we've done is separated out each layer of our nested tweets data into their reducers. Then, just like we did with our root reducer, we're passing those reducers the slice of the state they care about.
+
+Better Practices
+----------------
+
+To improve our code readability, we can perform the next two practices:
+
+1. Store the action types strings into variables to avoiding `typo` errors.
+2. Use action creators functions to create our actions objects
+
+The next snippet illustrates these practice:
+
+```js
+/* Create An Action Creator with a action type stored in a variable.
+ *
+ * You need to create an action creator called 'mealCreator' that should:
+ *   - Accept an id
+ *   - Return a Redux action with a 'type' property that has a value of 'CREATE_MEAL'
+ *   - Include the id passed to the action creator
+*/
+
+const CREATE_MEAL = 'CREATE_MEAL';
+
+function mealCreator (id) {
+    return {
+        type: CREATE_MEAL,
+        id: id
+    }
+}
+```
