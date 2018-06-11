@@ -289,8 +289,8 @@ In this section, we started creating our store by building out a `createStore()`
 
 Also, we learned about many important points about Redux. We learned about pure functions, a Reducer function (which, itself, needs to be a pure function), dispatching changes in our store, and identifying which parts of our code are generic library code and which are specific to our app.
 
-Pushing All Together
---------------------
+Putting it all together
+-----------------------
 
 The next snippet recopile all the parts of the store and also show how use it:
 
@@ -356,8 +356,6 @@ store.dispatch({
 
 Let's break down what we've accomplished:
 
-Let's break down what we've accomplished:
-
 - We created a function called `createStore()` that returns a _store_ object
 - `createStore()` must be passed a _reducer_ function when invoked
 - The store object has three methods on it:
@@ -366,3 +364,410 @@ Let's break down what we've accomplished:
     - `.dispatch()`: Used to make changes to the store's state
 - The store object's methods have access to the state of the store via closure
 
+Managing more State
+-------------------
+
+Let's add the next actions to our reducer:
+
+- The `REMOVE_TODO` action
+- The `TOGGLE_TODO` action
+
+```js
+// Library Code
+function createStore(reducer) {
+    let state;
+    let listeners = [];
+
+    const getState = () => {
+        return state;
+    }
+
+    const subscribe = (listener) => {
+        listeners.push(listener);
+
+        return () => {
+            listeners = listeners.filter((unsubscribeListener) => unsubscribeListener !== listener);
+        }
+    }
+
+    const dispatch = (action) => {
+        state = reducer(state, action);
+        listeners.forEach((listener) => listener());
+    }
+
+    return {
+        getState,
+        subscribe,
+        dispatch
+    }
+}
+
+// App Code
+function todos(state = [], action) {
+    swtich(action.type) {
+        case 'ADD_TODO':
+            return state.concat([action.todo]);
+        case 'REMOVE_TODO':
+            return state.filter((todo) => todo.id !== action.id);
+        case 'TOGGLE_TODO':
+            return state.map((todo) => todo.id !== action.id ? todo : Object.assign({}, {complete: !todo.complete}));
+        default
+            return state;
+    }
+}
+
+const store = createStore(todos);
+
+store.subscribe(() => {
+    console.log('The new state is:', store.getState());
+});
+
+store.dispatch({
+    type: 'ADD_TODO',
+    id: 0,
+    name: 'Learn Redux',
+    complete: false
+})
+
+store.dispatch({
+    type: 'ADD_TODO',
+    id: 1,
+    name: 'Learn React',
+    complete: true
+})
+```
+
+Now the app can handle _removing_ a todo item, as well as _toggling_ a todo item (as complete or incomplete)! To make this all possible, we updated our `todos` reducer to be able to respond to actions of the type `REMOVE_TODO` and `TOGGLE_TODO`. Note that just like the original `todos` reducer, we simply return the original state if the reducer receives an action type that it's not concerned with.
+
+To remove a todo item, we called `filter()` on the state. This returns a new state (an array) with only todo items whose `id`'s do not match the `id` of the todo we want to remove.
+
+To handle toggling a todo item, we want to change the value of the `complete` property on whatever `id` is passed along on the action. We mapped over the entire state, and if todo.id matched action.id, we used `Object.assign()` to return a new object with merged properties:
+
+### Adding Goals
+Let's make the app a bit more complicated and add in a second piece of state for our app to track - goals.
+
+```js
+// Library Code
+function createStore(reducer) {
+    let state;
+    let listeners = [];
+
+    const getState = () => {
+        return state;
+    }
+
+    const subscribe = (listener) => {
+        listeners.push(listener);
+
+        return () => {
+            listeners = listeners.filter((unsubscribeListener) => unsubscribeListener !== listener);
+        }
+    }
+
+    const dispatch = (action) => {
+        state = reducer(state, action);
+        listeners.forEach((listener) => listener());
+    }
+
+    return {
+        getState,
+        subscribe,
+        dispatch
+    }
+}
+
+// App Code
+function todos(state = [], action) {
+    swtich(action.type) {
+        case 'ADD_TODO':
+            return state.concat([action.todo]);
+        case 'REMOVE_TODO':
+            return state.filter((todo) => todo.id !== action.id);
+        case 'TOGGLE_TODO':
+            return state.map((todo) => todo.id !== action.id ? todo : Object.assign({}, {complete: !todo.complete}));
+        default
+            return state;
+    }
+}
+
+function goals(state = [], action) {
+    swtich(action.type) {
+        case 'ADD_TODO':
+            return state.concat([action.goal]);
+        case 'REMOVE_TODO':
+            return state.filter((goal) => goal.id !== action.id);
+        default
+            return state;
+    }
+}
+
+const store = createStore(todos);
+
+store.subscribe(() => {
+    console.log('The new state is:', store.getState());
+});
+
+store.dispatch({
+    type: 'ADD_TODO',
+    id: 0,
+    name: 'Learn Redux',
+    complete: false
+})
+
+store.dispatch({
+    type: 'ADD_TODO',
+    id: 1,
+    name: 'Learn React',
+    complete: true
+})
+```
+
+Now we have to reducer to the `goals` context. However we got a problem: The `createStore()` function only handle a _single reducer function_. We can' call `createStore()`passing it two reducer functions. To solve this inconvenient, instead of passing `createStore()` out single `todos` reducer, we will create a `rootReducer` function which will responsible for calling the correct reducer whenever specific actions are dispatched. The next code handle shows an expamble of `rootReducer` function called `app()`.
+
+```js
+// Library Code
+function createStore(reducer) {
+    let state;
+    let listeners = [];
+
+    const getState = () => {
+        return state;
+    }
+
+    const subscribe = (listener) => {
+        listeners.push(listener);
+
+        return () => {
+            listeners = listeners.filter((unsubscribeListener) => unsubscribeListener !== listener);
+        }
+    }
+
+    const dispatch = (action) => {
+        state = reducer(state, action);
+        listeners.forEach((listener) => listener());
+    }
+
+    return {
+        getState,
+        subscribe,
+        dispatch
+    }
+}
+
+// App Code
+function todos(state = [], action) {
+    swtich(action.type) {
+        case 'ADD_TODO':
+            return state.concat([action.todo]);
+        case 'REMOVE_TODO':
+            return state.filter((todo) => todo.id !== action.id);
+        case 'TOGGLE_TODO':
+            return state.map((todo) => todo.id !== action.id ? todo : Object.assign({}, {complete: !todo.complete}));
+        default
+            return state;
+    }
+}
+
+function goals(state = [], action) {
+    swtich(action.type) {
+        case 'ADD_TODO':
+            return state.concat([action.goal]);
+        case 'REMOVE_TODO':
+            return state.filter((goal) => goal.id !== action.id);
+        default
+            return state;
+    }
+}
+
+function app(state = {}, action) {
+    return {
+        todos: todos(state.todos action),
+        goals: todos(state.goals action)
+    }
+}
+
+const store = createStore(app);
+
+store.subscribe(() => {
+    console.log('The new state is:', store.getState());
+});
+
+store.dispatch({
+    type: 'ADD_TODO',
+    todo: {
+        id: 0,
+        name: 'Learn Redux',
+        complete: false
+    }
+})
+
+store.dispatch({
+    type: 'ADD_TODO',
+    todo: {
+        id: 1,
+        name: 'Learn React',
+        complete: false
+    }
+})
+
+store.dispatch({
+    type: 'ADD_TODO',
+    todo: {
+        id: 2,
+        name: 'Learn React Native',
+        complete: false
+    }
+})
+
+store.dispatch({
+    type: 'TOGGLE_TODO',
+    id: 1
+})
+
+store.dispatch({
+    type: 'REMOVE_TODO',
+    id: 2
+})
+
+store.dispatch({
+    type: 'ADD_GOAL',
+    goal: {
+        id: 0,
+        name: 'Llose 20 pounds',
+    }
+})
+
+store.dispatch({
+    type: 'ADD_GOAL',
+    goal: {
+        id: 1,
+        name: 'Learn Angular',
+    }
+})
+
+store.dispatch({
+    type: 'REMOVE_GOAL',
+    id: 1
+})
+```
+
+Reducer composition sounds intimidating, but it's simpler than you might think. The idea is that you can create a reducer to manage not only each section of your Redux store, but also any nested data as well. Let's say we were dealing with a state tree like had this structure
+
+```js
+{
+    users: {},
+    setting: {},
+    tweets: {
+        btyxlj: {
+            id: 'btyxlj',
+            text: 'What is a jQuery?',
+            author: {
+                name: 'Tyler McGinnis',
+                id: 'tylermcginnis',
+                avatar: 'twt.com/tm.png'
+            }
+        }
+    }
+}
+```
+
+We have three main properties on our state tree: users, settings, and tweets. Naturally, we'd create an individual reducer for both of those and then create a single root reducer using Redux's "combineReducers" method.
+
+```js
+const reducer = combineReducers({
+    users,
+    settings,
+    tweets
+})
+```
+
+`combineReducers`, under the hood, is our first look at reducer composition. `combineReducers` is responsible for invoking all the other reducers, passing them the portion of their state that they care about. We're making one root reducer, by composing a bunch of other reducers together. With that in mind, let's take a closer look at our tweets reducer and how we can leverage reducer composition again to make it more compartmentalized.
+
+Specifically, let's look how a user might change their avatar with the way our store is currently structured. Here's the skeleton with what we'll start out with:
+
+```js
+function tweets (state = {}, action) {
+    switch(action.type){
+        case ADD_TWEET :
+        ...
+        case REMOVE_TWEET :
+            ...
+        case UPDATE_AVATAR :
+            ???
+    }
+}
+```
+
+What we're interested in is that last one, UPDATE_AVATAR. This one is interesting because _we have some nested data_ - and remember, reducers have to be pure and can't mutate any state. Here's one approach.
+
+```js
+function tweets (state = {}, action) {
+switch(action.type){
+    case ADD_TWEET :
+        ...
+    case REMOVE_TWEET :
+        ...
+    case UPDATE_AVATAR :
+        return {
+            ...state,
+            [action.tweetId]: {
+            ...state[action.tweetId],
+                author: {
+                ...state[action.tweetId].author,
+                    avatar: action.newAvatar
+                }
+            }
+        }
+    }
+}
+```
+
+That's a lot of spread operators. The reason for that is because, for every layer, we're wanting to spread all the properties of that layer on the new objects we're creating (because, immutability). What if, just like we separated our tweets, users, and settings reducers by passing them the slice of the state tree they care about, what if we do the same thing for our tweets reducer and its nested data. Doing that, the code above would be transformed to look like this
+
+```js
+function author (state, action) {
+    switch (action.type) {
+        case : UPDATE_AVATAR
+            return {
+                ...state,
+                avatar: action.newAvatar
+            }
+        default :
+            state
+    }
+}
+
+function tweet (state, action) {
+    switch (action.type) {
+        case ADD_TWEET :
+            ...
+        case REMOVE_TWEET :
+            ...
+        case : UPDATE_AVATAR
+            return {
+                ...state,
+                author: author(state.author, action)
+            }
+        default :
+            state
+    }
+}
+
+function tweets (state = {}, action) {
+    switch(action.type){
+        case ADD_TWEET :
+            ...
+        case REMOVE_TWEET :
+            ...
+        case UPDATE_AVATAR :
+            return {
+                ...state,
+                [action.tweetId]: tweet(state[action.tweetId], action)
+            }
+        default :
+            state
+        }
+}
+```
+
+All we've done is separated out each layer of our nested tweets data into their own reducers. Then, just like we did with our root reducer, we're passing those reducers the slice of the state they care about.
