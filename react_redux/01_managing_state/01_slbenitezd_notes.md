@@ -404,7 +404,7 @@ function createStore(reducer) {
 
 // App Code
 function todos(state = [], action) {
-    swtich(action.type) {
+    switch(action.type) {
         case 'ADD_TODO':
             return state.concat([action.todo]);
         case 'REMOVE_TODO':
@@ -478,7 +478,7 @@ function createStore(reducer) {
 
 // App Code
 function todos(state = [], action) {
-    swtich(action.type) {
+    switch(action.type) {
         case 'ADD_TODO':
             return state.concat([action.todo]);
         case 'REMOVE_TODO':
@@ -491,7 +491,7 @@ function todos(state = [], action) {
 }
 
 function goals(state = [], action) {
-    swtich(action.type) {
+    switch(action.type) {
         case 'ADD_TODO':
             return state.concat([action.goal]);
         case 'REMOVE_TODO':
@@ -556,7 +556,7 @@ function createStore(reducer) {
 
 // App Code
 function todos(state = [], action) {
-    swtich(action.type) {
+    switch(action.type) {
         case 'ADD_TODO':
             return state.concat([action.todo]);
         case 'REMOVE_TODO':
@@ -569,7 +569,7 @@ function todos(state = [], action) {
 }
 
 function goals(state = [], action) {
-    swtich(action.type) {
+    switch(action.type) {
         case 'ADD_TODO':
             return state.concat([action.goal]);
         case 'REMOVE_TODO':
@@ -581,8 +581,8 @@ function goals(state = [], action) {
 
 function app(state = {}, action) {
     return {
-        todos: todos(state.todos action),
-        goals: todos(state.goals action)
+        todos: todos(state.todos, action),
+        goals: goals(state.goals ,action)
     }
 }
 
