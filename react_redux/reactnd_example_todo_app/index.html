@@ -21,8 +21,9 @@
         <ul id="goals"></ul>
     </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
 <script type="text/javascript">
-    // Library Code
+    /* Library Code = Redux Code
     function createStore(reducer) {
         let state;
         let listeners = [];
@@ -50,6 +51,7 @@
             dispatch
         }
     }
+    */
 
     // App Code
     const ADD_TODO = 'ADD_TODO';
@@ -123,6 +125,7 @@
         }
     }
 
+    /* These action are handle by Redux
     function app(state = {}, action) {
         return {
             todos: todos(state.todos, action),
@@ -131,6 +134,12 @@
     }
 
     const store = createStore(app);
+    */
+
+    const store = Redux.createStore(Redux.combineReducers({
+        todos,
+        goals
+    }));
 
     store.subscribe(() => {
         const { todos, goals } = store.getState();

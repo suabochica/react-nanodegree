@@ -54,3 +54,22 @@ So we're using the UI to change the state of our store, but these changes are no
 ### Summary
 
 In this section, we connected our functioning state application with a front-end UI. We added some form fields and buttons to our UI that can be used to add new Todo items and Goal items to the state. Updating the state will also cause the entire application to re-render so that the visual representation of the application matches that of the info stored in the state object.
+
+This is Redux
+-------------
+
+Until now, we use our own implementation of state management. But all we did is part of the Redux library. We're going to transition away from our custom code to using the actual Redux library. While we're working on this simple project, we'll be linkin to the hosted version of the Redux library:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
+```
+
+Now, the specific points in the transition are:
+
+- Link the Redux library
+- Delete the `createStore()` function
+- Swap the `createStore(app)` call with `Redux.createStore(app)`
+- Replace the `app()` function with `Redux.combimeReducers()`
+
+### Summary
+In this section, we replaced the code we wrote in the previous lesson with the actual Redux library code. We saw that swapping out our code with Redux's code didn't change anything with how our application functions or how our app-specific code works. _Redux is just a predictable state container_.
