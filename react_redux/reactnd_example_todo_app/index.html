@@ -94,6 +94,11 @@
         }
     }
 
+    // GenerateId heleper
+    function generateId () {
+        return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
+    }
+
     function todos(state = [], action) {
         switch(action.type) {
             case ADD_TODO:
@@ -101,7 +106,7 @@
             case REMOVE_TODO:
                 return state.filter((todo) => todo.id !== action.id);
             case TOGGLE_TODO:
-                return state.map((todo) => todo.id !== action.id ? todo : Object.assign({}, {complete: !todo.complete}));
+                return state.map((todo) => todo.id !== action.id ? todo : Object.assign({}, todo, {complete: !todo.complete}));
             default:
                 return state;
         }
@@ -128,56 +133,130 @@
     const store = createStore(app);
 
     store.subscribe(() => {
-        console.log('The new state is:', store.getState());
+        const { todos, goals } = store.getState();
+
+        document.getElementById('todos').innerHTML = '';
+        document.getElementById('goals').innerHTML = '';
+
+        todos.forEach(addTodoToDOM);
+        goals.forEach(addGoalToDOM);
     });
 
-    store.dispatch(
-        addTodoActionCreator({
-            id: 0,
-            name: 'Learn Redux',
-            complete: false
+    // DOM events
+    document.getElementById('todoBtn').addEventListener('click', addTodo);
+    document.getElementById('goalBtn').addEventListener('click', addGoal);
+
+    function addTodo () {
+        const input = document.getElementById('todo');
+        const name = input.value;
+
+        input.value = '';
+
+        store.dispatch(addTodoActionCreator({
+            name: name,
+            complete: false,
+            id: generateId()
+        }));
+    }
+
+    function addGoal () {
+        const input = document.getElementById('goal');
+        const name = input.value;
+
+        input.value = '';
+
+        store.dispatch(addGoalActionCreator({
+            name: name,
+            complete: false,
+            id: generateId()
+        }));
+    }
+
+    function createRemoveButton (onClick) {
+        const removeBtn = document.createElement('button');
+        removeBtn.innerHTML = 'X';
+        removeBtn.addEventListener('click', onClick);
+
+        return removeBtn;
+    }
+
+    function addTodoToDOM (todo) {
+        const node = document.createElement('li');
+        const text = document.createTextNode(todo.name);
+        const removeBtn = createRemoveButton(() => {
+            store.dispatch(removeTodoActionCreator(todo.id));
         })
-    )
 
-    store.dispatch(
-        addTodoActionCreator({
-            id: 1,
-            name: 'Learn React',
-            complete: false
-        }),
-    )
+        node.appendChild(text);
+        node.appendChild(removeBtn);
+        node.style.textDecoration = todo.complete ? 'line-through' : 'none';
 
-    store.dispatch(
-        addTodoActionCreator({
-            id: 2,
-            name: 'Learn React Native',
-            complete: false
+        node.addEventListener('click', () => {
+            store.dispatch(toggleTodoActionCreator(todo.id));
         })
-    )
 
-    store.dispatch(
-        toggleTodoActionCreator(1)
-    )
+        document.getElementById('todos').appendChild(node)
+    }
 
-    store.dispatch(
-        removeTodoActionCreator(2)
-    )
-
-    store.dispatch(
-        addGoalActionCreator({
-            id: 0,
-            name: 'Llose 20 pounds'
+    function addGoalToDOM (goal) {
+        const node = document.createElement('li');
+        const text = document.createTextNode(goal.name);
+        const removeBtn = createRemoveButton(() => {
+            store.dispatch(removeGoalActionCreator(goal.id));
         })
-    )
 
-    store.dispatch(
-        addGoalActionCreator({
-            id: 1,
-            name: 'Learn Angular'
-        })
-    )
+        node.appendChild(text);
+        node.appendChild(removeBtn);
+        document.getElementById('goals').appendChild(node)
+    }
 
-    store.dispatch(removeGoalActionCreator(1))
+    // store.dispatch(
+    //     addTodoActionCreator({
+    //         id: 0,
+    //         name: 'Learn Redux',
+    //         complete: false
+    //     })
+    // )
+
+    // store.dispatch(
+    //     addTodoActionCreator({
+    //         id: 1,
+    //         name: 'Learn React',
+    //         complete: false
+    //     }),
+    // )
+
+    // store.dispatch(
+    //     addTodoActionCreator({
+    //         id: 2,
+    //         name: 'Learn React Native',
+    //         complete: false
+    //     })
+    // )
+
+    // store.dispatch(
+    //     toggleTodoActionCreator(1)
+    // )
+
+    // store.dispatch(
+    //     removeTodoActionCreator(2)
+    // )
+
+    // store.dispatch(
+    //     addGoalActionCreator({
+    //         id: 0,
+    //         name: 'Llose 20 pounds'
+    //     })
+    // )
+
+    // store.dispatch(
+    //     addGoalActionCreator({
+    //         id: 1,
+    //         name: 'Learn Angular'
+    //     })
+    // )
+
+    // store.dispatch(removeGoalActionCreator(1))
 </script>
 </body>
 </html>
