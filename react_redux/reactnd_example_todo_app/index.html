@@ -125,7 +125,8 @@
         }
     }
 
-    /* These action are handle by Redux
+    /*
+    // These action are handle by Redux
     function app(state = {}, action) {
         return {
             todos: todos(state.todos, action),
@@ -134,28 +135,54 @@
     }
 
     const store = createStore(app);
+
+    // Replaced to use native  Redux middleware
+    function checkAndDispatch (store, action) {
+        if (
+            action.type === ADD_TODO &&
+            action.todo.name.toLowerCase().includes('bitcoin')
+        ) {
+            return alert("Nope, that's a bad idea");
+        } if (
+            action.type === ADD_GOAL &&
+            action.goal.name.toLowerCase().includes('bitcoin')
+        ) {
+            return alert("Nope, that's a bad idea");
+        }
+
+        return store.dispatch(action);
+    }
     */
 
-    function checkAndDispatch (store, action) {
-    if (
-        action.type === ADD_TODO &&
-        action.todo.name.toLowerCase().includes('bitcoin')
-    ) {
-        return alert("Nope, that's a bad idea");
-    } if (
-        action.type === ADD_GOAL &&
-        action.goal.name.toLowerCase().includes('bitcoin')
-    ) {
-        return alert("Nope, that's a bad idea");
+    const checker = (store) => (next) => (action) => {
+        if (
+            action.type === ADD_TODO &&
+            action.todo.name.toLowerCase().includes('bitcoin')
+        ) {
+            return alert("Nope, that's a bad idea");
+        } if (
+            action.type === ADD_GOAL &&
+            action.goal.name.toLowerCase().includes('bitcoin')
+        ) {
+            return alert("Nope, that's a bad idea");
+        }
+
+        return next(action);
     }
 
-    return store.dispatch(action);
-}
+    const logger = (store) => (next) => (action) => {
+        console.group(action.type);
+            console.log('The action: ', action);
+            const result = next(action);
+            console.log('The new state: ', store.getState());
+        console.groupEnd();
+        return result;
+    }
 
     const store = Redux.createStore(Redux.combineReducers({
         todos,
         goals
-    }));
+    }), Redux.applyMiddleware(checker, logger));
 
     store.subscribe(() => {
         const { todos, goals } = store.getState();
@@ -177,7 +204,7 @@
 
         input.value = '';
 
-        checkAndDispatch(store, addTodoActionCreator({
+        store.dispatch(addTodoActionCreator({
             name: name,
             complete: false,
             id: generateId()
@@ -190,7 +217,7 @@
 
         input.value = '';
 
-        checkAndDispatch(store, addGoalActionCreator({
+        store.dispatch(addGoalActionCreator({
             name: name,
             complete: false,
             id: generateId()
@@ -209,7 +236,7 @@
         const node = document.createElement('li');
         const text = document.createTextNode(todo.name);
         const removeBtn = createRemoveButton(() => {
-            checkAndDispatch(store, removeTodoActionCreator(todo.id));
+            store.dispatch(removeTodoActionCreator(todo.id));
         })
 
         node.appendChild(text);
@@ -217,7 +244,7 @@
         node.style.textDecoration = todo.complete ? 'line-through' : 'none';
 
         node.addEventListener('click', () => {
-            checkAndDispatch(store, toggleTodoActionCreator(todo.id));
+            store.dispatch(toggleTodoActionCreator(todo.id));
         })
 
         document.getElementById('todos').appendChild(node)
@@ -227,7 +254,7 @@
         const node = document.createElement('li');
         const text = document.createTextNode(goal.name);
         const removeBtn = createRemoveButton(() => {
-            checkAndDispatch(store, removeGoalActionCreator(goal.id));
+            store.dispatch(removeGoalActionCreator(goal.id));
         })
 
         node.appendChild(text);
