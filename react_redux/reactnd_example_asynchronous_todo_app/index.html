@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/react@16.3.0-alpha.1/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src='https://unpkg.com/redux-thunk@2.2.0/dist/redux-thunk.min.js'></script>
     <script src="https://tylermcginnis.com/goals-todos-api/index.js"></script>
     <title>TODOS and GOALS App</title>
 </head>
@@ -44,6 +45,18 @@
             }
         }
 
+        function handleDeleteTodoActionCreator (todo) {
+            return (dispatch) => {
+                dispatch(removeTodoActionCreator(todo.id))
+
+                return API.deleteTodo(todo.id)
+                    .catch(() => {
+                        dispatch(addTodoActionCreator(todo))
+                        alert('An error ocurred. Try again.')
+                    })
+            }
+        }
+
         function addGoalActionCreator(goal) {
             return {
                 type: ADD_GOAL,
@@ -58,7 +71,7 @@
             }
         }
 
-        function receiveDataAction (todos, goals) {
+        function receiveDataActionCreator (todos, goals) {
             return {
                 type: RECEIVE_DATA,
                 todos: todos,
@@ -86,7 +99,7 @@
             }
         }
 
-        function goals(state = [], action) {
+        function goals (state = [], action) {
             switch(action.type) {
                 case ADD_GOAL:
                     return state.concat([action.goal]);
@@ -108,6 +121,7 @@
             }
         }
 
+        // Redux Middleware
         const checker = (store) => (next) => (action) => {
             if (
                 action.type === ADD_TODO &&
@@ -133,11 +147,20 @@
             return result;
         }
 
+        /** Thunk middleware behind the scenes
+        const thunk = (store) => (next) => (action) => {
+            if (typeof action === 'function') {
+                return action(store.dispatch)
+            }
+            return next(action)
+        }
+        */
+
         const store = Redux.createStore(Redux.combineReducers({
             todos,
             goals,
             loading
-        }), Redux.applyMiddleware(checker, logger));
+        }), Redux.applyMiddleware(ReduxThunk.default, checker, logger));
     </script>
 
     <script type="text/babel">
@@ -177,13 +200,7 @@
             }
 
             removeItem = (todo) => {
-                this.props.store.dispatch(removeTodoActionCreator(todo.id));
-
-                return API.deleteTodo(todo.id)
-                    .catch(() => {
-                        this.props.store.dispatch(addTodoActionCreator(todo.id));
-                        alert('An error ocurred. Try again');
-                    });
+                this.props.store.dispatch(handleDeleteTodoActionCreator(todo));
             }
 
             toggleItem = (todoId) => {
@@ -269,7 +286,7 @@
                     API.fetchTodos(),
                     API.fetchGoals()
                 ]).then(([ todos, goals ]) => {
-                    store.dispatch(receiveDataAction(todos, goals));
+                    store.dispatch(receiveDataActionCreator(todos, goals));
                 });
 
                 store.subscribe(() => this.forceUpdate());
