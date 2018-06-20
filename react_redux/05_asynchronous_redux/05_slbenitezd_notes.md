@@ -144,4 +144,20 @@ If a web application requires interaction with a server, applying middleware suc
 
 By calling our API in an _action creator_, we make the action creator responsible for fetching the data it needs to create the action. Since we move the data-fetching code to action creators, we build a cleaner separation between our UI logic and our data-fetching logic. As a result, thunks can then be used to delay an action dispatch, or to dispatch only if a certain condition is met (e.g., a request is resolved).
 
+Leveraging Thunks in our App
+----------------------------
 
+Converting to thunks improves the responsibilities of the code. Make sure to check off each of the following:
+
+- Converted the Goals to use thunks
+- Converted the Todos to use thunks
+- Converted the fetching of the initial data to use thunks
+
+### More Asyncrhonous Options
+The most common requests I get for this course are around more advanced data-fetching topics with Redux. I've resisted because typically they bring in _a lot_ of complexity, while the benefits aren't seen until your data-fetching needs become large enough. With that said, now that you have a solid foundation on Redux and specifically, asynchronous Redux, you'll be in a good position to read up on the different options to decide if any would work best for the type of application you're working on. I encourage to read up on both of the other (popular) options.
+
+- [Redux Promise](https://github.com/redux-utilities/redux-promise) - FSA-compliant promise middleware for Redux.
+- [Redux Saga](https://github.com/redux-saga/redux-saga) - An alternative side effect model for Redux apps
+
+### Summary
+In this section, we used the thunk library that we installed in the previous section to make our code more singularly-focused and maintainable.

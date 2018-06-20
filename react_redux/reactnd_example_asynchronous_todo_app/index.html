@@ -24,6 +24,17 @@
         const RECEIVE_DATA = 'RECEIVE_DATA';
 
         // Action creators
+        function handleInitialDataActionCreator() {
+            return (dispatch) => {
+                return Promise.all([
+                    API.fetchTodos(),
+                    API.fetchGoals()
+                ]).then(([ todos, goals ]) => {
+                    dispatch(receiveDataActionCreator(todos, goals));
+                });
+            }
+        }
+
         function addTodoActionCreator(todo) {
             return {
                 type: ADD_TODO,
@@ -45,6 +56,19 @@
             }
         }
 
+        function handleAddTodoActionCreator (name, resetInputCallback) {
+            return (dispatch) => {
+                return API.saveTodo(name)
+                    .then((todo) => {
+                        dispatch(addTodoActionCreator(todo));
+                        resetInputCallback;
+                    })
+                    .catch(() => {
+                        alert('There was an error. Try again.')
+                    })
+            }
+        }
+
         function handleDeleteTodoActionCreator (todo) {
             return (dispatch) => {
                 dispatch(removeTodoActionCreator(todo.id))
@@ -53,6 +77,18 @@
                     .catch(() => {
                         dispatch(addTodoActionCreator(todo))
                         alert('An error ocurred. Try again.')
+                    })
+            }
+        }
+
+        function handleToggleTodoActionCreator (todoId) {
+            return (dispatch) => {
+                dispatch(toggleTodoActionCreator(todoId));
+
+                return API.saveTodoToggle(todoId)
+                    .catch(() => {
+                        dispatch(toggleTodoActionCreator(todoId));
+                        alert('An error ocurred. Try again.');
                     })
             }
         }
@@ -76,6 +112,31 @@
                 type: RECEIVE_DATA,
                 todos: todos,
                 goals: goals
+            }
+        }
+
+        function handleAddGoalActionCreator (name, resetInputCallback) {
+            return (dispatch) => {
+                return API.saveGoal(name)
+                    .then((goal) => {
+                        dispatch(addGoalActionCreator(goal));
+                        resetInputCallback;
+                    })
+                    .catch(() => {
+                        alert('An error ocurred. Try again.');
+                    })
+            }
+        }
+
+        function handleDeleteGoalActionCreator (goal) {
+            return (dispatch) => {
+                dispatch(removeGoalActionCreator(goal.id));
+
+                return API.deleteGoal(goal.id)
+                    .catch(() => {
+                        dispatch(addGoalActionCreator(goal));
+                        alert('An error ocurred. Try again.');
+                    })
             }
         }
 
@@ -187,16 +248,12 @@
 
         class Todos extends React.Component{
             addItem = (event) => {
-                event.preventDefault()
+                event.preventDefault();
 
-                return API.saveTodo(this.input.value)
-                    .then((todo) => {
-                        this.props.store.dispatch(addTodoActionCreator(todo))
-                        this.input.value = ''
-                    })
-                    .catch(() => {
-                        alert('There was an error. Try again.')
-                    })
+                this.props.store.dispatch(handleAddTodoActionCreator(
+                    this.input.value,
+                    () => this.input.value = ''
+                ))
             }
 
             removeItem = (todo) => {
@@ -204,13 +261,7 @@
             }
 
             toggleItem = (todoId) => {
-                this.props.store.dispatch(toggleTodoActionCreator(todoId))
-
-                return API.saveTodoToggle(todoId)
-                    .catch(() => {
-                        this.props.store.dispatch(toggleTodoActionCreator(todoId));
-                        alert('An error ocurred. Try again')
-                    })
+                this.props.store.dispatch(handleToggleTodoActionCreator(todoId))
             }
 
             render() {
@@ -236,26 +287,16 @@
 
         class Goals extends React.Component{
             addItem = (event) => {
-                event.preventDefault;
+                event.preventDefault();
 
-                return API.saveGoal(this.input.value)
-                    .then((goal) => {
-                        this.props.store.dispatch(addGoalActionCreator(goal));
-                        this.input.value = ''
-                    })
-                    .catch(() => {
-                        alert('An error ocurred. Try again')
-                    })
+                this.props.store.dispatch(handleAddGoalActionCreator(
+                    this.input.value,
+                    () => this.input.value = ''
+                ))
             }
 
             removeItem = (goal) => {
-                this.props.store.dispatch(removeGoalActionCreator(goal.id))
-
-                return API.deleteGoal(goal.id)
-                    .catch(() => {
-                        this.props.store.dispatch(addGoalActionCreator(goal));
-                        alert('An error ocurred. Try again');
-                    });
+                this.props.store.dispatch(handleDeleteGoalActionCreator(goal))
             }
 
             render() {
@@ -282,12 +323,7 @@
             componentDidMount () {
                 const { store } = this.props;
 
-                Promise.all([
-                    API.fetchTodos(),
-                    API.fetchGoals()
-                ]).then(([ todos, goals ]) => {
-                    store.dispatch(receiveDataActionCreator(todos, goals));
-                });
+                store.dispatch(handleInitialDataActionCreator())
 
                 store.subscribe(() => this.forceUpdate());
             }
