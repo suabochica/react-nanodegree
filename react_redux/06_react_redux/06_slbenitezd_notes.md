@@ -147,3 +147,60 @@ The point of these names are to help explain what the purpuse of the component i
 - A **Connected Component** is connected to Redux store and is responsible for getting data from the store
 - A **Presentational Component** should not access the store. It should receive any information it needs as props and then just render the UI.
 
+### `connect()`: Under The Hood
+The purpose is abstract all the connection between Redux and React like will a library. With the Connected/Presentational Pattern we have just half solution. It is remaining achieve that the user can grab the information off of the context without having to use `<Context.Consumer>`. So, we have an abstraction function called `connect()`.
+
+The `connect()` function is a higer-order component that has three responsabilities:
+
+- Know when the store changes - use the store subscripe
+- What state is needed - use `mapStateToProps`
+- Get the store from Context
+
+The next snippet illustrates the logic of the `connect()` function:
+
+```js
+const ConnectedComponent = connect((state) => ({
+    stateProp: state.prop
+}))(PresentationalComponent)
+
+function connect (mapStateToProps) {
+    return (Component) => {
+        class Receiver extends React.Component {
+            componentDidMount () {
+                const { subscribe } = this.props.store
+
+                this.unsubscribe = subscribe(() => {
+                    this.forceUpdate();
+                })
+            }
+
+            componentWillMount () {
+                this.unsubscribe()
+            }
+
+            render () {
+                const { dispatch, getState } = this.props.store
+                const state = getState
+                const stateNeeded = mapStateToProps(state)
+
+                return <Component {...stateNeeded} dispatch={dispatch} />
+
+            }
+        }
+
+        class ConnectedComponent extends React.Component {
+            render () {
+                return (
+                    <Context.Consumer>
+                        {(store) => <Receiver store={store} />}
+                    </Context.Consumer>
+                )
+            }
+        }
+
+        return ConnectedComponent;
+    }
+}
+```
+
+We just built out the `Provider`, `Context`, and `connect()` function. This function is so common that it has been developed into a library called [react-redux](https://github.com/reactjs/react-redux) that's officially supported by React. So instead of use our methods, we can import the library and use theirs functions.
