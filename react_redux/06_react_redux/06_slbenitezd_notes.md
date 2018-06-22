@@ -132,8 +132,18 @@ The `Provider` component is used in the upper level of the component tree; that 
 ### Context.Consumer
 On the receiving end (i.e., a component "under" the Provider in the component hierarchy), we use the `Consumer` component. In our example, we passed `Consumer` a function as a child. This function accepts a value and returns some JSX. As a result, we were able to render the `Grandchild` component with the correct `name` data without ever having to pass that data down the entire component thread! That's a lot less code than the previous way we had to do it. So React's `Context` API provides a terse, approachable way to easily communicate information from one component to another.
 
-Now, let's go ahead and utilize `Context` in our todos app.
+Now, let's go ahead and utilize `Context` in the todos app.
 
+### Pattern: Connected Components and Presentational Components
 
+To apply the `Context` API in the todos app we have to follow the Connected/Presentational Components pattern whos abstract structur is:
 
+    <ConnectedComponent>
+        <PresentationalComponent>
+    </ConectedComponent>
+
+The point of these names are to help explain what the purpuse of the component is for:
+
+- A **Connected Component** is connected to Redux store and is responsible for getting data from the store
+- A **Presentational Component** should not access the store. It should receive any information it needs as props and then just render the UI.
 
