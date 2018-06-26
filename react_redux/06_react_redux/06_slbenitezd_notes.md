@@ -204,3 +204,79 @@ function connect (mapStateToProps) {
 ```
 
 We just built out the `Provider`, `Context`, and `connect()` function. This function is so common that it has been developed into a library called [react-redux](https://github.com/reactjs/react-redux) that's officially supported by React. So instead of use our methods, we can import the library and use theirs functions.
+
+### The `react-redux` Bindings
+
+Let's take a moment to recap the changes we've made to our app in this Lesson, because we've updated quite a bit!
+
+1.  We leveraged the standard `redux` library to build our app. This allowed us to create a Redux store with the `createStore()` function, giving us an API to listen (`subscribe()`), get updates (`getState()`)
+2. We created our own `Provider` component to efficiently pass the store to components that needed it. As well as our own `connect()` function so that our components can access "slices" of state as `props`.
+
+We can build a fully-functional React and Redux app without `Provider` or `connect()`, but since they greatly simplify how React components interact with the Redux store, the creators of redux have included them in the `react-redux` package!
+
+### `Provider`
+With `react-redux`, rather than creating and using our own `Provider` which looks like this:
+
+```js
+const Context = React.createContext(
+
+class Provider extends React.Component {
+    render () {
+        return (
+            <Context.Provider value={this.props.store}>
+                {this.props.children}
+            </Context.Provider>
+        );
+}
+}
+
+ReactDOM.render(
+    <Provider store={store}>
+        <ConnectedApp />
+    </Provider>,
+    document.getElementById('app')
+);
+```
+
+but ...we can simply use the `Provider` component defined by the `react-redux` package! This allows us to wrap our entire app with `Provider`, effectively passing the store to even the most deeply nested components.
+
+```js
+ReactDOM.render(
+    <ReactRedux.Provider store={store}>
+        <ConnectedApp />
+    </ReactRedux.Provider>,
+    document.getElementById('app')
+);
+```
+
+### `connect()`
+Similarly, we can also leverage `react-redux`'s `connect()` function right out of the box. `connect()` is a higher-order function that takes in two arguments (as well as a few optional arguments) and _returns a function_. Check out its signature below:
+
+```js
+const buildConnectedComponent = connect(mapStateToProps, mapDispatchToProps);
+```
+
+What's vital to understand is that `buildConnectedComponent` is a function. `buildConnectedComponent` will take a regular (presentational) React component and return a new, "connected" component.
+
+```js
+const ConnectedComponent = buildConnectedComponent(MyComponent);
+```
+
+`ConnectedComponent` renders `MyComponent`, passing it the `props` as defined by `mapStateToProps` and `mapDispatchToPros`.
+
+We can avoid having the intermediary buildConnectedComponent variable and just call the functions back-to-back:
+
+```js
+const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(MyComponent)
+```
+
+Notice the double set of parentheses!
+
+The `connect()` method connects the Store with the Component. Also, `mapStateToProps` is a function that lets `connect()` know how to map `state` into the component’s list of `props`.
+
+### Summary
+React often leverages Redux for more predictable state management via the `react-redux` bindings. These bindings give us an API that simplifies the most common interactions between React and Redux.
+
+`Provider` makes it possible for Redux to pass data from the store to any React components that need it. It uses React’s context feature to make this work.
+
+`connect()` connects a React component to the Redux store. The `mapStateToProps()` function allows us to specify which state from the store you want passed to your React component, while the `mapDispatchToProps()` function allows us to bind dispatch to action creators before they ever hit the component.
