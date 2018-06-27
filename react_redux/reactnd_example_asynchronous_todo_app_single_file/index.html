@@ -25,7 +25,15 @@
         const RECEIVE_DATA = 'RECEIVE_DATA';
 
         // Action creators
-        function handleInitialDataActionCreator() {
+        function receiveDataActionCreator (todos, goals) {
+            return {
+                type: RECEIVE_DATA,
+                todos: todos,
+                goals: goals
+            }
+        }
+
+        function handleInitialDataActionCreator () {
             return (dispatch) => {
                 return Promise.all([
                     API.fetchTodos(),
@@ -36,21 +44,21 @@
             }
         }
 
-        function addTodoActionCreator(todo) {
+        function addTodoActionCreator (todo) {
             return {
                 type: ADD_TODO,
                 todo: todo
             }
         }
 
-        function removeTodoActionCreator(id) {
+        function removeTodoActionCreator (id) {
             return {
                 type: REMOVE_TODO,
                 id: id
             }
         }
 
-        function toggleTodoActionCreator(id) {
+        function toggleTodoActionCreator (id) {
             return {
                 type: TOGGLE_TODO,
                 id: id
@@ -94,25 +102,17 @@
             }
         }
 
-        function addGoalActionCreator(goal) {
+        function addGoalActionCreator (goal) {
             return {
                 type: ADD_GOAL,
                 goal: goal
             }
         }
 
-        function removeGoalActionCreator(id) {
+        function removeGoalActionCreator (id) {
             return {
                 type: REMOVE_GOAL,
                 id: id
-            }
-        }
-
-        function receiveDataActionCreator (todos, goals) {
-            return {
-                type: RECEIVE_DATA,
-                todos: todos,
-                goals: goals
             }
         }
 
@@ -146,7 +146,7 @@
             return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
         }
 
-        function todos(state = [], action) {
+        function todos (state = [], action) {
             switch(action.type) {
                 case ADD_TODO:
                     return state.concat([action.todo]);
@@ -262,7 +262,7 @@
             }
 
             toggleItem = (todoId) => {
-                this.props.dispatch(handleToggleTodoActionCreator(todoId))
+                this.props.dispatch(handleToggleTodoActionCreator(todoId));
             }
 
             render() {
@@ -301,7 +301,7 @@
             }
 
             removeItem = (goal) => {
-                this.props.dispatch(handleDeleteGoalActionCreator(goal))
+                this.props.dispatch(handleDeleteGoalActionCreator(goal));
             }
 
             render() {

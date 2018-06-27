@@ -280,3 +280,50 @@ React often leverages Redux for more predictable state management via the `react
 `Provider` makes it possible for Redux to pass data from the store to any React components that need it. It uses React’s context feature to make this work.
 
 `connect()` connects a React component to the Redux store. The `mapStateToProps()` function allows us to specify which state from the store you want passed to your React component, while the `mapDispatchToProps()` function allows us to bind dispatch to action creators before they ever hit the component.
+
+Folder Structre
+---------------
+
+Currently, the app is all in a single file. This is a good idea for learning purposes but is far away of a real world app. Let's use the Create App Package to organize the todos/goals app's folder structure.
+
+### "Rails-style" Organization
+
+To recap, we've organized the individual elements of our app with a "Rails-style" approach. That is, assets are grouped by "type" or "capability": any action will be found in the _Actions_ folder, any reducer will be found in _Reducers_, and so on. In fact, the “real world” example from Redux on GitHub structures the app this very way. Under this directory structure, if we wanted to import all actions into a component, we can get them all in a single import!
+
+    Frontend
+        - Components
+            - component1.js
+            - component2.js
+            - component3.js
+        - Actions
+            - action1.js
+            - action2.js
+        - Reducers
+            - reducer1.js
+        - Util
+        - Store
+
+### Other Patterns
+Along with the "Rails style" of organizing your folder structure, you may find other approaches that developers use to build their directory more to your liking. An alternative way to structure the same application, then, is by feature:
+
+    ├── dashboard
+    │ ├── actions.js
+    │ ├── index.js
+    │ └── reducer.js
+    └── nav
+        ├── actions.js
+        ├── index.js
+        └── reducer.js
+
+This form of organization groups assets by their common feature or “concept.” That is, all assets related to a navigation component are all together in a single, modular folder. It’s a great way to visually express what the application is all about. However, if the app contains several hundred components, it can become more difficult to navigate through.
+
+This form of organization groups assets by their common feature or “concept.” That is, all assets related to a navigation component are all together in a single, modular folder. It’s a great way to visually express what the application is all about. However, if the app contains several hundred components, it can become more difficult to navigate through.
+
+What's more: you might even see that some developers prefer a ["duck" style](https://medium.freecodecamp.org/scaling-your-redux-app-with-ducks-6115955638be) approach, where Redux and state management files are completely separated from files that render UI.
+
+Ultimately, the choice is yours. Whichever way you choose to organize your directory structure, just be sure that it’s something that makes sense for your app, and it’s something you’re comfortable with!
+
+### Summary
+This section didn't accomplish anything with React or Redux. All we did here was improve the structure and organization of our app by moving each portion of the app to a specific folder structure.
+
+To say it one more time, there's no "right" way to build out the folder structure for you app. However, doing it this way is handy because we're using the structure provided by Create React App. Using this structure, it's easy to convert a plain React application over to one that includes Redux. Another benefit is that other React developers will already be comfortable with this file/folder organization.
