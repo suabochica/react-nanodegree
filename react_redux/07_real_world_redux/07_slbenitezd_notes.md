@@ -36,7 +36,7 @@ In our Chirper project walkthrough, we'll go over the planning stages as well as
 
 In the Planning Stage, we will go over 4 steps that will help you come up with your app's architecture, which is often the trickiest part.
 
-1. Identify what eact view should look like
+1. Identify what each view should look like
 2. Break each view into a hierarchy of components
 3. Determine what events happen in the app
 4. Determine what data lives in the store
@@ -47,3 +47,88 @@ We'll be building the project along together, breaking down each phase of the pr
 Let's dive in!
 
 
+Step 1: Indetify Each View
+--------------------------
+
+We need to determine the look and functionality of each view in your app. One of the best approaches is to draw each view of the app on paper so that yout will have a good idea of what information and data you are plannig to have on each page.
+
+> Instead of paper and pencil you can use [software for creating mockups](https://codingsans.com/blog/mockup-tools)
+
+### View for the Dashboard Page
+#### Dashboard View Requirements
+- Is located at home route (`/`)
+- Shows tweets sorted from most recently added at the top, to oldest at the bottom
+- Each tweet will show:
+    - The author
+    - The timestamp
+    - Who the author is replying to
+    - The text of the tweet
+    - A reply button –with the number of replies–
+    - A like button –with the number of likes–
+
+### View for the Tweet Page
+#### Tweet Page View Requirement
+- Is located ad `/tweet/:id`
+- Shows an individual tweet
+    - The author
+    - The timestamp
+    - A reply button –with the number of replies–
+    - A like button –with the number of likes–
+- Has a reply form
+- Shows all replies
+
+### View for the Creating a New Tweet
+#### Tweet Page View Requirement
+- Is located at `/new`
+- Has a textbox for adding a new tweet
+
+### View Recap
+So these are the 3 view in our app:
+- Dashboard
+- Tweet
+- New Tweet
+
+We now have a clear idea of what we're trying to build and can be confident that our views meet all of the provided requirements
+
+Step 2: Break Each View Into Hierarchy of Components
+----------------------------------------------------
+Let's do two things:
+
+- Draw boxes around every component
+- Arrange our components into a hierarchy
+
+> To determine if something should be a component you should follow the **Single Responsibility Principle**
+
+### Components for the Dashboard View
+- **App** - The overall container for the project
+- **Navigation** - Displays the navigation
+- **Tweets List** - Responsible for the entire list of tweets
+- **Tweet** - In charge of display the content for a single tweet
+
+### Components for the Tweet View
+- **App** - The overall container for the project
+- **Navigation** - Displays the navigation
+- **Tweets Container** - Displays a list of tweets
+- **Tweet** - Displays the content for a single tweet
+- **New Tweet** - Displays the form to create a new tweet (reply)
+
+### Components for the New Tweet View
+- **App** - The overall container for the project
+- **Navigation** - Displays the navigation
+- **New Tweet** - Displays the form to create a new tweet (reply)
+
+### All Components
+So from the way I broke things down, the application will have the following compoenents:
+
+- App
+- Navigation
+- Tweet List
+- Tweet Container
+- Tweet
+- New Tweet
+
+This component hierarchy tell us which components will be used inside of the other components. It gives us the skeleton of our app. All of these are presentational components. Rigth now, we don't care which components will be upgraded to containers. As we start building out the store, we will create additional components that will be container components to get data from the store and pass it to the presentational components that need the data.
+
+Thus far, we haven't done anything that is special to Redux; all of the steps above are applicable and useful for React applications that not use Redux.
+
+Remember that Redux doesn't care about _how_ our app looks or what components it uses. Instead, it gives a way to manage the _state_ of the application in a predictable way. When we talk about _state_, we are really talking about _data_ –not just any kind of data inside the app, but data that can change base on the events in the app–
