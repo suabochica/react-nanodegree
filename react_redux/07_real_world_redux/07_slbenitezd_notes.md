@@ -132,3 +132,34 @@ This component hierarchy tell us which components will be used inside of the oth
 Thus far, we haven't done anything that is special to Redux; all of the steps above are applicable and useful for React applications that not use Redux.
 
 Remember that Redux doesn't care about _how_ our app looks or what components it uses. Instead, it gives a way to manage the _state_ of the application in a predictable way. When we talk about _state_, we are really talking about _data_ –not just any kind of data inside the app, but data that can change base on the events in the app–
+
+Step 3: Determine the Events in the App
+---------------------------------------
+
+We need to take a look to _what_ is happening in each component. Let's determine what actions the app or the user is perfoming **on the data**. It is the data being set, modified or deleted?. Then we will need an action to keep track of that event!
+
+Let's _bold_ the action and **underline** the data.
+
+
+### Tweets List Component
+For the Tweets List component, the only information that we see is that we'll have to get a list of all of the tweets. So for this component, we just need to:
+
+- _Get_ the **tweets**
+
+So the action type for event this will probably `GET_LIST_OF_TWEETS`
+
+### Tweet Component
+
+- We _get_ a particular tweet from a list of **tweets**
+- We _get_ the **authedUser (user that is currently logged in)** so the user can _toggle_ the likes on each **tweets*
+- We _get_ the **authedUser** so the user can _reply_ to a **tweet**
+
+### Tweet Container Component
+
+- We _get_ a specific tweet from a list of **tweets**
+- We _get_ the replies to a specific tweet from a list of **tweets**
+
+### New Tweet Component
+
+- We _get_ the **authedUser**, so the user can _create_ a new **tweet**
+- We _set_ the **text of the new tweet**
