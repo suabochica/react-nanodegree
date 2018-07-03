@@ -286,3 +286,55 @@ The New Tweet Component doesn't need to access the `authedUser` piece of state, 
 |   authedUser  |
 
 Our store is done! While we making our store, we also determined which components will be upgraded to containers, so our skeleton app is now even more complete. Time to start coding.
+
+Actions
+-------
+
+Let's start with the Dashboard View that displays a list of tweets and a menu.
+
+We need to take a look at _what_ is happening in this view. Let´s determine what actions the app or the user is performing **on the data** – is the data being set, modified, or deleted? –
+
+When the app loads, the Dashboard View is displayed. The Dashboard Component therefore needs to:
+
+- _get_ the **tweets**
+- _get_ the **users**
+- _get_ the **autedUsers**
+
+This data is stores in a database. For this view to load all of the tweets –including their author's avatars– we need:
+
+1. Get the `tweets` and `users` data from the database
+2. Then, pass that data into the component
+
+For best practices in React apps, you should make the API request in the `componentDidMount()` lifecycle method and for React/Redux apps you should make the API requests from asynchronous action creators.
+
+The Action Creators returns actions (i.e. simple Javascript objects that then go to all of our reducers). Making an API request is an asynchronous action, so we cannot just send a plain Javascript object to our reducers. Redux middleware can gain access to an action when it is on its way to the reducers. We will be using `redux-thunk` middleware in this example.
+
+If the Redux Thunk middleware is enable –which is done vie the `applyMiddleware()` function–, then any time your action creator returns a function instead of a Javascript object,it will go to the react-thunk middleware.
+
+Dan Abramov describes what happens next:
+
+> "The middleware will call that function with dispatch method itself as the first argument. The action will only reach the reducers once the API request is completed. It will also _swallow_ such actions so dosn't worry about your reducers receiving weird function arguments. Your reducers will only receive plain object action, either emmited directly, or emitted by the functions as we just described"
+
+Here is what a thunk action creator looks like:
+
+```js
+function handleInitialData () {
+    return function (dispatch) {}
+}
+```
+
+Which is equvalent to this in ES&:
+
+```js
+function handleInitialData () {
+    return (dispatch) => {}
+}
+```
+
+Now, we need to give our components access to the data that came in. This means, we need to populate the store with `tweets` and `users`
+
+| **The Store**                                                                       |
+|-------------------------------------------------------------------------------------|
+| **Tweets:** The results of a tweets action going via its tweets reducer             |
+| **Users:** The results of a users action going via its users reducer                |
+| **authedUser:** The results of a authedUser action going via its authedUser reducer |
