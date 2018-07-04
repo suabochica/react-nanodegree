@@ -486,3 +486,58 @@ function handleInitialData () {
 Now the question is _where_ do we dispatch this action creator?. When we walked through the architecture of the app, we saw that the _App_ Component will contain every othe component. If we load the initial data from the _App_ Component, then no matter which route our users goes to, they will se all of the correct data. So, the answer is the App Component.
 
 Using the `connect()` function upgrades a component to a container. Containers can read state from the store and dispatch actions.
+
+Dashboard Component
+-------------------
+
+In the application, normalized state would look like this:
+
+```js
+{
+    tweets: {
+        tweetId: { tweet id, author’s id, timestamp, text, likes, replies, replyingTo},
+        tweetId: { tweet id, author’s id, timestamp, text, likes, replies, replyingTo}
+    },
+    users: {
+        userId: {user’s id, user’s name, avatar, tweets array},
+        userId: {user’s id, user’s name, avatar, tweets array}
+    }
+}
+```
+
+In the Planning Stage, we also determined that the Dashboard Component will be a container since it will need access to the `tweets` part of the store in order to display the list of tweets.
+
+To make a container, we need to make use the `connect()` function. Remember the signature of the connect function looks like this:
+
+```js
+connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+```
+
+These details about `mapStateToProps` and `mapDispatchToProps` are crucial:
+
+- **`mapStateToProps`**: If this argument is specified, the new component will subscribe to Redux store updates. This means that any time the store is updated, `mapStateToProps` will be called. the results of `mapStateToProps` must be a plain object. which will be merfed into the component's props. if you don't want to subscribe to store updates, pass `null` or `undefined` in place of `mapStateToProps`.
+
+- **`mapDispatchToProps`**: If an object is passed, each function inside it is assumed to be Redux action creator. An object with the same function names, but with every action creator wrapped into a dispatch call so they may be invoked directly, will be merged into the component's props. If a function is passed, it will be given dispatch as the firts parameter. It's up to you, to return an object that soemhow uses dispatch to bind action creators in your own way,
+
+Now, in the Component Hierarchy we define that the Tweet Component will be inside of the Dashboard Component. If the Dashboard Component knows the ID of the tweet that needs to be displayed, it can just pass that ID to the Tweet Component, which will render the tweet.
+
+The signature of the `mapStateToProps` function is;
+
+```js
+mapStateToProps(state, [ownProps])
+```
+
+- `state` is the state inside the stoer
+- `ownProps` are the properties that heve been passed to this component from a parent component
+
+Since we only care about the `tweets` part of the store, we can use destructuring to pass the `tweets` part of the state in the sotre as the parameter to the `mapStateToProps()` function.
+
+```js
+function mapStateToProps( {tweets} ){
+    return { tweetIds: Object.keys(tweets) };
+}
+```
+
+The important things to note are that:
+- **tweets** is the slice of the state that this component cares about
+- **tweetIds** will show up as a property on this container.
