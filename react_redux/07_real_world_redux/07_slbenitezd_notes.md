@@ -541,3 +541,59 @@ function mapStateToProps( {tweets} ){
 The important things to note are that:
 - **tweets** is the slice of the state that this component cares about
 - **tweetIds** will show up as a property on this container.
+
+Tweet Component
+---------------
+
+According our step 4, the Tweet Component will need access to the following data:
+
+- `users`
+- `tweets`
+- `authedUser``
+
+So the Tweet Component will be a container. An important detail is that in the `<Dashboard />` we have to pass the `id` prop along to the Tweet Component: `<Tweet id={id}/>` also the `mapStateToProps` function of the Tweet Component will recieve as second argument (`ownProps`) and object that has an `id` property with this value. The `mapStateToProps` function looks like:
+
+```js
+function mapStateToProps ({authedUser, users, tweets}, { id }) {
+    const tweet = tweets[id];
+
+    return {
+        authedUser,
+        tweet: formatTweet(tweet, users[tweet.author], authedUser)
+    };
+}
+```
+
+Notice that `mapStateProps` accepts two arguments:
+
+- the state of the store
+- the props passed to the Tweet Component
+
+We are desetructuring both arguments. From the store, we are extracting:
+
+- the `authedUser` data
+- the `users` data
+- the `tweets` data
+
+Then we are getting the `id` from the props passed to the Tweet Component. We need both of these piece of data – coming from the store's state and coming from the props component – so that we can determine which Tweet should be displayed by the Tweet Component.
+
+The last detail that we have to handle in the `mapStateProps` function of the Tweet Component is related to the reply tweet feature. To handle this scenario we have to add a validation to identify the parent tweet. So the `mapStateProps` function now looks like:
+
+```js
+function mapStateToProps ({authedUser, users, tweets}, { id }) {
+    const tweet = tweets[id];
+    const parentTweet = tweet ? tweets[tweet.replyingTo] : null;
+
+    return {
+        authedUser,
+        tweet: tweet
+        ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
+        : null
+    };
+}
+```
+
+Now, we are getting all the data that we need from the store. Time to build the UI of the Tweet Component.
+
+### `react-redux-loading`
+This library is a set of a component, a reducer and their repectives actions creators that allow us to show a loading bar while the app retrieve all the data.
