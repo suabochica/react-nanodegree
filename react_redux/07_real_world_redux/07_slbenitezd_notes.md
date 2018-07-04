@@ -338,3 +338,121 @@ Now, we need to give our components access to the data that came in. This means,
 | **Tweets:** The results of a tweets action going via its tweets reducer             |
 | **Users:** The results of a users action going via its users reducer                |
 | **authedUser:** The results of a authedUser action going via its authedUser reducer |
+
+Reducers
+--------
+
+A Reducer describes _how_ application's state chagnes. You will often see the Object Spread Operator (`...`) used inside of a reducer because a reducer **must return a new object** instead of mutating the old state. Reducers have the following signature:
+
+```js
+(previousState, action) => newState
+```
+
+The last table illustrates how the app will modified the state.
+
+### Initializing State
+There are 2 ways to initialize the state inside the store:
+
+- You can pass the initial state (or part of the initial state) as `preloadedState()` to the `createStore()` function. For example:
+
+```js
+const store = createStore (
+    rootReducer,
+    { tweets: {} }
+)
+```
+
+- You can include a default state parameter as the first argument inside a particular reducer function. For example:
+
+```js
+function tweets (state = {}, aciton) {
+    // reducer body
+}
+```
+
+In the app, we initialized each slice of the store by setting a default `state` value as the first paramete inside each reducer function (option two). So, The **tweets** slice of the state in the store has been initialized to an empty object. The **users** slice of the state in the store has been initialized to an empty object. And, the **authedUser** slice of the state in the store has been initialized to null.
+
+Therefore, we have a `tweets` reducer to manage the _tweets_ slice of the state, a `users` reducer to manage the _users_ slice of the state, and an `authedUser` reducer to manage the _authedUser_ portion of the state. Each of these reducers will manage just its own part of the state. We will combine all of these reducers into one main, root reducer, which will combine the results of calling the `tweets` reducer, `users` reducer, and `authedUser` reducer into a single state object. Remember, we need to do this because the `createStore()` function only accepts a single reducer.
+
+```js
+combineReducers({
+    authedUser: authedUser,
+    tweets: tweets,
+    users: users
+})
+```
+
+Or using ES6's property shorthand, it can just be:
+
+```js
+combineReducers({
+    authedUser,
+    tweets,
+    users
+})
+```
+
+Now that all of our reducers are set up, we need to actually create the store and provide it to our application. To actually use any of the code that we've written up to this point, we need to install the `redux` package. Then, to provide the store to our application, we'll also need to install the `react-redux` package.
+
+Redux applications have a single store. We have to pass the Root Reducer to our `createStore()` function in order for the store to know what pieces of state it should have. The point of creating a store is to allow components to be able to access it without having to pass the data down through multiple components.
+
+The `Provider` component (which comes from the react-redux package) makes it possible for all components to access the store via the `connect()` function.
+
+### Middleware
+
+The last setup involves setting up the app's Middleware functions. Let's create a _logger_ middleware that will help us view the action and state of the sotre as we interact with our application. Also, since `handleInitialData()` action creator in `share.js` returns a function we'll need to install the `react-thunk` package.
+
+Let's hook up our `redux-thunk` middleware, so our thunk action creators actually work. We will put in logger middleware to make debugging easier. All middleware follows this currying pattern:
+
+```js
+const logger = (store) => (next) => (action) => {
+    // ...
+}
+```
+
+The variable `logger` is assigned to a function that takes the `store` as its argument. That function returns another function, which is passed `next` (which is the next middleware in line or the dispatch function). That other function return another function which is passed an `action`. Once inside that third function, we have access to `store`, `next`, and `action`.
+
+It's important to note that the value of the next parameter will be determined by `applyMiddleware()` function. All middleware will be called in the order it is listed in that function. In our case, the `next` will be `dispatch` because `logger` is the last middleware listed in that function. Here is the middleware wiring:
+
+```js
+export default applyMiddleware(
+    thunk,
+    logger
+);
+```
+
+Each thing retruned by an action creator – be it an action or a function – will go through the thunk middleware. The next snippet is the source code of the `thunk` middleware:
+
+```js
+function createThunkMiddleware(extraArgument) {
+    return ({ dispatch, getState }) => next => action => {
+        if (typeof action === 'function') {
+            return action(dispatch, getState, extraArgument);
+        }
+        return next(action);
+    };
+}
+
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+export default thunk;
+```
+
+If the thunk middleware sees an _action_, that action will be sent to the next middleware in line – the logger middleware –. If it sees a _function_, the `thunk` middleware will call that function. That function can contain side effects – such as API calls – and dispatch actions, simple Javascript objects. These dispatched actions will again go to all of the middleware. The thunk middleware will see that it’s a simple action and pass the action on to the next middleware, the logger.
+
+Once inside the logger:
+
+```js
+const logger = store => next => action => {
+    console.group(action.type);
+        console.log("The action:", action);
+        const returnValue = next(action);
+        console.log("The new state:", store.getState());
+    console.groupEnd();
+
+return returnValue;
+};
+```
+
+So, the order in which your pass your arguments inside the `applyMiddleware()` function matters.
