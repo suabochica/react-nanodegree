@@ -456,3 +456,33 @@ return returnValue;
 ```
 
 So, the order in which your pass your arguments inside the `applyMiddleware()` function matters.
+
+Initializing the App's Data
+---------------------------
+
+We have previously determined that we need to get the `users` and `tweets` data from our database and send that data to our store, along with the `authedUser` data, when the home page loads.
+
+We have also created a thunk action creator that gets the data from the database and then dispatches action to the store to set the three pieces of state we have in our store:
+
+- `users`
+- `tweets`
+- `authedUser`
+
+Here's what the `handleInitialData()` thunk action creator looks like:
+
+```js
+function handleInitialData () {
+    return (dispatch) => {
+        return getInitialData()
+        .then(({ users, tweets }) => {
+            dispatch(receiveUsers(users));
+            dispatch(receiveTweets(tweets));
+            dispatch(setAuthedUser(AUTHED_ID));
+        });
+    };
+}
+```
+
+Now the question is _where_ do we dispatch this action creator?. When we walked through the architecture of the app, we saw that the _App_ Component will contain every othe component. If we load the initial data from the _App_ Component, then no matter which route our users goes to, they will se all of the correct data. So, the answer is the App Component.
+
+Using the `connect()` function upgrades a component to a container. Containers can read state from the store and dispatch actions.
