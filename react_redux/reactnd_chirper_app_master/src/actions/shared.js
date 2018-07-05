@@ -4,7 +4,7 @@ import { getUsers } from './users'
 import { getTweets } from './tweets'
 import { setAuthedUser } from './authedUser'
 
-const AUTHED_ID = 'tylecmcginnis'
+const AUTHED_ID = 'tylermcginnis'
 
 export function handleInitialData () {
     return (dispatch) => {

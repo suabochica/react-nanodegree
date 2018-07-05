@@ -14,7 +14,7 @@ export default function tweets (state = {}, action) {
                     ...state[action.id],
                     likes: action.hasLiked === true
                         ? state[action.id].likes.filter((userId) => userId !== action.authedUser)
-                        : state[action.id].likes.concat([action.authedser])
+                        : state[action.id].likes.concat([action.authedUser])
                 }
             }
         case ADD_TWEET:
@@ -36,6 +36,6 @@ export default function tweets (state = {}, action) {
                 ...replyingTo
             }
         default:
-            return state;
+            return state
     }
 }
