@@ -597,3 +597,32 @@ Now, we are getting all the data that we need from the store. Time to build the 
 
 ### `react-redux-loading`
 This library is a set of a component, a reducer and their repectives actions creators that allow us to show a loading bar while the app retrieve all the data.
+
+Liking a Tweet
+--------------
+In the Planning Stage, we figured out that we needed to give the Tweet Component access to the `authedUser` data for the tweet to correctly show whether the logged in user liked the tweet or not and for the user to reply tweets. Also, once the user likes or un-likes a tweet, that informatio needs to be reflected in the store for other components show the correct data.
+
+We will need to write an asynchronous action creator since we need to record whether the logged in user liked a tweet not only in the sotre but also in the database. _Redux thunks_ to the rescue!.
+
+So we can create a thunk action creator like:
+
+```js
+function handleToggleTweet (info) {
+    return (dispatch) => {
+        saveLikeToggle(info)
+            .then(() => {
+                dispatch(toggleTweet(info));
+            })
+            .catch((e) => {
+                console.warn('Error in handleToggleTweet: ', e);
+                alert('There was an error liking the tweet. Try again.');
+            });
+    };
+}
+```
+
+The code only upsated the UI once we receive confirmation that the backend update was successful. This can make the app seem laggy. A common approach to UI updates is Optimistic Updating: updating the UI _before_ the action gets recorded on the backend so it seems more performant.
+
+### Like Tweet Reducer
+Remember that the `tweets` reducer will determine how the `tweets` part of the state changes. When linking/unlinking a tweet, the state for that specific tweet need to change – either the tweet's `like` property – will need to changes to include the user that clicked it, if they are linking to the tweet, or the user's name will need to be removed from the `like` property of the tweet that is an array of authors.
+
