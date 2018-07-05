@@ -626,3 +626,40 @@ The code only upsated the UI once we receive confirmation that the backend updat
 ### Like Tweet Reducer
 Remember that the `tweets` reducer will determine how the `tweets` part of the state changes. When linking/unlinking a tweet, the state for that specific tweet need to change – either the tweet's `like` property – will need to changes to include the user that clicked it, if they are linking to the tweet, or the user's name will need to be removed from the `like` property of the tweet that is an array of authors.
 
+New Tweet Component
+-------------------
+Let's now work on the logic of adding a new tweet. Once the user submits a new tweet, it shoul show up in the list of all tweets and be added to our database. Since this tweet will be used by more than one component, we know that we want to makes sure the store is modified to reflect the updated list of tweets. Recording tweets in a database is an asynchronous operation, so we can use the **Redux Thunk** to issue the API request.
+
+With the New Tweet Component we will use the React component state over Redux, because it is easier. Putting the form state of Redux would not give us any benefits and in fact would be more complicated to do that rather than putting the form details inside the component state.
+
+We now that our store looks like this:
+
+```js
+{
+    tweets: {
+        tweetId: { tweetId, authorId, timestamp, text, likes, replies, replyingTo},
+        tweetId: { tweetId, authorId, timestamp, text, likes, replies, replyingTo}
+    },
+    users: {
+        userId: {userId, userName, avatar, tweets array},
+        userId: {userId, userName, avatar, tweets array}
+    },
+    authedUser: userId
+}
+```
+
+Let's start working on the New Tweet Reducer. How will we be modifying the state to reflect the new tweet? This is going to be a two-part process:
+
+1. The new tweet needs to be added to the list of tweets
+2. An already existing tweet needs to be modified if the new tweet is a response to another tweet
+
+In this reducer we will:
+
+1. Concatenate the new tweet to the list of the already-existing tweets. Remember that the **Object Spread Operator** offers us the most concise way to doing that.
+2. Modify the `replies` property of the tweet the new tweet is replying to.
+
+In Step 2 of the Planning Stage, we determined that the New Tweet Component will show up inside of the App Component when the user goes to the `/new` page and that it will be inside of the Tweet Page Component when the user is on the `/tweet/:id` page.
+
+When the user is at the `/new` route, the new tweet will not be attached to another tweet. When the user is at the `tweet/:id` route, the new tweet will be attached to the already-displayed tweet. Notice that the route already contains the parent tweet’s `id`. We can just pass the `id` from the route to the New Tweet Component whenever we’re creating a reply tweet.
+
+What happens when someone clicks “Submit” to add a new tweet? The New Tweet Component will need to communicate with our store. We communicate with the store by dispatching actions. `dispatch` is a method on the store. That means that the New Tweet Component needs to be `connect()`ed to Redux. Once a component is connected to the store, it will have `dispatch` on its `props`.
