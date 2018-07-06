@@ -10,15 +10,11 @@ class Booklist extends React.Component {
 
   render() {
     const { books, onChangeBookshelf } = this.props;
-    const booksInCurrentlyReading = books.filter((book) => (
-      book.shelf === 'currentlyReading'
-    ));
-    const booksInWantToRead = books.filter((book) => (
-      book.shelf === 'wantToRead'
-    ));
-    const booksInRead = books.filter((book) => (
-      book.shelf === 'read'
-    ));
+    const shelves = {
+      currentlyReading: ['CurrentlyReading', 'currentlyReading'],
+      wantToRead: ['Want to Read', 'wantToRead'],
+      read: ['Read', 'read']
+    }
 
     return (
       <div className="list-books">
@@ -26,23 +22,13 @@ class Booklist extends React.Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          <div>
+          { Object.keys(shelves).map((shelf) =>
             <Bookshelf
-              category={'Currently Reading'}
-              books={booksInCurrentlyReading}
+              category={shelves[shelf][0]}
+              books={books.filter((book) => book.shelf === shelves[shelf][1])}
               onChangeBookshelf={onChangeBookshelf}
             />
-            <Bookshelf
-              category={'Want to Read'}
-              books={booksInWantToRead}
-              onChangeBookshelf={onChangeBookshelf}
-            />
-            <Bookshelf
-              category={'Read'}
-              books={booksInRead}
-              onChangeBookshelf={onChangeBookshelf}
-            />
-          </div>
+          )}
         </div>
       </div>
     )

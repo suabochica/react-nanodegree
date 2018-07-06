@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 class Shelfchanger extends React.Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
+    shelf: PropTypes.string.isRequired,
     onChangeBookshelf: PropTypes.func.isRequired
   }
 

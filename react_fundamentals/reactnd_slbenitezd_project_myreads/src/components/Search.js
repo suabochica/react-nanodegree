@@ -15,7 +15,7 @@ class Search extends React.Component {
     hasNotSearchResult: false
   }
 
-  handleInputChangeEvent = (event) => {
+  onInputChangeEvent = (event) => {
     const query = event.target.value;
 
     this.setState(() => ({
@@ -32,21 +32,25 @@ class Search extends React.Component {
   searchBooks = (query) => {
     let bookInShelf;
 
-    BooksAPI.search(query)
-      .then((books) => {
-        books.forEach((bookInSearch) => {
-          bookInShelf = this.props.books.find((bookInHomepage) => bookInHomepage.id === bookInSearch.id)
+    if (query !== '') {
+      BooksAPI.search(query)
+        .then((books) => {
+          books.forEach((bookInSearch) => {
+            bookInShelf = this.props.books.find((bookInHomepage) => bookInHomepage.id === bookInSearch.id)
 
-          bookInShelf ? bookInSearch.shelf = bookInShelf.shelf : bookInSearch.shelf = 'none'
+            bookInShelf ? bookInSearch.shelf = bookInShelf.shelf : bookInSearch.shelf = 'none'
+          })
+
+          books.length > 0
+            ? this.setState(() => ({
+                booksInSearch: books,
+                hasNotSearchResult: false
+              }))
+            : this.clearQuery();
         })
-
-        books.length > 0
-          ? this.setState(() => ({
-              booksInSearch: books,
-              hasNotSearchResult: false
-            }))
-          : this.clearQuery();
-      })
+    } else {
+      alert(`Please enter a valid query`);
+    }
   }
 
   clearQuery = () => {
@@ -69,7 +73,7 @@ class Search extends React.Component {
               type="text"
               placeholder="Search by title or author"
               value={query}
-              onChange={this.handleInputChangeEvent}
+              onChange={this.onInputChangeEvent}
             />
           </div>
         </div>
