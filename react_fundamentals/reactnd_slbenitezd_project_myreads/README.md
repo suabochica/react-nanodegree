@@ -4,7 +4,7 @@ This is my final assessment project for Udacity's React Fundamentals course.
 
 ### Run the project
 
-The zip file not have the `node_modeules` folder so to run the project please run:
+The zip file not have the `node_modules` folder. So, to run the project please execute:
 
 1. `npm i`
 2. `yarn start` or `npm start`

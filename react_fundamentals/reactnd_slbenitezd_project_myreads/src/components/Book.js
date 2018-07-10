@@ -7,6 +7,7 @@ class Book extends React.Component {
     book: PropTypes.object.isRequired,
     onChangeBookshelf: PropTypes.func.isRequired
   }
+
   render() {
     const { book, onChangeBookshelf } = this.props;
 

@@ -48,8 +48,11 @@ class Search extends React.Component {
               }))
             : this.clearQuery();
         })
-    } else {
-      alert(`Please enter a valid query`);
+        .catch((error) => {
+          this.setState(() => ({
+            hasNotSearchResult: true
+          }))
+        })
     }
   }
 

@@ -24,6 +24,7 @@ class Booklist extends React.Component {
         <div className="list-books-content">
           { Object.keys(shelves).map((shelf) =>
             <Bookshelf
+              key={shelves[shelf][1]}
               category={shelves[shelf][0]}
               books={books.filter((book) => book.shelf === shelves[shelf][1])}
               onChangeBookshelf={onChangeBookshelf}
