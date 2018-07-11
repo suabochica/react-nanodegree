@@ -1,6 +1,8 @@
 // Auth
 export const LOG_IN = 'LOG_IN'
 export const LOG_OUT = 'LOG_IOUT'
+// Provisional
+export const SET_AUTHED_USER = 'SET_AUTHED_USER'
 
 // Questions
 export const GET_QUESTIONS = 'GET_QUESTIONS'
