@@ -1,5 +1,5 @@
 // Relative imports
-import { getInitialData } from '../utils/api'
+import { getInitialData } from '../../utils/api'
 import { getQuestions } from './questions'
 import { getUsers } from './users'
 import { setAuthedUser } from './authedUser'

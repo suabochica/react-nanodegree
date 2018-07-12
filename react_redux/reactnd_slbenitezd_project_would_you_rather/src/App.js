@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { handleInitialData } from '../actions/shared'
+
+import { handleInitialData } from './redux/actions/shared'
+
+import {
+  Question,
+  Questions
+} from './components'
 
 
 class App extends Component {
@@ -11,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Hola</h1>
+        <Questions />
       </div>
     );
   }

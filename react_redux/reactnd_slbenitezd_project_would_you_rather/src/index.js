@@ -4,9 +4,9 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 // Relative imports
 import './index.css'
-import App from './components/App'
-import reducers from './reducers'
-import middleware from './middleware'
+import App from './App'
+import reducers from './redux/reducers'
+import middleware from './redux/middleware'
 
 const store = createStore(reducers, middleware)
 

@@ -1,4 +1,4 @@
-import { GET_QUESTIONS } from '../actions/actionTypes'
+import { GET_QUESTIONS } from '../actions/types'
 
 export default function questions (state = {}, action) {
     switch (action.type) {

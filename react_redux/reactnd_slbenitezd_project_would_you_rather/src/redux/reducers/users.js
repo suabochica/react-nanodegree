@@ -1,4 +1,4 @@
-import { GET_USERS } from '../actions/actionTypes'
+import { GET_USERS } from '../actions/types'
 
 export default function users (state = {}, action) {
     switch (action.type) {
