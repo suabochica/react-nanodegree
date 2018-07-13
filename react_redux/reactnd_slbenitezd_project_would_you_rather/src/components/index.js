@@ -1,5 +1,5 @@
-import Question from './Question/Question'
-import Questions from './Questions/Questions'
+import Question from './Question/Question.component'
+import Questions from './Questions/Questions.component'
 
 export {
     Question,

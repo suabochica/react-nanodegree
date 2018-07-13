@@ -1,4 +1,4 @@
-import { GET_USERS }  from './types'
+import { GET_USERS }  from './types.action'
 
 export function getUsers (users) {
     return {

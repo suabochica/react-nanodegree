@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 // Relative imports
-import authedUser from './authedUser'
-import users from './users'
-import questions from './questions'
+import authedUser from './authedUser.reducer'
+import users from './users.reducer'
+import questions from './questions.reducer'
 
 export default combineReducers({
     authedUser,

@@ -1,8 +1,8 @@
 // Relative imports
 import { getInitialData } from '../../utils/api'
-import { getQuestions } from './questions'
-import { getUsers } from './users'
-import { setAuthedUser } from './authedUser'
+import { getQuestions } from './questions.action'
+import { getUsers } from './users.action'
+import { setAuthedUser } from './authedUser.action'
 
 const AUTHED_ID = 'tylermcginnis'
 
