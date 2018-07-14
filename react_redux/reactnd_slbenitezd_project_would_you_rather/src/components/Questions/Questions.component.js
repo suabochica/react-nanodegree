@@ -44,7 +44,7 @@ class Questions extends Component {
 
   render() {
     const { filter } = this.state
-    const { questions, users } = this.props
+    const { users } = this.props
 
     return (
       <div>
@@ -72,12 +72,12 @@ class Questions extends Component {
           </label>
         </div>
 
-        {}
         <ul className="questions-list">
           {this.filterQuestions().map((question) => (
             <div className="questions-question-card">
               <figure className="questions-question-card-avatar">
                 <img
+                  src={users.find(user => user.id === question.author).avatarURL || ''}
                   alt={question.author}
                 />
               </figure>
@@ -103,7 +103,7 @@ class Questions extends Component {
 function mapStateToProps({ questions, users, authedUser }) {
   return {
     questions: Object.values(questions),
-    users,
+    users: Object.values(users),
     authedUser
   }
 }
