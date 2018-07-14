@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import LoadingBar from 'react-redux-loading'
 
 import { handleInitialData } from './redux/actions/shared'
 
 import {
   Question,
-  Questions
+  Questions,
+  Login,
 } from './components'
 
 
@@ -17,7 +19,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Questions />
+        <LoadingBar />
+        <Question questionId='8xf0y6ziyjabvozdd253nd' />
+{/*}
+        <Questions/>
+        <Login />
+*/}
       </div>
     );
   }

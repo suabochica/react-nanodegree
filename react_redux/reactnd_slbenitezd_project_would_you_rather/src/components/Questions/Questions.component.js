@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Question from '../Question/Question.component'
 
 const ANSWERED = 'answered'
 const UNANSWERED = 'unanswered'
@@ -100,11 +99,11 @@ class Questions extends Component {
   }
 }
 
-function mapStateToProps({ questions, users, authedUser }) {
+const mapStateToProps = (state) => {
   return {
-    questions: Object.values(questions),
-    users: Object.values(users),
-    authedUser
+    questions: Object.values(state.questions),
+    users: Object.values(state.users),
+    authedUser: state.authedUser,
   }
 }
 
