@@ -30,6 +30,7 @@ class Questions extends Component {
           ].some(userId => userId === authedUser)
         ))
       case ANSWERED:
+
         return questions.filter(question => (
           [
             ...question.optionOne.votes,

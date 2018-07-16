@@ -3,6 +3,12 @@ import { connect } from 'react-redux'
 
 class QuestionOptions extends Component {
 
+  handleSubmit = (event) => {
+    event.preventDefault()
+
+    // TODO: logic to answer question
+  }
+
   render () {
     const { question, users } = this.props
     const {
@@ -10,7 +16,7 @@ class QuestionOptions extends Component {
       optionOne,
       optionTwo,
     } = question
-    const userAuthor = users.find(user => user.id === question.author)
+    const userAuthor = users.find(user => user.id === author)
 
     return (
       <div>
@@ -23,10 +29,12 @@ class QuestionOptions extends Component {
         </figure>
         <div className="questions-question-card-info">
           <div className="questions-question-card-user">
-            {question.author} asks
+            {author} asks
                 </div>
           <h3> Would you rather? </h3>
-          <form>
+          <form
+            onsSubmit={this.handleSubmit}
+          >
             <input type="radio" name="optionOne" value={optionOne.text} /> {optionOne.text}
             <input type="radio" name="optionOne" value={optionTwo.text} /> {optionTwo.text}
             <input type="submit" value="Submit" />
