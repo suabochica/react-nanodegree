@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import QuestionOptions from './QuestionOptions.component'
+import QuestionResults from './QuestionResults.component'
 
 class Question extends Component {
   handleSubmit = (event) => {
@@ -9,7 +11,7 @@ class Question extends Component {
   }
 
   render() {
-    const { question, users } = this.props
+    const { question, users , authedUser, answered} = this.props
     const {
       author,
       optionOne,
@@ -29,23 +31,12 @@ class Question extends Component {
           question !== undefined && userAuthor !== undefined &&
           (
             <div>
-              <figure className="questions-question-card-avatar">
-                <img
-                  src={userAuthor.avatarURL || ''}
-                  alt={author}
-                />
-              </figure>
-              <div className="questions-question-card-info">
-                <div className="questions-question-card-user">
-                  {question.author} asks
-                </div>
-                <h3> Would you rather? </h3>
-                <form>
-                  <input type="radio" name="optionOne" value={optionOne.text}/> {optionOne.text}
-                  <input type="radio" name="optionOne" value={optionTwo.text}/> {optionTwo.text}
-                  <input type="submit" value="Submit"/>
-                </form>
-              </div>
+              {
+                //TODO: review how to add a flag to the answered questions
+                false
+                ? (<QuestionOptions questionId={question.id} />)
+                : (<QuestionResults questionId={question.id} />)
+              }
             </div>
           )
         }
