@@ -5,7 +5,7 @@ class Leaderboard extends Component {
 
   render() {
     const { users } = this.props
-console.log({users})
+
     return (
       <div>
         <h1>Leaderboard</h1>
