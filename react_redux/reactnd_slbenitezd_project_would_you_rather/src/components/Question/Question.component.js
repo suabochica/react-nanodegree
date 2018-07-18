@@ -29,7 +29,7 @@ class Question extends Component {
             <div>
               {
                 //TODO: review how to add a flag to the answered questions
-                true
+                false
                 ? (<QuestionResults questionId={question.id} />)
                 : (<QuestionOptions questionId={question.id} />)
               }

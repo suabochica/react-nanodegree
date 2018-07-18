@@ -30,6 +30,7 @@ class NewQuestion extends Component {
 
     const { optionOneText, optionTwoText } = this.state
     const { dispatch } = this.props
+
     if (optionOneText && optionTwoText) {
       dispatch(handleAddQuestion(
         optionOneText,
