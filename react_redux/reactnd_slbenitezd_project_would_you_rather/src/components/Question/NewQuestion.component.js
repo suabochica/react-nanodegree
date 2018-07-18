@@ -1,7 +1,48 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+//Relative imports
+import { handleAddQuestion } from '../../redux/actions/questions.action'
 
 class NewQuestion extends Component {
+  state = {
+    optionOneText: '',
+    optionTwoText: '',
+  }
+
+  handleChangeOptionOneText = (event) => {
+    const optionOneText = event.target.value
+
+    this.setState(() => ({
+      optionOneText,
+    }))
+  }
+
+  handleChangeOptionTwoText = (event) => {
+    const optionTwoText = event.target.value
+
+    this.setState(() => ({
+      optionTwoText,
+    }))
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const { optionOneText, optionTwoText } = this.state
+    const { dispatch } = this.props
+    if (optionOneText && optionTwoText) {
+      dispatch(handleAddQuestion(
+        optionOneText,
+        optionTwoText,
+      ))
+    }
+
+    this.setState(() => ({
+      optionOneText: '',
+      optionTwoText: ''
+    }))
+  }
+
   render () {
     return (
       <div>
@@ -12,12 +53,22 @@ class NewQuestion extends Component {
           <h2>Would you rather?</h2>
           <fieldset>
             <label htmlFor="option-one">Option One</label>
-            <input name="option-one" type="text"></input>
+            <input
+              name="option-one"
+              type="text"
+              onChange={this.handleChangeOptionOneText}
+            >
+            </input>
           </fieldset>
           <p> or </p>
           <fieldset>
             <label htmlFor="option-two">Option Two</label>
-            <input name="option-two" type="text"></input>
+            <input
+            name="option-two"
+            type="text"
+            onChange={this.handleChangeOptionTwoText}
+          >
+          </input>
           </fieldset>
           <button
             type="submit"

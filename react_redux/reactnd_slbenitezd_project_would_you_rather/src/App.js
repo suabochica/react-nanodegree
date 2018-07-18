@@ -24,9 +24,9 @@ class App extends Component {
     return (
       <div className="App">
         <LoadingBar />
-        <Login />
-{/*
         <NewQuestion />
+{/*
+        <Login />
         <Leaderboard />
         <Question questionId='8xf0y6ziyjabvozdd253nd' />
         <Question questionId='vthrdm985a262al8qx3do' />
