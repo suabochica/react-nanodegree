@@ -29,13 +29,12 @@ export function getQuestions(questions) {
 
 export function handleAddQuestion(optionOneText, optionTwoText) {
   return (dispatch, getState) => {
-    // TODO: enable when login feature will integrated
     const { authedUser } = getState()
 
     dispatch(showLoading())
 
     return saveQuestion({
-      author: 'sarahedo',
+      author: authedUser.user,
       optionOneText,
       optionTwoText,
     })
@@ -46,10 +45,9 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
 
 export function handleSaveVote(questionInfo) {
   return (dispatch, getState) => {
-    // TODO: enable when login feature will integrated
     const { authedUser } = getState();
     const questionVote = {
-      authedUser: 'sarahedo',
+      authedUser: authedUser.user,
       qid: questionInfo.questionId,
       answer: questionInfo.option
     }

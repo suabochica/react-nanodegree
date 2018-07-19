@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom';
+// Relative Imports
 import { handleLogInUser } from '../../redux/actions/authedUser.action'
 
 class Login extends Component {
@@ -7,14 +9,15 @@ class Login extends Component {
     super(props)
     this.authedUser = React.createRef()
     this.state = {
-      user: ''
+      user: '',
+      redirectToReferrer: false,
     }
   }
 
   handleChange = (event) => {
-    event.preventDefault()
-
     const user = event.target.value
+
+    event.preventDefault()
 
     this.setState(() => ({
       user
@@ -22,17 +25,27 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault()
-
     const { dispatch } = this.props
     const { user } = this.state
 
+    event.preventDefault()
+
     dispatch(handleLogInUser(user))
+
+    this.setState(() => ({
+      redirectToReferrer: true
+    }))
 
   }
 
   render () {
-    const { users, authedUser } = this.props
+    const { users, location } = this.props
+    const { from } = location.state || { from: { pathname: '/' } };
+    const { redirectToReferrer } = this.state
+
+    if (redirectToReferrer === true) {
+      return <Redirect to={from} />
+    }
 
     return (
       <div>
@@ -76,7 +89,6 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     users: Object.values(state.users),
-    authedUser: state.authedUser,
   }
 }
 

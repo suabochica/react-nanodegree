@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
-
+// Relative imports
 import { handleInitialData } from './redux/actions/shared'
 
 import {
   NewQuestion,
   Question,
-  QuestionOptions,
-  QuestionResults,
   Questions,
   Login,
   Leaderboard,
+  Nav,
+  PrivateRoute,
 } from './components'
 
 
@@ -22,25 +23,23 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <LoadingBar />
-        <Question questionId='vthrdm985a262al8qx3do' />
-{/*
-  <NewQuestion />
-  <Login />
-  <Leaderboard />
-  <Question questionId='8xf0y6ziyjabvozdd253nd' />
-        <Questions/>
-*/}
-      </div>
+      <Router>
+        <Fragment>
+          <LoadingBar />
+          <div className="App">
+            <Nav />
+            <Switch>
+              <PrivateRoute path='/' exact component={Questions} />
+              <Route path='/login' exact component={Login} />
+              <PrivateRoute path='/question/:id' exact component={Question} />
+              <PrivateRoute path='/new' exact component={NewQuestion} />
+              <PrivateRoute path='/leaderboard' exact component={Leaderboard} />
+            </Switch>
+          </div>
+        </Fragment>
+      </Router>
     );
   }
 }
 
-function mapStateToProps ({ authedUser }) {
-  return {
-    loading: authedUser === null
-  }
-}
-
-export default connect(mapStateToProps)(App)
+export default connect()(App)

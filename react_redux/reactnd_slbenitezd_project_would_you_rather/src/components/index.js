@@ -5,6 +5,8 @@ import Question from './Question/Question.component'
 import Questions from './Questions/Questions.component'
 import Login from './Login/Login.component'
 import Leaderboard from './Leaderboard/Leaderboard.component'
+import Nav from './Nav/Nav.component'
+import PrivateRoute from './PrivateRoute/PrivateRoute.component'
 
 export {
     NewQuestion,
@@ -14,4 +16,6 @@ export {
     Questions,
     Login,
     Leaderboard,
+    Nav,
+    PrivateRoute,
 }

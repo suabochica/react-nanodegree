@@ -100,13 +100,13 @@ class QuestionOptions extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  // const { id } = props.match.params
+  const { id } = props.match.params
 
-  const questionId = props.questionId
-  const question = state.questions[questionId]
+  //const questionId = props.questionId
+  const question = state.questions[id]
 
   return {
-    questionId: questionId,
+    questionId: id,
     question: question,
     users: Object.values(state.users),
     authedUser: state.authedUser,

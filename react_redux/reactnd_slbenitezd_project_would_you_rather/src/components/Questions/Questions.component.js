@@ -27,7 +27,7 @@ class Questions extends Component {
           ![
             ...question.optionOne.votes,
             ...question.optionTwo.votes
-          ].some(userId => userId === authedUser)
+          ].some(userId => userId === authedUser.user)
         ))
       case ANSWERED:
 
@@ -35,7 +35,7 @@ class Questions extends Component {
           [
             ...question.optionOne.votes,
             ...question.optionTwo.votes
-          ].some(userId => userId === authedUser)
+          ].some(userId => userId === authedUser.user)
         ))
       default:
         return questions;
@@ -74,7 +74,10 @@ class Questions extends Component {
 
         <ul className="questions-list">
           {this.filterQuestions().map((question) => (
-            <div className="questions-question-card">
+            <div
+              className="questions-question-card"
+              key={question.id}
+            >
               <figure className="questions-question-card-avatar">
                 <img
                   src={users.find(user => user.id === question.author).avatarURL || ''}

@@ -79,10 +79,9 @@ class QuestionResults extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  // const { id } = props.match.params
-
-  const questionId = props.questionId
-  const question = state.questions[questionId]
+  const { id } = props.match.params
+  //const questionId = props.questionId
+  const question = state.questions[id]
 
   return {
     question: question,

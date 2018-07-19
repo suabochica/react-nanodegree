@@ -9,10 +9,10 @@ function logInUser(id) {
   }
 }
 
-function logOutUser(id) {
+function logOutUser() {
   return {
     type: LOG_OUT,
-    id
+    id: null
   }
 }
 
@@ -23,6 +23,17 @@ export function handleLogInUser(user) {
 
     return saveUser({ user })
       .then((user) => dispatch(logInUser(user)))
+      .then(() => dispatch(hideLoading()))
+  }
+}
+
+export function handleLogOutUser() {
+  // Optimistic updating
+  return (dispatch) => {
+    dispatch(showLoading())
+
+    return saveUser(null)
+      .then(() => dispatch(logOutUser()))
       .then(() => dispatch(hideLoading()))
   }
 }

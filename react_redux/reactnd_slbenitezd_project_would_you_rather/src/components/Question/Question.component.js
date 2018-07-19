@@ -7,12 +7,11 @@ class Question extends Component {
 
   render() {
     const { question, users, authedUser} = this.props
-    /*
+
     const isQuestionAnswered = [
         ...question.optionOne.votes,
         ...question.optionTwo.votes
       ].some(userId => userId === authedUser)
-    */
 
       return (
       <div>
@@ -29,7 +28,7 @@ class Question extends Component {
             <div>
               {
                 //TODO: review how to add a flag to the answered questions
-                false
+                isQuestionAnswered
                 ? (<QuestionResults questionId={question.id} />)
                 : (<QuestionOptions questionId={question.id} />)
               }
@@ -42,12 +41,12 @@ class Question extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  // const { id } = props.match.params
+  const { id } = props.match.params
 
-  const questionId = props.questionId
+  //const questionId = props.questionId
 
   return {
-    question: state.questions[questionId],
+    question: state.questions[id],
     users: Object.keys(state.users),
     authedUser: state.authedUser,
   }
