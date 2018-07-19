@@ -2,14 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class QuestionResults extends Component {
-  handleSubmit = (event) => {
-    event.preventDefault()
-
-    // TODO: logic to answer question
-  }
-
   render() {
-    const { question, authedUser, users } = this.props;
+    const { question, users } = this.props;
     const { author } = question
     const totalVotes = [
       ...question.optionOne.votes,
@@ -79,9 +73,8 @@ class QuestionResults extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const { id } = props.match.params
-  //const questionId = props.questionId
-  const question = state.questions[id]
+  const questionId = props.questionId
+  const question = state.questions[questionId]
 
   return {
     question: question,

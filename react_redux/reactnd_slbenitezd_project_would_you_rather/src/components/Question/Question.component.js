@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+// Relative Imports
 import QuestionOptions from './QuestionOptions.component'
 import QuestionResults from './QuestionResults.component'
 
 class Question extends Component {
-
   render() {
-    const { question, users, authedUser} = this.props
-
+    const { question, authedUser} = this.props
     const isQuestionAnswered = [
         ...question.optionOne.votes,
         ...question.optionTwo.votes
-      ].some(userId => userId === authedUser)
+      ].some(userId => userId === authedUser.user)
 
       return (
       <div>
@@ -27,7 +26,6 @@ class Question extends Component {
           (
             <div>
               {
-                //TODO: review how to add a flag to the answered questions
                 isQuestionAnswered
                 ? (<QuestionResults questionId={question.id} />)
                 : (<QuestionOptions questionId={question.id} />)
@@ -42,7 +40,6 @@ class Question extends Component {
 
 const mapStateToProps = (state, props) => {
   const { id } = props.match.params
-
   //const questionId = props.questionId
 
   return {

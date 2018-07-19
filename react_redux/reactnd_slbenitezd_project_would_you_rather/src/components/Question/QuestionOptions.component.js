@@ -11,7 +11,7 @@ class QuestionOptions extends Component {
     const { questionId } = this.props
     const option = event.target.name
 
-    event.preventDefault
+    event.preventDefault()
 
     this.setState(() => ({
       userVote: {
@@ -25,7 +25,7 @@ class QuestionOptions extends Component {
     const { questionId } = this.props
     const option = event.target.name
 
-    event.preventDefault
+    event.preventDefault()
 
     this.setState(() => ({
       userVote: {
@@ -100,13 +100,11 @@ class QuestionOptions extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const { id } = props.match.params
-
-  //const questionId = props.questionId
-  const question = state.questions[id]
+  const questionId = props.questionId
+  const question = state.questions[questionId]
 
   return {
-    questionId: id,
+    questionId: questionId,
     question: question,
     users: Object.values(state.users),
     authedUser: state.authedUser,

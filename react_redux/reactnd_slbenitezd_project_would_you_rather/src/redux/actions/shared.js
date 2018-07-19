@@ -3,7 +3,6 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 import { getInitialData } from '../../utils/api'
 import { getQuestions } from './questions.action'
 import { getUsers } from './users.action'
-import { setAuthedUser } from './authedUser.action'
 
 export function handleInitialData () {
     return (dispatch) => {

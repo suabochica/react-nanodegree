@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 const ANSWERED = 'answered'
 const UNANSWERED = 'unanswered'
@@ -88,12 +89,15 @@ class Questions extends Component {
                 <div className="questions-question-card-user">
                   {question.author} asks
                   </div>
-                <p> Would you rather? </p>
-                <button
-                  className="questions-question-card-btn"
+                <h3>Would you rather?</h3>
+                <p>{question.optionOne.text}</p>
+                <p>{question.optionTwo.text}</p>
+                <Link
+                  to={`/question/${question.id}`}
+                  className='question'
                 >
                   View poll
-                </button>
+                </ Link>
               </div>
             </div>
           ))}
