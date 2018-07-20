@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 // Relative Imports
 import { handleLogInUser } from '../../redux/actions/authedUser.action'
-import './Login.styles.css';
+import './Login.styles.css'
 
 class Login extends Component {
   constructor(props) {

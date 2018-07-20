@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 // Relative Imports
 import QuestionOptions from './QuestionOptions.component'
@@ -13,9 +13,7 @@ class Question extends Component {
       ].some(userId => userId === authedUser.user)
 
       return (
-      <div>
-        <h1>Question</h1>
-
+      <Fragment>
         {
           question === undefined &&
           'Loading question..'
@@ -33,14 +31,13 @@ class Question extends Component {
             </div>
           )
         }
-      </div>
+      </Fragment>
     )
   }
 }
 
 const mapStateToProps = (state, props) => {
   const { id } = props.match.params
-  //const questionId = props.questionId
 
   return {
     question: state.questions[id],

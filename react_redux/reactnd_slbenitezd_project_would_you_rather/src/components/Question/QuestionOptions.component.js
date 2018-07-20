@@ -59,7 +59,7 @@ class QuestionOptions extends Component {
     const userAuthor = users.find(user => user.id === author)
 
     return (
-      <div>
+      <div className="container center">
         <h1>Question Options</h1>
         <figure className="questions-question-card-avatar">
           <img

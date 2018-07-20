@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleLogOutUser } from '../../redux/actions/authedUser.action'
 // Relative import
-import './Nav.styles.css';
+import './Nav.styles.css'
 
 class Nav extends Component {
   handleClickLogOut = (event) => {

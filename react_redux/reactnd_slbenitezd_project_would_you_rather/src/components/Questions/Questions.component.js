@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
+// Relative Imports
+import './Questions.styles.css'
 
 const ANSWERED = 'answered'
 const UNANSWERED = 'unanswered'
@@ -16,7 +18,6 @@ class Questions extends Component {
     })
   }
 
-  // Candidate to be a component: This code seems reducer code.
   filterQuestions = () => {
     const { filter } = this.state
     const { questions, authedUser } = this.props
@@ -48,7 +49,7 @@ class Questions extends Component {
     const { users } = this.props
 
     return (
-      <div>
+      <div className="container center">
         <h1>Questions</h1>
         <div className="questions-inputs">
           <label className={`questions-label ${filter === ANSWERED ? 'is-selected' : ''}`}>

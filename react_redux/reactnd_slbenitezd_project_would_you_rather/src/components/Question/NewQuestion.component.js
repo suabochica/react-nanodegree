@@ -55,7 +55,7 @@ class NewQuestion extends Component {
     }
 
     return (
-      <div>
+      <div className="container center">
         <h1>New Question</h1>
         <form
           onSubmit={this.handleSubmit}

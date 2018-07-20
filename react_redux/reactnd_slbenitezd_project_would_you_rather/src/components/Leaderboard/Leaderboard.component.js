@@ -6,7 +6,7 @@ class Leaderboard extends Component {
     const { users } = this.props
 
     return (
-      <div>
+      <div className="container center">
         <h1>Leaderboard</h1>
         <ul>
           {users.map(user => (
