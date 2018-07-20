@@ -7,7 +7,8 @@ import { GET_QUESTIONS, ADD_QUESTION, SAVE_VOTE } from './types.action';
 function addQuestion(question) {
   return {
     type: ADD_QUESTION,
-    question
+    authedUser: question.author,
+    question,
   }
 }
 
