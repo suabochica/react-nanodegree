@@ -1,0 +1,37 @@
+.login-select {
+  background: #ffffff;
+  border: 2px solid var(--pastelgreen);
+  height: 36px;
+  position: relative;
+}
+
+.login-select:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  border-top: 7px solid var(--pastelgreen);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  z-index: 1;
+}
+
+.login-select select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--fiend);
+  cursor: pointer;
+  font-size: 14px;
+  height: 36px;
+  outline: none;
+  padding: 4px 4px 4px 10px;
+  width: 100%;
+}
+
+.login-button {
+  width: 100%;
+}

@@ -18,31 +18,41 @@ class Nav extends Component {
     const { authedUser } = this.props
 
     return (
-      <div className='container border-bottom'>
-        <nav className='nav'>
+      <div className="container border-bottom">
+        <nav className="nav">
           <ul>
             <li>
-              <NavLink to='/' exact activeClassName='active'>
+              <NavLink to="/" exact activeClassName="active">
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to='/new' exact activeClassName='active'>
+              <NavLink to="/new" exact activeClassName="active">
                 New Question
               </NavLink>
             </li>
             <li>
-              <NavLink to='/leaderboard' exact activeClassName='active'>
-                Leaderboard
+              <NavLink to="/leaderboard" exact activeClassName="active">
+                Leader Board
               </NavLink>
             </li>
             <li>
               {
                 authedUser
-                ? <p>
-                    Welcome {authedUser.id}, <button onClick={this.handleClickLogOut}>Logout </button>
-                  </p>
-                : <NavLink to='/login' exact activeClassName='active'>
+                ?  <NavLink to="/login"
+                      className="logout-link"
+                      exact
+                      activeClassName="active"
+                      onClick={this.handleClickLogOut}
+                    >
+                    <img
+                      className="login-avatar"
+                      src={authedUser.avatarURL}
+                      alt={authedUser.id}
+                    />
+                    Logout
+                  </NavLink>
+                : <NavLink to="/login" exact activeClassName="active">
                     Login
                   </NavLink>
               }

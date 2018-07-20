@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 // Relative Imports
 import { handleLogInUser } from '../../redux/actions/authedUser.action'
+import './Login.styles.css';
 
 class Login extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class Login extends Component {
     }
 
     return (
-      <div>
+      <div className="container center">
         <h1>Login</h1>
         <form
           onSubmit={this.handleSubmit}
@@ -59,12 +60,12 @@ class Login extends Component {
           }
           {
             users.length > 0 && (
-              <div>
+              <div className="center login-select">
                 <select
-                  className="login-select"
                   ref={this.authedUser}
                   onChange={this.handleChange}
                 >
+                  <option value="default">Select an user</option>
                   {users.map(user => (
                     <option
                       key={user.id}
@@ -74,7 +75,7 @@ class Login extends Component {
                     </option>
                   ))}
                 </select>
-                <button className="login-button">
+                <button className="btn login-button">
                   Login
                 </button>
               </div>

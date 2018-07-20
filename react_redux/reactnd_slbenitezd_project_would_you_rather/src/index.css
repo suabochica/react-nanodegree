@@ -35,3 +35,29 @@ a:hover {
   margin: 0 auto;
   padding: 10px;
 }
+
+.btn {
+  background: var(--pastelgreen);
+  border: 2px solid var(--pastelgreen);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 16px;
+  margin: 35px auto;
+  padding: 10px;
+  position: relative;
+  text-transform: uppercase;
+  transition: background .2s linear, border .2s linear;
+  width: 250px;
+}
+
+.btn:hover {
+  border: 2px solid var(--greenblue);
+  background: var(--greenblue);
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: 0;
+  font-weight: 700;
+  border-width: 2px;
+}
