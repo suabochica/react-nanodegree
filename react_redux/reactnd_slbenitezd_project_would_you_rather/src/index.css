@@ -1,5 +1,37 @@
+:root {
+  --black: #2d2d2d;
+  --feind: #594f4f;
+  --grayblue: #547980;
+  --greenblue: #45afa8;
+  --pastelgreen: #9de0ad;
+  --lime: #e5fcc2;
+  --white: #fdfdfd;
+}
+
 body {
+  color: var(--feind);
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+a {
+  color: var(--greenblue);
+  text-decoration: none;
+  transition: border-bottom .3s linear, color .3s linear;
+}
+
+a:hover {
+  border-bottom: 2px solid var(--feind);
+  color: var(--feind);
+}
+
+.center {
+  text-align: center;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
 }

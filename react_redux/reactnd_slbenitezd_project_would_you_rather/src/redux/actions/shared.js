@@ -4,14 +4,14 @@ import { getInitialData } from '../../utils/api'
 import { getQuestions } from './questions.action'
 import { getUsers } from './users.action'
 
-export function handleInitialData () {
-    return (dispatch) => {
-        dispatch(showLoading())
-        return getInitialData ()
-            .then(({ users, questions }) => {
-                dispatch(getUsers(users))
-                dispatch(getQuestions(questions))
-                dispatch(hideLoading())
-            })
-    }
+export function handleInitialData() {
+	return (dispatch) => {
+		dispatch(showLoading())
+		return getInitialData()
+			.then(({ users, questions }) => {
+				dispatch(getUsers(users))
+				dispatch(getQuestions(questions))
+				dispatch(hideLoading())
+			})
+	}
 }
