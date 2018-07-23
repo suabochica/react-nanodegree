@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom';
 //Relative imports
 import { handleAddQuestion } from '../../redux/actions/questions.action'
+import './NewQuestion.styles.css'
 
 class NewQuestion extends Component {
   state = {
@@ -61,7 +62,7 @@ class NewQuestion extends Component {
           onSubmit={this.handleSubmit}
         >
           <h2>Would you rather?</h2>
-          <fieldset>
+          <fieldset className="fieldset-container">
             <label htmlFor="option-one">Option One</label>
             <input
               name="option-one"
@@ -71,7 +72,7 @@ class NewQuestion extends Component {
             </input>
           </fieldset>
           <p> or </p>
-          <fieldset>
+          <fieldset className="fieldset-container">
             <label htmlFor="option-two">Option Two</label>
             <input
             name="option-two"
@@ -81,6 +82,7 @@ class NewQuestion extends Component {
           </input>
           </fieldset>
           <button
+            className="btn"
             type="submit"
           >
             Submit

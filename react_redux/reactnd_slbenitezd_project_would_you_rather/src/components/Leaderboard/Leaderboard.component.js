@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+// Relative imports
+import './Leaderboard.styles.css'
 
 class Leaderboard extends Component {
   render() {
@@ -23,7 +25,7 @@ class Leaderboard extends Component {
                 <p>{user.questions.length} Questions created</p>
               </div>
               <div className="leaderboard-card-score">
-              <p> Total {Object.keys(user.answers).length + user.questions.length}</p>
+              <p className="leaderboard-total"> Total {Object.keys(user.answers).length + user.questions.length}</p>
               </div>
             </li>
           ))}

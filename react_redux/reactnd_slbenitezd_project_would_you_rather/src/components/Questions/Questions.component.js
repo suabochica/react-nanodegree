@@ -91,7 +91,7 @@ class Questions extends Component {
                   {question.author} asks
                   </div>
                 <h3>Would you rather?</h3>
-                <p>{question.optionOne.text}</p>
+                <p>{question.optionOne.text} <i>or</i></p>
                 <p>{question.optionTwo.text}</p>
                 <Link
                   to={`/question/${question.id}`}

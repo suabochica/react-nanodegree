@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // Relative imports
 import { handleSaveVote } from '../../redux/actions/questions.action'
+import './QuestionOptions.styles.css'
+
+const OPTION_ONE = "optionOne"
+const OPTION_TWO = "optionTwo"
 
 class QuestionOptions extends Component {
   state = {
-    userVote: ''
+    userVote: '',
+    checked: OPTION_ONE
   }
+
   handleChangeOptionOne = (event) => {
     const { questionId } = this.props
     const option = event.target.name
@@ -17,11 +23,12 @@ class QuestionOptions extends Component {
       userVote: {
         questionId,
         option
-      }
+      },
+      checked: OPTION_ONE,
     }))
   }
 
-  handleChangeOptionOne = (event) => {
+  handleChangeOptionTwo = (event) => {
     const { questionId } = this.props
     const option = event.target.name
 
@@ -31,7 +38,8 @@ class QuestionOptions extends Component {
       userVote: {
         questionId,
         option
-      }
+      },
+      checked: OPTION_TWO,
     }))
 
   }
@@ -50,6 +58,7 @@ class QuestionOptions extends Component {
   }
 
   render() {
+    const { checked } = this.state
     const { question, users } = this.props
     const {
       author,
@@ -73,21 +82,25 @@ class QuestionOptions extends Component {
                 </div>
           <h3> Would you rather? </h3>
           <form
+            className="form-results-container"
             onSubmit={this.handleSubmit}
           >
             <input
+              checked={checked === OPTION_ONE}
               type="radio"
               name="optionOne"
               value={optionOne.text}
               onChange={this.handleChangeOptionOne}
             /> {optionOne.text}
             <input
+              checked={checked === OPTION_TWO}
               type="radio"
               name="optionTwo"
               value={optionTwo.text}
-              onChange={this.handleChangeOptionOne}
+              onChange={this.handleChangeOptionTwo}
             /> {optionTwo.text}
             <button
+              className="btn form-results-button"
               type="submit"
             >
               Submit

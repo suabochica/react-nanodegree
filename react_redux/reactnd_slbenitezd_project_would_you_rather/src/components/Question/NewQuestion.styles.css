@@ -1,0 +1,13 @@
+.fieldset-container {
+  display: block;
+  clear: both;
+}
+
+.fieldset-container label {
+  float: left;
+}
+
+.fieldset-container input {
+  float: right;
+  width: 64vw;
+}
