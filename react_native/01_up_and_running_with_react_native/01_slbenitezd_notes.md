@@ -83,3 +83,19 @@ Since we are using purely JavaScript to build mobile apps, this list should come
 - No lock-in
 
 You can also set up **simulators** to aid in development as well. But regardless of which platform we choose to develop (iOS or Android), and which environment we are in (Mac, Windows or Linux), we are building with the same old JavaScript that we are used to!
+
+Using the Debugger
+==================
+
+## How to Debug
+As we have mentioned before, perhaps one of the best things about React Native is that it takes the development experience you are used to on the web, and brings it all to native development. Things like live reloading and debugging just work out of the box. Let's take a deeper dive into some of these features.
+
+To open the developer menus in your phone when the react native app is running and synchronized with Expo you should _shake your phone_. This menu has an option **Debug JS Remote**. When you select this option a window will open in your browser. This window will run the React Native JavaScript code as a web worker inside the tab. So, you can open the Developer Tools and debug your React Native Application in the browser.
+
+Another useful tool is the **Toggle Inpector** option. The inspector is similar to the box model inspector that we have on the web, then you can select elements and you can get any style to apply to it.
+
+## Refreshing the App
+When we are developing for the web and something is weird you can just refresh. Typically, this is not something you can do with native development because you need to recompile your code. With React Native, because you get the same development experience you're used to on the web, you can also refresh your app if you need to. To get this, _shake your phone_ and select the **Reload** option.
+
+## Summary
+What's great about React Native development is that it takes much of what you're used to from web development and takes it to native development. Accessing the in-app developer menu allows you to reload your JavaScript code, debug remotely via Developer Tools, and even display an in-app inspector.
