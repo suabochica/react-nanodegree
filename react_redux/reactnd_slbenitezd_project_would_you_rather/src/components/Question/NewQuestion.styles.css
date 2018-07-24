@@ -1,6 +1,7 @@
 .fieldset-container {
   display: block;
   clear: both;
+  max-width: 1000px;
 }
 
 .fieldset-container label {
@@ -9,5 +10,6 @@
 
 .fieldset-container input {
   float: right;
+  max-width: 800px;
   width: 64vw;
 }

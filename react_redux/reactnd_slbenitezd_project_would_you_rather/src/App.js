@@ -13,7 +13,9 @@ import {
   Leaderboard,
   Nav,
   PrivateRoute,
+  PageNotFound,
 } from './components'
+
 
 
 class App extends Component {
@@ -32,8 +34,9 @@ class App extends Component {
               <PrivateRoute path='/' exact component={Questions} />
               <Route path='/login' exact component={Login} />
               <PrivateRoute path='/question/:id' exact component={Question} />
-              <PrivateRoute path='/new' exact component={NewQuestion} />
+              <PrivateRoute path='/add' exact component={NewQuestion} />
               <PrivateRoute path='/leaderboard' exact component={Leaderboard} />
+              <Route component={PageNotFound}/>
             </Switch>
           </div>
         </Fragment>
