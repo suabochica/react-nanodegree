@@ -68,45 +68,45 @@ class QuestionOptions extends Component {
     const userAuthor = users.find(user => user.id === author)
 
     return (
-      <div className="container center">
-        <h1>Question Options</h1>
-        <figure className="questions-question-card-avatar">
-          <img
-            src={userAuthor.avatarURL || ''}
-            alt={author}
-          />
-        </figure>
-        <div className="questions-question-card-info">
-          <div className="questions-question-card-user">
-            {author} asks
-                </div>
-          <h3> Would you rather? </h3>
-          <form
-            className="form-results-container"
-            onSubmit={this.handleSubmit}
-          >
-            <input
-              checked={checked === OPTION_ONE}
-              type="radio"
-              name="optionOne"
-              value={optionOne.text}
-              onChange={this.handleChangeOptionOne}
-            /> {optionOne.text}
-            <input
-              checked={checked === OPTION_TWO}
-              type="radio"
-              name="optionTwo"
-              value={optionTwo.text}
-              onChange={this.handleChangeOptionTwo}
-            /> {optionTwo.text}
-            <button
-              className="btn form-results-button"
-              type="submit"
+        <div className="container center">
+          <h1>Question Options</h1>
+          <figure className="questions-question-card-avatar">
+            <img
+              src={userAuthor.avatarURL || ''}
+              alt={author}
+            />
+          </figure>
+          <div className="questions-question-card-info">
+            <div className="questions-question-card-user">
+              {author} asks
+                  </div>
+            <h3> Would you rather? </h3>
+            <form
+              className="form-results-container"
+              onSubmit={this.handleSubmit}
             >
-              Submit
-          </button>
-          </form>
-        </div>
+              <input
+                checked={checked === OPTION_ONE}
+                type="radio"
+                name="optionOne"
+                value={optionOne.text}
+                onChange={this.handleChangeOptionOne}
+              /> {optionOne.text}
+              <input
+                checked={checked === OPTION_TWO}
+                type="radio"
+                name="optionTwo"
+                value={optionTwo.text}
+                onChange={this.handleChangeOptionTwo}
+              /> {optionTwo.text}
+              <button
+                className="btn form-results-button"
+                type="submit"
+              >
+                Submit
+            </button>
+            </form>
+          </div>
       </div>
     )
   }

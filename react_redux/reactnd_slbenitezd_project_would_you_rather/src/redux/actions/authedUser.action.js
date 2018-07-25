@@ -1,18 +1,18 @@
-import { showLoading, hideLoading } from 'react-redux-loading';
-import { LOG_IN, LOG_OUT } from './types.action';
-import { saveUser } from '../../utils/api';
+import { showLoading, hideLoading } from 'react-redux-loading'
+import { LOG_IN, LOG_OUT } from './types.action'
+import { saveUser } from '../../utils/api'
 
-function logInUser(id) {
+function logInUser(authedUser) {
   return {
     type: LOG_IN,
-    id
+    authedUser,
   }
 }
 
 function logOutUser() {
   return {
     type: LOG_OUT,
-    id: null
+    aurhedUser: null,
   }
 }
 

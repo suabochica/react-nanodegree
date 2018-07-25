@@ -1,8 +1,8 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 // Relative imports
-import { saveQuestion, saveQuestionAnswer } from '../../utils/api';
-import { GET_QUESTIONS, ADD_QUESTION, SAVE_VOTE } from './types.action';
+import { saveQuestion, saveQuestionAnswer } from '../../utils/api'
+import { GET_QUESTIONS, ADD_QUESTION, SAVE_VOTE } from './types.action'
 
 function addQuestion(question) {
   return {
@@ -46,7 +46,7 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
 
 export function handleSaveVote(questionInfo) {
   return (dispatch, getState) => {
-    const { authedUser } = getState();
+    const { authedUser } = getState()
     const questionVote = {
       authedUser: authedUser.user,
       qid: questionInfo.questionId,

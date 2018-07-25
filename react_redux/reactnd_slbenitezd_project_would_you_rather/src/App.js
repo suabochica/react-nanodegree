@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
@@ -31,18 +31,20 @@ class App extends Component {
           <div className="App">
             <Nav />
             <Switch>
-              <PrivateRoute path='/' exact component={Questions} />
+              <PrivateRoute path='/' exact component={Questions} authedUser={this.props.authedUser} />
+              <PrivateRoute path='/question/:id' exact component={Question} authedUser={this.props.authedUser} />
+              <PrivateRoute path='/add' exact component={NewQuestion} authedUser={this.props.authedUser} />
+              <PrivateRoute path='/leaderboard' exact component={Leaderboard} authedUser={this.props.authedUser} />
               <Route path='/login' exact component={Login} />
-              <PrivateRoute path='/question/:id' exact component={Question} />
-              <PrivateRoute path='/add' exact component={NewQuestion} />
-              <PrivateRoute path='/leaderboard' exact component={Leaderboard} />
               <Route component={PageNotFound}/>
             </Switch>
           </div>
         </Fragment>
       </Router>
-    );
+    )
   }
 }
 
-export default connect()(App)
+const mapStateToProps = state => ({ authedUser: state.authedUser })
+
+export default connect(mapStateToProps)(App)

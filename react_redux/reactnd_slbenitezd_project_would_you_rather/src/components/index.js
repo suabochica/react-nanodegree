@@ -7,7 +7,7 @@ import Login from './Login/Login.component'
 import Leaderboard from './Leaderboard/Leaderboard.component'
 import Nav from './Nav/Nav.component'
 import PrivateRoute from './PrivateRoute/PrivateRoute.component'
-import PageNotFound from './404/404.component';
+import PageNotFound from './404/404.component'
 
 export {
     NewQuestion,

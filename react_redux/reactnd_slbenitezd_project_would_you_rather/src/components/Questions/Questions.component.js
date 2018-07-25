@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 // Relative Imports
 import './Questions.styles.css'
 
@@ -40,69 +40,79 @@ class Questions extends Component {
           ].some(userId => userId === authedUser.user)
         ))
       default:
-        return questions;
+        return questions
     }
   }
 
   render() {
     const { filter } = this.state
-    const { users } = this.props
+    const { users, authedUser } = this.props
 
     return (
       <div className="container center">
         <h1>Questions</h1>
-        <div className="questions-inputs">
-          <label className={`questions-label ${filter === ANSWERED ? 'is-selected' : ''}`}>
-            <input
-              checked={filter === ANSWERED}
-              className="questions-input"
-              onChange={this.onChangeFilter}
-              type="radio"
-              value={ANSWERED}
-            />
-            Answered
-          </label>
-          <label className={`questions-label ${filter === UNANSWERED ? 'is-selected' : ''}`}>
-            <input
-              checked={filter === UNANSWERED}
-              className="questions-input"
-              onChange={this.onChangeFilter}
-              type="radio"
-              value={UNANSWERED}
-            />
-            Unanswered
-          </label>
-        </div>
 
-        <ul className="questions-list">
-          {this.filterQuestions().map((question) => (
-            <div
-              className="questions-question-card"
-              key={question.id}
-            >
-              <figure className="questions-question-card-avatar">
-                <img
-                  src={users.find(user => user.id === question.author).avatarURL || ''}
-                  alt={question.author}
+        {
+          authedUser === null &&
+          'Loading...'
+        }
+        {
+          authedUser !== null &&
+          <Fragment>
+            <div className="questions-inputs">
+              <label className={`questions-label ${filter === ANSWERED ? 'is-selected' : ''}`}>
+                <input
+                  checked={filter === ANSWERED}
+                  className="questions-input"
+                  onChange={this.onChangeFilter}
+                  type="radio"
+                  value={ANSWERED}
                 />
-              </figure>
-              <div className="questions-question-card-info">
-                <div className="questions-question-card-user">
-                  {question.author} asks
-                  </div>
-                <h3>Would you rather?</h3>
-                <p>{question.optionOne.text} <i>or</i></p>
-                <p>{question.optionTwo.text}</p>
-                <Link
-                  to={`/question/${question.id}`}
-                  className='question'
-                >
-                  View poll
-                </ Link>
-              </div>
+                Answered
+              </label>
+              <label className={`questions-label ${filter === UNANSWERED ? 'is-selected' : ''}`}>
+                <input
+                  checked={filter === UNANSWERED}
+                  className="questions-input"
+                  onChange={this.onChangeFilter}
+                  type="radio"
+                  value={UNANSWERED}
+                />
+                Unanswered
+              </label>
             </div>
-          ))}
-        </ul>
+
+          <ul className="questions-list">
+            {this.filterQuestions().map((question) => (
+              <div
+                className="questions-question-card"
+                key={question.id}
+              >
+                <figure className="questions-question-card-avatar">
+                  <img
+                    src={users.find(user => user.id === question.author).avatarURL || ''}
+                    alt={question.author}
+                  />
+                </figure>
+                <div className="questions-question-card-info">
+                  <div className="questions-question-card-user">
+                    {question.author} asks
+                    </div>
+                  <h3>Would you rather?</h3>
+                  <p>{question.optionOne.text} <i>or</i></p>
+                  <p>{question.optionTwo.text}</p>
+                  <Link
+                    to={`/question/${question.id}`}
+                    className='question'
+                  >
+                    View poll
+                  </ Link>
+                </div>
+              </div>
+            ))}
+          </ul>
+          </Fragment>
+        }
       </div>
     )
   }

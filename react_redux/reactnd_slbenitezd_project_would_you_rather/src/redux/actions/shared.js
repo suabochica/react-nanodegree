@@ -7,6 +7,7 @@ import { getUsers } from './users.action'
 export function handleInitialData() {
 	return (dispatch) => {
 		dispatch(showLoading())
+
 		return getInitialData()
 			.then(({ users, questions }) => {
 				dispatch(getUsers(users))

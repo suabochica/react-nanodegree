@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 // Relative Imports
 import { handleLogInUser } from '../../redux/actions/authedUser.action'
 import './Login.styles.css'
@@ -8,7 +8,7 @@ import './Login.styles.css'
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.authedUser = React.createRef()
+    this.userToLogIn = React.createRef()
     this.state = {
       user: '',
       redirectToReferrer: false,
@@ -40,11 +40,11 @@ class Login extends Component {
   }
 
   render () {
-    const { users, location } = this.props
-    const { from } = location.state || { from: { pathname: '/' }};
+    const { users, location, authedUser } = this.props
+    const { from } = location.state || { from: { pathname: '/' }}
     const { redirectToReferrer } = this.state
 
-    if (redirectToReferrer === true) {
+    if (redirectToReferrer === true && authedUser !== null) {
       return <Redirect to={from} />
     }
 
@@ -54,15 +54,13 @@ class Login extends Component {
         <form
           onSubmit={this.handleSubmit}
         >
-          {
-            users.length === 0 &&
-            'Loading'
+          { users.length === 0 &&
+            'Loading...'
           }
-          {
-            users.length > 0 && (
+          { users.length > 0 && (
               <div className="center login-select">
                 <select
-                  ref={this.authedUser}
+                  ref={this.userToLogIn}
                   onChange={this.handleChange}
                 >
                   <option value="default">Select an user</option>
@@ -90,6 +88,7 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     users: Object.values(state.users),
+    authedUser: state.authedUser
   }
 }
 

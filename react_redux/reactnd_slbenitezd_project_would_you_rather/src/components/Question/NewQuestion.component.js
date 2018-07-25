@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 //Relative imports
 import { handleAddQuestion } from '../../redux/actions/questions.action'
 import './NewQuestion.styles.css'
@@ -29,10 +29,10 @@ class NewQuestion extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
-
     const { optionOneText, optionTwoText } = this.state
     const { dispatch } = this.props
+
+    event.preventDefault()
 
     if (optionOneText && optionTwoText) {
       dispatch(handleAddQuestion(
@@ -52,7 +52,7 @@ class NewQuestion extends Component {
     const { toHome } = this.state
 
     if (toHome === true) {
-      return <Redirect to="/" />;
+      return <Redirect to="/" />
     }
 
     return (

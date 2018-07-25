@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 
 class QuestionResults extends Component {
   render() {
-    const { question, users } = this.props;
+    const { question, users } = this.props
     const { author } = question
+    const userAuthor = users.find(user => user.id === question.author)
     const totalVotes = [
       ...question.optionOne.votes,
       ...question.optionTwo.votes,
-    ].length;
-    const userAuthor = users.find(user => user.id === question.author)
+    ].length
     const options = [
       {
         ...question.optionOne,
@@ -19,7 +19,7 @@ class QuestionResults extends Component {
         ...question.optionTwo,
         id: 'optionTwo',
       },
-    ];
+    ]
 
     return (
       <div className="container center">
