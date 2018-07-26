@@ -20,3 +20,40 @@ When designing mobile applications, it is important to your users that an iOS ap
 
 ## Summary
 When developing your React Native projects, keep in mind that you're designing for a different experience than that of web applications. Mobile applications look and feel different due to fundamental differences, such as subtle animations that build a sense of continuity for your users. Differences exist between Android and iOS as well, especially in their design philosophies and navigation. We'll look at some fundamental components that make up React Natives apps in the next section!
+
+Common React Native Components
+==============================
+When writing HTML, we are using `<div>` and `<span>` tags to defince section or to contain other elements on the page. In React Native, a similar priciple applies, but this times we are usign React Native's `<View>`component to build the application UI. Just like HTML's `<div>`, `<View>` components can accommodate several props (e.g., `styles`), and can even bes nested inside other `<View>`components.
+
+`<Text>` works just how you would expect, as well. Its main objective is to render text in the application. Just like `<View>`, aryling and nesting capabilities apply to `<Text>`components, as well.
+
+## Icons
+Right out of the box, **Creaate React Native App** offers support for thousands of vector icons to use in your applications. Feel free to bookmark and check out Expo's [vecto icon directory](https://expo.github.io/vector-icons) for a complete list. Whichever icon set you chose, just be sure that it fits the overall look and fell of your application (e.g., usign platform-specific icons)
+
+Then, for our Udacifitness app we will add a functión `getMetricMetaInfo()` in the `utils/helpers.js` file that will return an object with all the activity information. This object looks like:
+
+```js
+const info = {
+    run: {
+        displayName: 'Run',
+        max: 50,
+        unit: 'meters',
+        step: 1,
+        type: 'stepers',
+        getIcon() {
+            return (
+                <View>
+                    <MaterialIcons
+                        name="direcctions-run"
+                        color={black}
+                        size={35}
+                    />
+                </View>
+            )
+        }
+        ...
+    }
+}
+```
+
+The `getMetricMetaInfo()` function will consume by the `<AddEntry />` component.
