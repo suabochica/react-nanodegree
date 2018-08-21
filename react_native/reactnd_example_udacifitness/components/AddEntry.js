@@ -1,9 +1,10 @@
 import  React, { Component } from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet ,TouchableOpacity, Text, Platform } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { getMetricMetaInfo, timeToString, getDailyReminderValue } from '../utils/helpers'
 import { submitEntry, removeEntry } from '../utils/api'
+import { purple, white } from '../utils/colors'
 import { addEntry } from '../actions'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
@@ -13,9 +14,10 @@ import TextButton from './TextButton'
 function SubmitButton ({ onPress }) {
   return (
     <TouchableOpacity
+      style={Platform.OS === 'ios' ? styles.iOSSubmitButton : styles.AndroidSubmitButton}
       onPress={onPress}
     >
-      <Text>SUBMIT</Text>
+      <Text style={styles.submitButtonText}>SUBMIT</Text>
     </TouchableOpacity>
   )
 }
@@ -105,13 +107,16 @@ class AddEntry extends Component {
 
     if (this.props.alreadyLogged) {
       return (
-        <View>
+        <View styles={styles.cente}>
           <Ionicons
-            name={'ios-happy-outline'}
+            name={Platform.OS === ios ? 'ios-happy-outline' : 'md-happy'}
             size={100}
           />
           <Text>You already logged your information for today</Text>
-          <TextButton onPress={this.reset}>
+          <TextButton
+            style={{padding: 10}}
+            onPress={this.reset}
+          >
             Reset
           </TextButton>
         </View>
@@ -119,7 +124,7 @@ class AddEntry extends Component {
     }
 
     return (
-      <View>
+      <View style={styles.container}>
         <DateHeader date ={(new Date()).toLocaleDateString()}/>
         {
           Object.keys(metaInfo).map((key) => {
@@ -127,7 +132,7 @@ class AddEntry extends Component {
             const value = this.state[key]
 
             return (
-              <View key={key}>
+              <View key={key} style={styles.row}>
                 {getIcon()}
                 {
                   type === 'slider'
@@ -151,6 +156,50 @@ class AddEntry extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: white,
+    flex: 1,
+    padding: 20,
+  },
+  row: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  center: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  iOSSubmitButton: {
+    backgroundColor: purple,
+    borderRadius: 8,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40,
+    padding: 10,
+  },
+  AndroidSubmitButton: {
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    backgroundColor: purple,
+    borderRadius: 8,
+    height: 45,
+    justifyContent: 'center',
+    marginLeft: 40,
+    marginRight: 40,
+    padding: 20,
+  },
+  submitButtonText: {
+    color: white,
+    fontSize: 22,
+    textAlign: 'center',
+  },
+})
 
 function mapStateToProps (state) {
   const key = timeToString()
