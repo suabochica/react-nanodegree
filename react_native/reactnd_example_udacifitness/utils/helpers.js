@@ -3,6 +3,12 @@ import { View } from 'react-native'
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { red } from './colors'
 
+export function getDailyReminderValue () {
+  return {
+    today: "Do not forget to log your data today!"
+  }
+}
+
 export function getMetricMetaInfo (metric) {
   const info = {
     run: {
@@ -101,7 +107,6 @@ export function getMetricMetaInfo (metric) {
     ? info
     : info[metric]
 }
-
 
 export function isBetween (num, x, y) {
   if (num >= x && num <= y) {
