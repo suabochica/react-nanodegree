@@ -132,3 +132,8 @@ Note that a `navigation` prop is passed to the stateless functional `Home` compo
 The return value of passing an object into `createStackNavigator` is a component as well, and we can render it as such!
 
 `Stack Navigator` and `Tab Navigator` often go hand-in-hand. Since they each return components, you'll often see one nested within the other. Let's see this in action as we implement this into UdaciFitness!
+
+## Summary
+React Navigation's Stack Navigator is another customizable navigation option based on adding and removing new screens to a stack. Its API is similar to that of the Tab Navigator; it takes in an object that defines all screens, then returns a component. Since both the Stack Navigator and the Tab Navigator both return components, a common practice is to nest these navigators within one another.
+
+In the next section, we'll take a look at the Drawer Navigator, in which screens are switched from a drawer that pops out from the side of the screen!
