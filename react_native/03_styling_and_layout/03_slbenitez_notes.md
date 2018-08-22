@@ -175,3 +175,20 @@ min-width: 0;
 ```
 ## Platform API
 Recall that React's approach to app development is "learn once, write anywhere." The goal is to use the same principles, technologies, and in the case of React Native -- the same code -- to develop applications. However, there may be cases that make sense to use _distinct_ code for each mobile platform. For example, what if we wanted unique styling between iOS and Android visual components?
+
+## Dimensions API
+React Native also comes with [Dimensions](https://facebook.github.io/react-native/docs/dimensions.html), which allows you to select window's width and height in the user's device! To use it just check the next snippet;
+
+```js
+import  { Dimensions } from 'react-native'
+
+const { width, height } = Dimensions.get('window')
+```
+
+Feel free to use these measurement to, for example, plan how your `<View>`s will look.
+
+
+## Summary
+React Native uses **flexbox** to manage layout in mobile applications. However, there are some minor distinctions between the official flexbox specification (i.e., _CSS on the web_) and React Native's own implementation. Most of these distinctions are just differences in default settings.
+
+Since differences also exist in how Android and iOS applications should look and feel, React Native also offers a `Platform` API, which we can leverage to style each platform independently.
