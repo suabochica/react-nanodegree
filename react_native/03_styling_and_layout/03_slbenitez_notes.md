@@ -192,3 +192,108 @@ Feel free to use these measurement to, for example, plan how your `<View>`s will
 React Native uses **flexbox** to manage layout in mobile applications. However, there are some minor distinctions between the official flexbox specification (i.e., _CSS on the web_) and React Native's own implementation. Most of these distinctions are just differences in default settings.
 
 Since differences also exist in how Android and iOS applications should look and feel, React Native also offers a `Platform` API, which we can leverage to style each platform independently.
+
+How Professionals Handle Styling
+================================
+In this section, we will take a llok at some popular CSS and JavaScript libraries because they offer a different approach to styling both, React and React Native applications.
+
+## Styling: `Stylesheet` vs Inline
+Earlier you were introduced to React Native’s `StyleSheet` API for creating “stylesheets” out of JavaScript objects. At first this approach may seem a little strange, but there are some reasons behind it. Primarily those reasons are code quality and performance. Let’s take a look at some comparisons in regards to code quality.
+
+```js
+<View style={{
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    }}>
+    <Text style={[
+        {fontSize: 19, fontWeight: 'bold'},
+        props.isActive && { color: 'red' }
+    ]}>
+        Welcome
+    </Text>
+</View>
+```
+
+Above we have some JSX for a pretty simple UI. Notice, that even though this UI is rather simple, the styling of it makes it rather messy. This is perhaps the biggest benefit to the StyleSheet API: _by moving styles away from the render function, the code becomes easier to read and understand_. Not only that, but _naming_ the styles is a good way to make components a little more declarative. With the StyleSheet API, we can change the code above to now look like this:
+
+```js
+var styles = StyleSheet.create({
+    container: {
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+    },
+    title: {
+        fontSize: 19,
+        fontWeight: 'bold',
+    },
+    activeTitle: {
+        color: 'red',
+    },
+});
+
+<View style={styles.container}>
+    <Text style={[styles.title, props.isActive && styles.activeTitle]} />
+</View>
+```
+
+On top of quality benefits, there are also performance benefits as well. Making a stylesheet from a style object makes it possible to refer to it by ID instead of creating a new style object every render.
+
+## Media Queries
+One thing you may have noticed is that React Native (and specifically the `StyleSheet` API) doesn’t support **media queries**. The reason for this is because, for the most part, you can design responsive grids with flexbox which will bypass the need to use media queries. In the rare case where flexbox just won’t work for your specific needs, you can use the `Dimensions` API which we covered earlier to get similar results.
+
+## CSS in JS Libraries
+Styling in React is going through a renaissance period right now just as Flux did a few years ago (which eventually gave us Redux). There are many different styling libraries popping up and each has different tradeoffs.
+
+Two of the most popular are [Glamorous](https://github.com/robinpowered/glamorous-native) and [Styled Components](https://github.com/styled-components/styled-components). The whole idea of both of these libraries is that styling is a primary concern of the component and because of that, should be coupled with the component itself.
+
+Let’s take a look at not only the Styled Components library, but also how you’d use it with React Native.
+
+```js
+import React { Component } from 'react'
+import { Text, StyleSheet, View } from 'react-native '
+import styled from 'styled-components/native'
+
+const CenterView = styled.View`
+    align-items: center;
+    background: #333;
+    flex: 1;
+    justify-content: center;
+
+`
+
+const WelcomeText = styled.Text`
+    color: white;
+    font-size: 20;
+`
+
+const WelcomeButton = styled.TouchableOpacity`
+    align-items: center;
+    background: red;
+    border-radius: 5px;
+    height: 50px;
+    justify-content: center;
+    width: 100px
+`
+
+export default classs App extend Component {
+    render () {
+        return (
+            <CenterView>
+                <WelcomeText>
+                    Cool Styling
+                </WelcomeText>
+                <WelcomeButton onPress={() => alert('Hello')}>
+                    <WelcomeText>
+                        Push Me
+                    </WelcomeText>
+                </WelcomeButton>
+            </CenterView>
+        )
+    }
+}
+```
+
+## Summary
+In this section we took a deeper look into the benefits of the StyleSheet API as well as the Styled Components API and how it works on React Native.
