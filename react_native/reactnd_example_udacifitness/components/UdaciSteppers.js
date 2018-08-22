@@ -38,18 +38,6 @@ export default function UdaciSlider ({ max, unit, step, value, onIncrement, onDe
             </TouchableOpacity>
           </View>
       }
-      <View>
-        <TouchableOpacity
-          onPress={onDecrement}
-        >
-          <FontAwesome name='minus' size={30} color={'black'}/>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onIncrement}
-        >
-          <FontAwesome name='plus' size={30} color={'black'}/>
-        </TouchableOpacity>
-      </View>
       <View style={styles.metricCounter}>
         <Text style={{fontSize: 24, textAlign: 'center'}}>{value}</Text>
         <Text style={{fontSize: 18, color: gray}}>{unit}</Text>

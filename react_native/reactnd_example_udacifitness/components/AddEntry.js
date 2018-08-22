@@ -1,7 +1,8 @@
 import  React, { Component } from 'react'
 import { View, StyleSheet ,TouchableOpacity, Text, Platform } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
+import { Ionicons } from '@expo/vector-icons'
 import { getMetricMetaInfo, timeToString, getDailyReminderValue } from '../utils/helpers'
 import { submitEntry, removeEntry } from '../utils/api'
 import { purple, white } from '../utils/colors'
@@ -64,7 +65,7 @@ class AddEntry extends Component {
   }
 
   submit = () => {
-    const key = timeToString
+    const key = timeToString()
     const entry = this.state
 
     // Update Redux
@@ -80,7 +81,7 @@ class AddEntry extends Component {
       eat: 0,
     }))
 
-    // Navigate to Home
+    this.toHome()
 
     // Save to database
     submitEntry({ key, entry })
@@ -96,10 +97,14 @@ class AddEntry extends Component {
       [key]: getDailyReminderValue()
     }))
 
-    // Route to home
+    this.toHome()
 
     // Update database
     removeEntry(key)
+  }
+
+  toHome = () => {
+    this.props.navigation.dispatch(NavigationActions.back({key: 'AddEntry'}))
   }
 
   render () {
@@ -109,7 +114,7 @@ class AddEntry extends Component {
       return (
         <View styles={styles.cente}>
           <Ionicons
-            name={Platform.OS === ios ? 'ios-happy-outline' : 'md-happy'}
+            name={Platform.OS === 'ios' ? 'ios-happy-outline' : 'md-happy'}
             size={100}
           />
           <Text>You already logged your information for today</Text>
