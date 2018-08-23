@@ -3,8 +3,15 @@ import { View, StyleSheet ,TouchableOpacity, Text, Platform } from 'react-native
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
-import { getMetricMetaInfo, timeToString, getDailyReminderValue } from '../utils/helpers'
+
 import { submitEntry, removeEntry } from '../utils/api'
+import {
+  getMetricMetaInfo,
+  timeToString,
+  getDailyReminderValue,
+  clearLocalNotification,
+  setLocalNotification,
+} from '../utils/helpers'
 import { purple, white } from '../utils/colors'
 import { addEntry } from '../actions'
 import UdaciSlider from './UdaciSlider'
@@ -87,10 +94,12 @@ class AddEntry extends Component {
     submitEntry({ key, entry })
 
     // Clear local notification
+    clearLocalNotification()
+      .then(setLocalNotification)
   }
 
   reset = () => {
-    const key = timeToString
+    const key = timeToString()
 
     // Update Redux
     this.props.dispatch(addEntry({
@@ -112,7 +121,7 @@ class AddEntry extends Component {
 
     if (this.props.alreadyLogged) {
       return (
-        <View styles={styles.cente}>
+        <View style={styles.center}>
           <Ionicons
             name={Platform.OS === 'ios' ? 'ios-happy-outline' : 'md-happy'}
             size={100}

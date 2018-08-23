@@ -10,6 +10,8 @@ import reducer from './reducers'
 import EntryDetail from './components/EntryDetail'
 import AddEntry from './components/AddEntry'
 import History from './components/History'
+import Live from './components/Live'
+import { setLocalNotification } from './utils/helpers'
 import { purple, white } from './utils/colors'
 
 const Tabs = createBottomTabNavigator(
@@ -26,6 +28,13 @@ const Tabs = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'Add Entry',
         tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+      },
+    },
+    Live: {
+      screen: Live,
+      navigationOptions: {
+        tabBarLabel: 'Live',
+        tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor} />
       },
     },
   },
@@ -82,6 +91,10 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
+  componentDidMount () {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer)}>
