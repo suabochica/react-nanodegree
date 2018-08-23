@@ -74,9 +74,11 @@ This section also detailed React Native's `StatusBar` component. StatusBar is re
 In the next section, we'll take a look at React Navigator's Stack Navigator, which allows users to add and remove screens from a stack.
 
 Stack Navigator
-=============
+===============
 
 When pressing an item in, say, an index view, we expect to go to a new screen with details on that item. React Navigation offers another navigator to do just that! With `Stack Navigator`, new screens are added and removed as a _stack_. This places screens on top of one another in a "last in, first out" manner, similar to Array's `push()` and `pop()` methods.
+
+## Stack Navigator v1
 
 `StackNavigator`'s usage is largely similar to that of `TabNavigator`. But rather than passing in an object of different tabs, we pass in an object of the different screens that should be available in that stack.
 
@@ -137,3 +139,68 @@ The return value of passing an object into `createStackNavigator` is a component
 React Navigation's Stack Navigator is another customizable navigation option based on adding and removing new screens to a stack. Its API is similar to that of the Tab Navigator; it takes in an object that defines all screens, then returns a component. Since both the Stack Navigator and the Tab Navigator both return components, a common practice is to nest these navigators within one another.
 
 In the next section, we'll take a look at the Drawer Navigator, in which screens are switched from a drawer that pops out from the side of the screen!
+
+Drawer Navigator
+================
+
+React Navigation offers one more basic navigator to create custom navigation through React Native apps: the `DrawerNavigator`. While `TabNavigator` uses tabs to help users navigate to specific screens, `DrawerNavigator` uses a drawer-like menu that slides in from the side of the screen.
+
+## Drawer Navigator v1
+
+To use `DrawerNavigator`, be sure to install version 1 of `react-navigation` and import the following from react-navigation. Let's check and example of `DrawerNavigator` in the next snippet:
+
+```js
+import { DrawerNavigator } from 'react-navigation';
+
+const Drawer = DrawerNavigator({
+    Home: {
+        screen: Home
+    },
+    Dashboard: {
+        screen: Dashboard
+    }
+});
+
+const Home = ({ navigation }) => (
+    <View>
+        <Text>This is the Home view</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+            <Text>Press here to open the drawer!</Text>
+        </TouchableOpacity>
+    </View>
+    );
+
+    const Dashboard = ({ navigation }) => (
+    <View>
+        <Text>This is the Dashboard view</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+            <Text>Press here to open the drawer!</Text>
+        </TouchableOpacity>
+    </View>
+);
+
+export default class App extends React.Component {
+    render() {
+        return (
+            <Drawer />
+        );
+    }
+}
+```
+
+Luckily, many of the same philosophies shared by `StackNavigator` and `TabNavigator` apply here as well! Let's check out two basic components again and see how `DrawerNavigator` renders them.
+
+Note that rather than routing to another component, each `TouchableOpacity` wrapper opens the drawer. Likewise, `'DrawerClose'` can be used to close the drawer. To simplify things, React Navigation also offers `'DrawerToggle'` to automatically select which navigation is appropriate based on the current drawer state.
+
+Similar to `TabNavigator` and `StackNavigator`, we can then pass an object into `DrawerNavigator`, render the component returned, and we're all set!
+
+
+## Drawer Navigator v2
+`DrawerNavigator` has been deprecated in favor of `createDrawerNavigator`, which is functionally identical but clearly communicates that it's a function that returns a component.
+
+According to the documentation:
+
+> Rather than opening a drawer with `navigation.navigate(‘DrawerOpen’)`, you can now call `navigation.openDrawer()`. Other methods are `closeDrawer()` and `toggleDrawer()`.
+
+## Summary
+React Navigation's Drawer Navigator is used to easily set up a screen with drawer navigation. Many of the same practices we use to set up the Stack Navigator and the Tab Navigator apply to the Drawer Navigator as well. Simply pass in an object containing the different screens, and the return value is a component ready to be rendered. As a result, this makes Drawer Navigator components easy for nesting with other navigators!
