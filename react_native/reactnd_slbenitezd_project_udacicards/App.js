@@ -4,10 +4,7 @@ import { Text, View } from 'react-native'
 
 import { store } from './src/redux/store'
 
-
 export default class App extends Component {
-
-
   render() {
     return (
       <Provider store={store}>
