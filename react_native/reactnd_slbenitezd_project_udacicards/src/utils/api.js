@@ -1,3 +1,7 @@
+import { AsyncStorage } from 'react-native'
+
+export const DECK_STORAGE_KEY = 'udacicards:deckstorge'
+
 const defaultState = {
   React: {
     title: 'React',
@@ -23,20 +27,32 @@ const defaultState = {
   }
 }
 
-
 export function getDecks() {
-  // TO DO
+  return AsyncStorage.getItem(DECK_STORAGE_KEY)
+    .then((decks) => {
+      // Test purposes
+      return decks === null ? defaultState : JSON.parse(decks)
+      // return JSON.parse(decks)
+    })
 }
 
 export function getDeck(title) {
-  // TO DO
+  return AsyncStorage.getItem(DECK_STORAGE_KEY)
+    .then((decks) => {
+      return JSON.parse(decks[title])
+    })
 }
 
-export function saveDeckTitle(deck) {
-  // TO DO
+export function saveDeckTitle(title) {
+  return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(title))
 }
 
 export function addCardToDeck(entry, key) {
-  // TO DO
-}
+  return AsyncStorage.mergeItem(DECK_STORAGE_KEY)
+    .then((decks) => {
+      const decks = JSON.parse(decks)
 
+      decks[key].questions.push(entry)
+      AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
+    })
+}
