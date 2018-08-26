@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, TouchableHighlight, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { AppLoading} from 'expo'
 
-import { receiveDecks } from '../../redux/decks.action'
-import { getDecks } from '../utils/api'
+import { getDecks } from '../../utils/api'
+import { receiveDecks } from '../../redux/actions/decks.action'
 
 class DeckList extends Component {
   state = {
@@ -51,7 +51,7 @@ class DeckList extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <View>
         <FlatList
           data={Object.keys(decks)}
           extraData={this.state}
