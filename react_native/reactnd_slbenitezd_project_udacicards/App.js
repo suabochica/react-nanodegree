@@ -5,8 +5,8 @@ import { createStore } from 'redux'
 
 import rootReducer from './src/redux/reducers'
 import {
-  DeckList,
-} from './src/components'
+  MainNavigator,
+} from './src/navigation'
 
 const store = createStore(rootReducer)
 
@@ -15,7 +15,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>
-          <DeckList></DeckList>
+          <MainNavigator></MainNavigator>
         </View>
       </Provider>
     );

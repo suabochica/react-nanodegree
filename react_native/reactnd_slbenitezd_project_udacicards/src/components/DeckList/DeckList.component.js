@@ -6,12 +6,15 @@ import { AppLoading} from 'expo'
 import { getDecks } from '../../utils/api'
 import { receiveDecks } from '../../redux/actions/decks.action'
 
+
 class DeckList extends Component {
   state = {
     showInput: false
   }
 
-  componentWillMount () {
+  keyExtractor = ( item, index ) => item
+
+  componentDidMount () {
     const { dispatch } = this.props
 
     getDecks()
@@ -23,11 +26,18 @@ class DeckList extends Component {
 
     return (
       <TouchableHighlight onPress={() => {
-        alert('hola')
-      } }>
+        this.props.navigation.navigate(
+          'Deck',
+          {
+            deckItem: item,
+            title: title,
+            questions: questions,
+          }
+        )
+      }}>
         <View>
           <Text>{title}</Text>
-          <Text>{questions.length} cards</Text>
+          <Text>{questions.length} Cards</Text>
         </View>
       </TouchableHighlight>
     )
@@ -40,9 +50,7 @@ class DeckList extends Component {
       return <AppLoading />
     }
 
-    const keys = Object.keys(decks)
-
-    if (keys.length === 0) {
+    if (Object.keys(decks).length === 0) {
       return (
         <View style={{paddingTop: 50}}>
           <Text>Add some decks to get started!</Text>
@@ -54,6 +62,7 @@ class DeckList extends Component {
       <View>
         <FlatList
           data={Object.keys(decks)}
+          keyExtractor={this.keyExtractor}
           extraData={this.state}
           renderItem={this.renderItem}
           containerStyle={{borderBottomWidth: 2}}

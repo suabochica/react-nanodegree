@@ -1,9 +1,10 @@
 // Deck
-export const RECEIVE_DECKS = 'RECEIVE_DECKS'
+export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 export const DELETE_DECK = 'DELETE_DECK'
+export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 
 // Card
-export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK'
-export const START_QUIZ = 'START_QUIZ'
-export const ANSWER_QUESTION = 'ANSWER_QUESTION'
+export const START_CARDS = 'START_CARDS'
+export const RESET_CARDS = 'RESET_CARDS'
+export const ANSWER_CARD = 'ANSWER_CARD'
