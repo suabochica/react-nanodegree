@@ -25,6 +25,6 @@ export function addCard (question, deck) {
   return {
     type: ADD_CARD,
     question,
-    deck
+    deck,
   }
 }

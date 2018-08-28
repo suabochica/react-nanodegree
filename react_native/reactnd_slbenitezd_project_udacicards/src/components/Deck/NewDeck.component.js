@@ -12,15 +12,15 @@ import { saveDeckTitle } from '../../utils/api'
 
 class NewDeck extends Component {
   state = {
-    titleText: ''
+    title: ''
   }
 
   handleCreateDeckSubmit = () => {
     const { dispatch, navigation } = this.props
-    const { titleText } = this.state
+    const { title } = this.state
     const deck = {
-      [titleText]: {
-        titleText,
+      [title]: {
+        title,
         questions: [],
       }
     }
@@ -33,20 +33,19 @@ class NewDeck extends Component {
       })
   }
 
-  onChangeTitleText = (titleText) => {
-    this.setState(titleText)
+  onChangeTitleText = (title) => {
+    this.setState({title})
   }
 
   render () {
-    const { titleText } = this.state
+    const { title } = this.state
 
     return(
       <KeyboardAvoidingView>
         <Text>Type the title of your new deck, please</Text>
         <TextInput
-          value={titleText}
-          ref={input => {this.inputs['deck'] = input}}
-          onChangeText={this.onChangeTitleText}
+          value={title}
+          onChangeText={(title) => this.setState({title})}
           placeholder='Deck Title'
         />
         <TouchableHighlight

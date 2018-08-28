@@ -18,7 +18,7 @@ export default function decks (state = {}, action) {
         ...action.deck,
       }
     case ADD_CARD :
-      state[action.key].questions.push(action.question)
+      state[action.deck].questions.push(action.question)
       return {
         ...state
       }

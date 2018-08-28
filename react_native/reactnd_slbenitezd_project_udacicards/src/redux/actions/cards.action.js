@@ -1,8 +1,14 @@
-import { ADD_CARD_TO_DECK } from './types.action'
+import { ANSWER_CARD, RESET_CARDS, START_CARDS } from './types.action'
 
-export function addCardToDeck (card) {
+export function answerCard (cardAnswer) {
   return {
-    type: ADD_CARD_TO_DECK,
-    card,
+    type: ANSWER_CARD,
+    correct: cardAnswer,
+  }
+}
+
+export function resetCards () {
+  return {
+    type: RESET_CARDS,
   }
 }

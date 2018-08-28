@@ -19,29 +19,29 @@ class NewCard extends Component {
   handleCreateCardSubmit = () => {
     const { dispatch, navigation } = this.props
     const { questionText, answerText } = this.state
-    const { deck } = navigation.state.params
+    const { deck } = this.props.navigation.state.params
 
     if ((questionText !== '' && answerText !== '')) {
       const card = {
         question: questionText,
         answer: answerText,
       }
-    }
 
-    addCardToDeck(card, deck)
-      .then(() => {
-        dispatch(addCard(card, deck))
-        this.setState({questionText: '', answerText: ''})
-        navigation.goBack()
-      })
+      addCardToDeck(card, deck)
+        .then(() => {
+          dispatch(addCard(card, deck))
+          this.setState({questionText: '', answerText: ''})
+          navigation.goBack()
+        })
+    }
   }
 
   onChangeQuestionText = (questionText) => {
-    this.setState(questionText)
+    this.setState({questionText})
   }
 
   onChangeAnswerText = (answerText) => {
-    this.setState(answerText)
+    this.setState({answerText})
   }
 
   render () {
@@ -52,7 +52,7 @@ class NewCard extends Component {
         <Text>Type the question of your new card, please</Text>
         <TextInput
           value={questionText}
-          onChangeText={this.onChangeQuestionText}
+          onChangeText={(this.onChangeQuestionText)}
           placeholder='Question'
         />
         <Text>Type the answer of your new question, please</Text>

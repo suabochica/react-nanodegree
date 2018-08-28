@@ -7,7 +7,7 @@ import { getDecks } from '../../utils/api'
 import { receiveDecks } from '../../redux/actions/decks.action'
 
 
-class DeckList extends Component {
+class Decks extends Component {
   state = {
     showInput: false
   }
@@ -22,13 +22,15 @@ class DeckList extends Component {
   }
 
   renderItem = ({item}) => {
-    const { title, questions } = this.props.decks[item];
+    const { decks } = this.props
+    const { title, questions } = decks[item];
 
     return (
       <TouchableHighlight onPress={() => {
         this.props.navigation.navigate(
           'Deck',
           {
+            decks: decks,
             deckItem: item,
             title: title,
             questions: questions,
@@ -70,11 +72,10 @@ class DeckList extends Component {
       </View>
     )
   }
-
 }
 
 function mapStateToProps ({ decks }) {
   return { decks }
 }
 
-export default connect(mapStateToProps)(DeckList)
+export default connect(mapStateToProps)(Decks)

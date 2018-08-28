@@ -9,8 +9,7 @@ import { connect } from 'react-redux'
 
 class Deck extends Component {
   render () {
-    const { deckItem } = state.params
-    const { dispatch, decks } = this.props
+    const { decks, deckItem } = this.props.navigation.state.params
     const { title, questions } = decks[deckItem]
 
     return (
@@ -29,10 +28,10 @@ class Deck extends Component {
         }}>
           <Text>Add New Card</Text>
         </TouchableOpacity>
-        { questions.length > 0 && (
+        {questions.length > 0 && (
           <TouchableOpacity onPress={() => {
             this.props.navigation.navigate(
-              'Quiz',
+              'Cards',
               {
                 deck: deckItem,
               }

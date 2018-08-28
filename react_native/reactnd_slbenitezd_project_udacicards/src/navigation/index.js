@@ -1,19 +1,19 @@
 import { Platform } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import { ORANGE_WHITE, MONTECARLO } from '../utils/colors'
 import {
   Deck,
-  DeckList,
+  Decks,
   NewCard,
   NewDeck,
-  Quiz,
+  Cards,
 } from '../components'
 
-const Tabs = TabNavigator(
+const Tabs = createBottomTabNavigator(
   {
     Decks: {
-      screen: DeckList,
+      screen: Decks,
       navigationOptions: {
         tabBarLabel: 'Decks',
       }
@@ -46,7 +46,7 @@ const Tabs = TabNavigator(
   }
 )
 
-export default MainNavigator = StackNavigator({
+export default MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
   },
@@ -62,7 +62,7 @@ export default MainNavigator = StackNavigator({
   },
   NewCard: {
     screen: NewCard,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       headerTintColor: ORANGE_WHITE,
       headerStyle: {
         backgroundColor: MONTECARLO,
@@ -70,10 +70,10 @@ export default MainNavigator = StackNavigator({
       title: 'Add Card'
     })
   },
-  Quiz: {
-    screen: Quiz,
+  Cards: {
+    screen: Cards,
     navigationOptions: {
-      title: 'Quiz'
+      title: 'Cards'
     }
   }
 })
