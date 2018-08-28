@@ -3,12 +3,13 @@ import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import { Card, TextButton } from '../'
+import { resetCards } from '../../redux/actions/cards.action'
 
 class Cards extends Component {
+
   render () {
-    const { navigate } = this.props.navigation
     const { deck } = this.props.navigation.state.params
-    const { correct, currentQuestion, decks, dispatch } = this.props
+    const { correct, currentQuestion, decks, dispatch, navigation } = this.props
     const { questions } = decks[deck]
     const score = Math.round((correct / questions.length) * 100)
 
@@ -16,19 +17,23 @@ class Cards extends Component {
       return (
         <View>
           <Text>
-            Done! You got {score} in this quiz
+            Done! You got {score} in this test
           </Text>
           <TextButton
             style={{padding: 10}}
-            onPress={() => dispatch(resetQuiz())}
+            onPress={() =>
+              dispatch(resetCards())
+            }
           >
-            Restart Quiz
+            Restart Cards
           </TextButton>
           <TextButton
             style={{padding: 10}}
-            onPress={() => navigate.goBack()}
+            onPress={() =>
+              navigation.goBack()
+            }
           >
-            Back to Decks
+            Back to Deck
           </TextButton>
         </View>
       )

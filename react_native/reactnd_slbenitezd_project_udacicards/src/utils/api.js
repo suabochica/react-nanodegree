@@ -30,9 +30,7 @@ const defaultState = {
 export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY)
     .then((decks) => {
-      // Test purposes
-      return decks === null ? defaultState : JSON.parse(decks)
-      // return JSON.parse(decks)
+      return JSON.parse(decks)
     })
 }
 

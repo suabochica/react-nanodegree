@@ -31,7 +31,8 @@ class NewCard extends Component {
         .then(() => {
           dispatch(addCard(card, deck))
           this.setState({questionText: '', answerText: ''})
-          navigation.goBack()
+
+          navigation.goBack();
         })
     }
   }

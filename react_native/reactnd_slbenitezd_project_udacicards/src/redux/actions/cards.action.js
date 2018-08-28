@@ -12,3 +12,9 @@ export function resetCards () {
     type: RESET_CARDS,
   }
 }
+
+export function startCards () {
+  return {
+    type: START_CARDS,
+  }
+}

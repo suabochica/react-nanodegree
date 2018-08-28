@@ -7,9 +7,12 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 
+import { startCards } from '../../redux/actions/cards.action'
+
 class Deck extends Component {
   render () {
-    const { decks, deckItem } = this.props.navigation.state.params
+    const { decks } = this.props
+    const { deckItem } = this.props.navigation.state.params
     const { title, questions } = decks[deckItem]
 
     return (
@@ -30,6 +33,7 @@ class Deck extends Component {
         </TouchableOpacity>
         {questions.length > 0 && (
           <TouchableOpacity onPress={() => {
+            this.props.dispatch(startCards())
             this.props.navigation.navigate(
               'Cards',
               {
@@ -37,7 +41,7 @@ class Deck extends Component {
               }
             )
           }}>
-            <Text>Start Quiz</Text>
+            <Text>Start Test</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -45,11 +49,9 @@ class Deck extends Component {
   }
 }
 
-function mapStateToProps ( state, { navigation } ) {
-  const { deckItem } = navigation.state.params
-
+function mapStateToProps ({decks}) {
   return {
-    deckItem,
+    decks,
   }
 }
 

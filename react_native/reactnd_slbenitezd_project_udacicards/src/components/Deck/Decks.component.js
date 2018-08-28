@@ -12,7 +12,7 @@ class Decks extends Component {
     showInput: false
   }
 
-  keyExtractor = ( item, index ) => item
+  keyExtractor = ( item ) => item
 
   componentDidMount () {
     const { dispatch } = this.props

@@ -1,4 +1,4 @@
-import { ANSWER_CARD, RESET_CARDS } from '../actions/types.action'
+import { ANSWER_CARD, RESET_CARDS, START_CARDS } from '../actions/types.action'
 
 const initialScoreState = {
   correct: 0,
@@ -20,6 +20,11 @@ export default function cards (state = initialScoreState, action) {
     case RESET_CARDS :
       return {
         ...initialScoreState
+      }
+    case START_CARDS :
+      return {
+        ...state,
+        cardStarted: true
       }
     default :
       return state

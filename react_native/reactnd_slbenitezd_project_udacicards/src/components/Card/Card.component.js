@@ -13,6 +13,8 @@ class Card extends Component {
   }
 
   handleToggleToAnswerView() {
+    const { toggleAnswer } = this.state
+
     toggleAnswer === false
       ? this.setState({toggleAnswer: true})
       : this.setState({toggleAnswer: false})
