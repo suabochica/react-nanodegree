@@ -2,10 +2,45 @@ import React, { Component } from 'react'
 import { FlatList, TouchableHighlight, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { AppLoading} from 'expo'
+import styled from 'styled-components'
 
 import { getDecks } from '../../utils/api'
 import { receiveDecks } from '../../redux/actions/decks.action'
+import { ORANGE_WHITE, MONTECARLO, MANATEE } from '../../utils/colors'
 
+const Wrapper = styled.View`
+  background: ${ORANGE_WHITE};
+  flex: 1;
+`
+
+const DeckList = styled.FlatList`
+  flex: 1;
+`
+
+const DeckItem = styled.View`
+  align-items: center;
+  flex: 1;
+  min-height: 120px;
+  padding: 40px 20px 20px 20px;
+`
+
+const DeckTouchable = styled.TouchableHighlight`
+  border: solid 2px ${MONTECARLO};
+`
+
+const TextTitle = styled.Text`
+  background-color: transparent;
+  color: ${MONTECARLO};
+  font-size: 34px;
+  text-align: center;
+`
+
+const TextCardsQuantity = styled.Text`
+  background-color: transparent;
+  color: ${MANATEE};
+  font-size: 18px;
+  text-align: center;
+`
 
 class Decks extends Component {
   state = {
@@ -26,7 +61,7 @@ class Decks extends Component {
     const { title, questions } = decks[item];
 
     return (
-      <TouchableHighlight onPress={() => {
+      <DeckTouchable onPress={() => {
         this.props.navigation.navigate(
           'Deck',
           {
@@ -37,11 +72,11 @@ class Decks extends Component {
           }
         )
       }}>
-        <View>
-          <Text>{title}</Text>
-          <Text>{questions.length} Cards</Text>
-        </View>
-      </TouchableHighlight>
+        <DeckItem>
+          <TextTitle>{title}</TextTitle>
+          <TextCardsQuantity>{questions.length} Cards</TextCardsQuantity>
+        </DeckItem>
+      </DeckTouchable>
     )
   }
 
@@ -54,22 +89,21 @@ class Decks extends Component {
 
     if (Object.keys(decks).length === 0) {
       return (
-        <View style={{paddingTop: 50}}>
-          <Text>Add some decks to get started!</Text>
-        </View>
+        <Wrapper>
+          <TextTitle>Add some decks to get started!</TextTitle>
+        </Wrapper>
       )
     }
 
     return (
-      <View>
-        <FlatList
+      <Wrapper>
+        <DeckList
           data={Object.keys(decks)}
           keyExtractor={this.keyExtractor}
           extraData={this.state}
           renderItem={this.renderItem}
-          containerStyle={{borderBottomWidth: 2}}
         />
-      </View>
+      </Wrapper>
     )
   }
 }

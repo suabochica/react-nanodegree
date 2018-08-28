@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 
 import { ORANGE_WHITE, MONTECARLO } from '../utils/colors'
 import {
@@ -7,10 +7,11 @@ import {
   Decks,
   NewCard,
   NewDeck,
+  Card,
   Cards,
 } from '../components'
 
-const Tabs = createBottomTabNavigator(
+const Tabs = createMaterialTopTabNavigator(
   {
     Decks: {
       screen: Decks,
@@ -32,12 +33,11 @@ const Tabs = createBottomTabNavigator(
     tabBarOptions: {
       activeTintColor: Platform.OS === 'ios' ? MONTECARLO : ORANGE_WHITE,
       style: {
-        height: 56,
         backgroundColor: Platform.OS === 'ios' ? ORANGE_WHITE : MONTECARLO,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
           width: 0,
-          height: 3
+          height: 2
         },
         shadowRadius: 6,
         shadowOpacity: 1
@@ -68,6 +68,16 @@ export default MainNavigator = createStackNavigator({
         backgroundColor: MONTECARLO,
       },
       title: 'Add Card'
+    })
+  },
+  Card: {
+    screen: Card,
+    navigationOptions: () => ({
+      headerTintColor: ORANGE_WHITE,
+      headerStyle: {
+        backgroundColor: MONTECARLO,
+      },
+      title: 'Card'
     })
   },
   Cards: {

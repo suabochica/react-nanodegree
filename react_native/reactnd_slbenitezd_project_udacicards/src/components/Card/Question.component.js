@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Text, TouchableHighlight, View } from 'react-native'
+import TextButton from '../TextButton/TextButton.component';
 
 class Question extends PureComponent {
   render () {
@@ -8,9 +9,9 @@ class Question extends PureComponent {
     return (
       <View>
         <Text>{ question }</Text>
-        <TouchableHighlight onPress={handleShowAnswer}>
-          <Text>Answer</Text>
-        </TouchableHighlight>
+        <TextButton onPress={handleShowAnswer}>
+          Answer
+        </TextButton>
       </View>
     )
   }

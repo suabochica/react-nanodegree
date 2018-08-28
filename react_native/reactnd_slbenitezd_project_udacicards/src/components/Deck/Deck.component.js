@@ -6,8 +6,32 @@ import {
   View,
 } from 'react-native'
 import { connect } from 'react-redux'
+import styled from 'styled-components/native'
 
 import { startCards } from '../../redux/actions/cards.action'
+import { ORANGE_WHITE, MONTECARLO, MANATEE } from '../../utils/colors'
+import { TextButton } from '..';
+
+const CenterView = styled.View`
+  align-items: center;
+  background: ${ORANGE_WHITE};
+  flex: 1;
+  justify-content: center;
+`
+
+const TextTitle = styled.Text`
+  background-color: transparent;
+  color: ${MONTECARLO};
+  font-size: 34px;
+  text-align: center;
+`
+
+const TextCardsQuantity = styled.Text`
+  background-color: transparent;
+  color: ${MANATEE};
+  font-size: 18px;
+  text-align: center;
+`
 
 class Deck extends Component {
   render () {
@@ -16,12 +40,12 @@ class Deck extends Component {
     const { title, questions } = decks[deckItem]
 
     return (
-      <View>
+      <CenterView>
         <View>
-          <Text>{title}</Text>
-          <Text>{questions.length} Cards</Text>
+          <TextTitle>{title}</TextTitle>
+          <TextCardsQuantity>{questions.length} Cards</TextCardsQuantity>
         </View>
-        <TouchableOpacity onPress={() => {
+        <TextButton onPress={() => {
           this.props.navigation.navigate(
             'NewCard',
             {
@@ -29,10 +53,10 @@ class Deck extends Component {
             }
           )
         }}>
-          <Text>Add New Card</Text>
-        </TouchableOpacity>
+          New Card
+        </TextButton>
         {questions.length > 0 && (
-          <TouchableOpacity onPress={() => {
+          <TextButton onPress={() => {
             this.props.dispatch(startCards())
             this.props.navigation.navigate(
               'Cards',
@@ -41,10 +65,10 @@ class Deck extends Component {
               }
             )
           }}>
-            <Text>Start Test</Text>
-          </TouchableOpacity>
+            Start Test
+          </TextButton>
         )}
-      </View>
+      </CenterView>
     )
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import {
   KeyboardAvoidingView,
   Text,
@@ -9,6 +10,35 @@ import {
 
 import { addCardToDeck } from '../../utils/api'
 import { addCard } from '../../redux/actions/decks.action'
+import { ORANGE_WHITE, RANGOON_GREEN, MANATEE, JET_STREAM } from '../../utils/colors'
+import { TextButton } from '../'
+
+const Wrapper = styled.View`
+  flex: 1;
+  background-color: ${JET_STREAM};
+`
+
+const CardSection = styled.KeyboardAvoidingView`
+  flex: 1;
+  background-color: ${ORANGE_WHITE};
+  border-radius: 10px;
+  box-shadow: 0 2px 2px ${MANATEE};
+  justify-content: center;
+  padding: 30px 30px 0 30px;
+`
+
+const CardTextLabel = styled.Text`
+  color: ${RANGOON_GREEN};
+  font-size: 30px;
+  line-height: 32;
+`
+
+const CardTextInput = styled.TextInput`
+  border-color: ${MANATEE}
+  height: 38px;
+  padding-left: 5px;
+  margin-bottom: 0;
+`
 
 class NewCard extends Component {
   state = {
@@ -49,25 +79,27 @@ class NewCard extends Component {
     const { answerText, questionText } = this.state
 
     return(
-      <KeyboardAvoidingView>
-        <Text>Type the question of your new card, please</Text>
-        <TextInput
-          value={questionText}
-          onChangeText={(this.onChangeQuestionText)}
-          placeholder='Question'
-        />
-        <Text>Type the answer of your new question, please</Text>
-        <TextInput
-          value={answerText}
-          onChangeText={this.onChangeAnswerText}
-          placeholder='Answer'
-        />
-        <TouchableHighlight
-          onPress={this.handleCreateCardSubmit}
-        >
-          <Text>Submit</Text>
-        </TouchableHighlight>
-      </KeyboardAvoidingView>
+      <Wrapper>
+        <CardSection>
+          <CardTextLabel>Type the question of your new card, please</CardTextLabel>
+          <CardTextInput
+            value={questionText}
+            onChangeText={(this.onChangeQuestionText)}
+            placeholder='Question'
+          />
+          <CardTextLabel>Type the answer of your new question, please</CardTextLabel>
+          <CardTextInput
+            value={answerText}
+            onChangeText={this.onChangeAnswerText}
+            placeholder='Answer'
+          />
+          <TextButton
+            onPress={this.handleCreateCardSubmit}
+          >
+            Create Card
+          </TextButton>
+        </CardSection>
+      </Wrapper>
     )
   }
 }
