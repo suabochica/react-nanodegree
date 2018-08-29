@@ -1,7 +1,7 @@
 Udacicards Project Solution
 ===========================
 
-This is my final assessment project for Udacity's React Native course
+This is my final assessment project for Udacity's React Native course. Application tested in Android OS on the Redmi MD5 device.
 
 Run the project
 ---------------
