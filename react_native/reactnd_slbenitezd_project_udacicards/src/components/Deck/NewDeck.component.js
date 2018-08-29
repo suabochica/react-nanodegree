@@ -33,7 +33,7 @@ const DeckSection = styled.View`
 
 const DeckTextTitle = styled.Text`
   color: ${RANGOON_GREEN};
-  font-size: 30px;
+  font-size: 24px;
   line-height: 32;
 `
 

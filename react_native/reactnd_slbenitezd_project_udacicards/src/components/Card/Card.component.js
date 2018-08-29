@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 
 import Answer from './Answer.component'
 import Question from './Question.component'
 import { TextButton } from '../'
 import { answerCard } from '../../redux/actions/cards.action'
+import { LIMA, POMERGRANATE } from '../../utils/colors'
+
+const Wrapper = styled.View`
+  align-items: center;
+  background-color: transparent;
+  flex: 1;
+  justify-content: center;
+`
 
 class Card extends Component {
   state = {
@@ -26,7 +35,7 @@ class Card extends Component {
     const { toggleAnswer } = this.state
 
     return (
-      <View>
+      <Wrapper>
         <View>
           { toggleAnswer
             ? <Answer
@@ -41,19 +50,19 @@ class Card extends Component {
         </View>
         <View>
           <TextButton
-            style={{padding: 10}}
             onPress={() => dispatch(answerCard(true))}
+            style={{backgroundColor: LIMA}}
           >
             Correct
           </TextButton>
           <TextButton
-            style={{padding: 10}}
             onPress={() => dispatch(answerCard(false))}
+            style={{backgroundColor: POMERGRANATE}}
           >
             Incorrect
           </TextButton>
         </View>
-      </View>
+      </Wrapper>
     )
   }
 }

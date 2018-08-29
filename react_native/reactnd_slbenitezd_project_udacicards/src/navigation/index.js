@@ -49,6 +49,9 @@ const Tabs = createMaterialTopTabNavigator(
 export default MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
+    navigationOptions: {
+      header: null
+    },
   },
   Deck: {
     screen: Deck,
@@ -83,6 +86,10 @@ export default MainNavigator = createStackNavigator({
   Cards: {
     screen: Cards,
     navigationOptions: {
+      headerTintColor: ORANGE_WHITE,
+      headerStyle: {
+        backgroundColor: MONTECARLO,
+      },
       title: 'Cards'
     }
   }

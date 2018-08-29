@@ -25,7 +25,10 @@ class TextButton extends PureComponent {
     const { children, onPress, style = {} } = this.props
 
     return (
-      <Button onPress={onPress}>
+      <Button
+        onPress={onPress}
+        style={[style]}
+      >
         <ButtonText>{children}</ButtonText>
       </Button>
     )

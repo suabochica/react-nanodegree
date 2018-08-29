@@ -29,7 +29,7 @@ const CardSection = styled.KeyboardAvoidingView`
 
 const CardTextLabel = styled.Text`
   color: ${RANGOON_GREEN};
-  font-size: 30px;
+  font-size: 24px;
   line-height: 32;
 `
 

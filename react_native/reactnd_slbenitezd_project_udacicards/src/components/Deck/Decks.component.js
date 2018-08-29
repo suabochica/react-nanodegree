@@ -6,11 +6,18 @@ import styled from 'styled-components'
 
 import { getDecks } from '../../utils/api'
 import { receiveDecks } from '../../redux/actions/decks.action'
-import { ORANGE_WHITE, MONTECARLO, MANATEE } from '../../utils/colors'
+import { ORANGE_WHITE, MONTECARLO, MANATEE, RANGOON_GREEN } from '../../utils/colors'
 
 const Wrapper = styled.View`
   background: ${ORANGE_WHITE};
   flex: 1;
+`
+
+const WrapperCenter = styled.View`
+  align-items: center;
+  background: ${ORANGE_WHITE};
+  flex: 1;
+  justify-content: center;
 `
 
 const DeckList = styled.FlatList`
@@ -32,6 +39,13 @@ const TextTitle = styled.Text`
   background-color: transparent;
   color: ${MONTECARLO};
   font-size: 34px;
+  text-align: center;
+`
+
+const TextAdvice = styled.Text`
+  background-color: transparent;
+  color: ${RANGOON_GREEN};
+  font-size: 30px;
   text-align: center;
 `
 
@@ -89,9 +103,9 @@ class Decks extends Component {
 
     if (Object.keys(decks).length === 0) {
       return (
-        <Wrapper>
-          <TextTitle>Add some decks to get started!</TextTitle>
-        </Wrapper>
+        <WrapperCenter>
+          <TextAdvice>Add some decks to get started!</TextAdvice>
+        </WrapperCenter>
       )
     }
 

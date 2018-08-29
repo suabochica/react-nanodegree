@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { Card, TextButton } from '../'
 import { resetCards } from '../../redux/actions/cards.action'
+import { clearLocalNotification, setLocalNotification } from '../utils/api'
 import { ORANGE_WHITE, RANGOON_GREEN, MANATEE, JET_STREAM } from '../../utils/colors'
 
 
@@ -14,6 +15,7 @@ const Wrapper = styled.View`
 `
 
 const CardSection = styled.KeyboardAvoidingView`
+  align-items: center;
   flex: 1;
   background-color: ${ORANGE_WHITE};
   border-radius: 10px;
@@ -22,7 +24,24 @@ const CardSection = styled.KeyboardAvoidingView`
   padding: 30px 30px 0 30px;
 `
 
+const CardTextLabel = styled.Text`
+  color: ${RANGOON_GREEN};
+  font-size: 24px;
+  line-height: 32;
+`
+
+const CardTextParagraph = styled.Text`
+  color: ${MANATEE};
+  font-size: 18px;
+  line-height: 32;
+`
+
 class Cards extends Component {
+  componentWillMount () {
+    clearLocalNotification().
+      then(setLocalNotification)
+  }
+
   render () {
     const { deck } = this.props.navigation.state.params
     const { correct, currentQuestion, decks, dispatch, navigation } = this.props
@@ -31,34 +50,35 @@ class Cards extends Component {
 
     if ( questions.length > 0 && currentQuestion === questions.length) {
       return (
-        <View>
-          <Text>
-            Done! You got {score} in this test
-          </Text>
-          <TextButton
-            style={{padding: 10}}
-            onPress={() =>
-              dispatch(resetCards())
-            }
-          >
-            Restart Cards
-          </TextButton>
-          <TextButton
-            style={{padding: 10}}
-            onPress={() =>
-              navigation.goBack()
-            }
-          >
-            Back to Deck
-          </TextButton>
-        </View>
+        <Wrapper>
+          <CardSection>
+            <CardTextLabel>
+              Done!
+            </CardTextLabel>
+            <CardTextParagraph>You got {score} in this test</CardTextParagraph>
+            <TextButton
+              onPress={() =>
+                dispatch(resetCards())
+              }
+            >
+              Restart Cards
+            </TextButton>
+            <TextButton
+              onPress={() =>
+                navigation.goBack()
+              }
+            >
+              Back to Deck
+            </TextButton>
+          </CardSection>
+        </Wrapper>
       )
     }
 
     return (
       <Wrapper>
         <CardSection>
-          <Text>{currentQuestion + 1} / {questions.length}</Text>
+          <CardTextParagraph>{currentQuestion + 1} / {questions.length}</CardTextParagraph>
           <Card question={questions[currentQuestion]}/>
         </CardSection>
       </Wrapper>
