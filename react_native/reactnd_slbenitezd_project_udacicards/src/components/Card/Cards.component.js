@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 import { Card, TextButton } from '../'
 import { resetCards } from '../../redux/actions/cards.action'
-import { clearLocalNotification, setLocalNotification } from '../utils/api'
 import { ORANGE_WHITE, RANGOON_GREEN, MANATEE, JET_STREAM } from '../../utils/colors'
 
 
@@ -37,11 +36,6 @@ const CardTextParagraph = styled.Text`
 `
 
 class Cards extends Component {
-  componentWillMount () {
-    clearLocalNotification().
-      then(setLocalNotification)
-  }
-
   render () {
     const { deck } = this.props.navigation.state.params
     const { correct, currentQuestion, decks, dispatch, navigation } = this.props

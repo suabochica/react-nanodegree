@@ -31,7 +31,7 @@ class Answer extends PureComponent {
         <TouchableHighlight
           onPress={handleShowQuestion}
         >
-          <CardTextTouchable>Question</CardTextTouchable>
+          <CardTextTouchable>Show Question</CardTextTouchable>
         </TouchableHighlight>
       </CardOption>
     )

@@ -10,6 +10,7 @@ import styled from 'styled-components/native'
 
 import { startCards } from '../../redux/actions/cards.action'
 import { ORANGE_WHITE, MONTECARLO, MANATEE } from '../../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../../utils/notification'
 import { TextButton } from '..';
 
 const CenterView = styled.View`
@@ -64,6 +65,8 @@ class Deck extends Component {
                 deck: deckItem,
               }
             )
+            clearLocalNotification().
+              then(setLocalNotification)
           }}>
             Start Test
           </TextButton>
