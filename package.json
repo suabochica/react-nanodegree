@@ -1,0 +1,12 @@
+{
+  "name": "react-nanodegree",
+  "version": "1.0.0",
+  "description": "Welcome! Our goal is to equip you with the skills you'll need to become a profesional React developer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
