@@ -1,23 +1,31 @@
 import './App.css'
+import { TwitterFollowCard } from './TwitterFollowCard'
+
 
 export function App() {
-    return (
-        <article className='tw-follow-card'>
-            <header className='tw-follow-card-header'>
-                <img
-                    className='tw-follow-card-avatar'
-                    src="https://suabochica.com/sua_profile.jpg"
-                    alt="Avatar"
-                />
-                <div className='tw-follow-card-info'>
-                    <strong className='tw-follow-card-name'>Sergio Leonardo Benítez</strong>
-                    <span className='tw-follow-card-tag'>@suabocihca</span>
-                </div>
-            </header>
+    const formatTag = (tag: string) => `@${tag}`
+    // This is a way to pass props to a component, but is not recommended
+    // because it sends more information that is needed..
+    const nezuko = { name: 'Nezuko Kamado', tag: 'nezuko', initialIsFollowing: false }
 
-            <aside>
-                <button className='tw-follow-card-button'>Seguir</button>
-            </aside>
-        </article>
+    return (
+        <section className='card-container'>
+            <TwitterFollowCard
+                formatTag={formatTag}
+                tag='suabochica'
+                name='Sergio Benítez'
+                initialIsFollowing={true}
+            />
+            <TwitterFollowCard
+                formatTag={formatTag}
+                tag='tanjiro'
+                name='Tanjiro Kamado'
+                initialIsFollowing={false}
+            />
+            <TwitterFollowCard {...nezuko}
+                formatTag={formatTag}
+            >
+            </TwitterFollowCard>
+        </section>
     )
 }
