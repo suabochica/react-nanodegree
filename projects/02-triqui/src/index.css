@@ -33,7 +33,7 @@ body {
   width: fit-content;
 }
 
-.board .h1 {
+.board h1 {
   color: #eee;
   margin-bottom: 16px;
 }
@@ -80,7 +80,7 @@ body {
 }
 
 .square.is-selected {
-  color: #09f;
+  background-color: #09f;
   color: #fff;
 }
 
