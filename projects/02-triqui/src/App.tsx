@@ -47,7 +47,7 @@ function App() {
 
   const [board, setBoard] = useState(Array(9).fill(null));
   const [turn, setTurn] = useState(TURNS.X)
-  const [winner, setWinner] = useState<string | null>(null)
+  const [winner, setWinner] = useState<boolean | null>(null)
 
   // Functions
   //----------------------------------------
@@ -74,6 +74,10 @@ function App() {
     setWinner(null);
   }
 
+  const checkEndGame = (boardToCheck) => {
+    return boardToCheck.every((square) => square !== null);
+  }
+
   const updateBoard = (index: number) => {
     // si la casilla ya está ocupada, ó ya hay ganador, no hacemos nada
     if (board[index] || winner) return;
@@ -89,6 +93,8 @@ function App() {
 
     if (newWinner) {
       setWinner(newWinner);
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false); // empate
     }
   }
 
@@ -122,7 +128,7 @@ function App() {
       </section >
 
       {
-        winner && (
+        winner !== null && (
           <section className="winner">
             <div className="text">
 
