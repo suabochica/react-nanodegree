@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
-function App() {
-
+const FollowMouse = () => {
   // States
   // -----------------------------
   const [enabled, setEnabled] = useState(false);
@@ -10,26 +9,38 @@ function App() {
 
   // Effects
   // -----------------------------
+
+  // pointermove
   useEffect(() => {
-    console.log('useEffect', { enabled })
     const handleMove = (event: PointerEvent) => {
       const { clientX, clientY } = event;
-      console.log('handleMove', { clientX, clientY })
       setPosition({ x: clientX, y: clientY })
     }
 
     if (enabled) {
-      window.addEventListener('pointermove', handleMove)
+      window.addEventListener('pointermove', handleMove);
     }
 
+    // Limpiar las subscripciones
+    // --> Cuando el componente se desmonta
+    // --> Cuando el las dependencias cambian
+    return () => {
+      window.removeEventListener('pointermove', handleMove);
+    }
   }, [enabled]);
+
+  // toggle body class for cursor
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', enabled);
+
+    return () => document.body.classList.remove('no-cursor');
+  }, [enabled])
 
   const handleClick = () => {
     setEnabled(!enabled)
   }
-
   return (
-    <main>
+    <>
       <div style={{
         position: 'absolute',
         backgroundColor: '#19f',
@@ -43,9 +54,17 @@ function App() {
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
       />
-      <button onClick={() => setEnabled(!enabled)}>
-        {enabled ? 'Activar' : 'Deactivar'} seguir puntero
+      <button onClick={handleClick}>
+        {enabled ? 'Desactivar' : 'Activar'} seguir puntero
       </button>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <main>
+      <FollowMouse />
     </main>
   )
 }
