@@ -6,7 +6,8 @@ export type SquareProps = {
 }
 
 export const Square = ({ children, isSelected, updateBoard, index }: SquareProps) => {
-  const selectedClass = isSelected ? 'square is-selected' : 'square'
+  const selectedClass: string = isSelected ? 'square is-selected' : 'square'
+
   const handleClick = () => {
     if (updateBoard) {
       updateBoard(index);

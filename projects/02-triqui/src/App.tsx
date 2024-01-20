@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 import './App.css'
-import { Square, SquareProps } from './components/Square'
+import { Square } from './components/Square'
 import { WinnerModal } from './components/WinnerModal'
 
 import { TURNS } from './constants'
