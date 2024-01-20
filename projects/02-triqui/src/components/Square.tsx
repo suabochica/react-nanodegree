@@ -1,8 +1,7 @@
-
-type SquareProps = {
-  children: string
-  updateBoard?: (index: number) => void
+export type SquareProps = {
   index: number
+  children?: string
+  updateBoard?: (index: number) => void
   isSelected?: boolean
 }
 

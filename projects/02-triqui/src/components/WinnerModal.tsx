@@ -6,9 +6,7 @@ type WinnerModalProps = {
 }
 
 export function WinnerModal({ winner, resetGame }: WinnerModalProps) {
-
   if (winner === null) return null;
-
 
   const winnerText = winner === false ? 'Empate' : 'Ganó';
 

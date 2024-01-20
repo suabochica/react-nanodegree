@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
 import './App.css'
-import { Square } from './components/Square'
+import { Square, SquareProps } from './components/Square'
 import { WinnerModal } from './components/WinnerModal'
 
 import { TURNS } from './constants'
 import { checkWinner, checkEndGame } from './utils/board'
+import { saveGameToLocalStorage, resetGameFromLocalStorage } from './utils/localStorage'
 
 function App() {
 
@@ -27,14 +28,12 @@ function App() {
   // Functions
   //----------------------------------------
 
-
   const resetGame = () => {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
 
-    window.localStorage.removeItem('board');
-    window.localStorage.removeItem('turn');
+    resetGameFromLocalStorage();
   }
 
   const updateBoard = (index: number) => {
@@ -47,8 +46,11 @@ function App() {
 
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
     setTurn(newTurn);
-    window.localStorage.setItem('board', JSON.stringify(newBoard));
-    window.localStorage.setItem('turn', newTurn);
+
+    saveGameToLocalStorage({
+      board: newBoard,
+      turn: newTurn
+    });
 
     const newWinner = checkWinner(newBoard);
 
@@ -67,23 +69,29 @@ function App() {
 
       <section className='game'>
         {
-          board.map((_, index) => (
+          board.map((square: string, index: number) => (
             <Square
               key={index}
               index={index}
               updateBoard={updateBoard}
             >
-              {board[index]}
+              {square}
             </Square>
           ))
         }
       </section>
 
       <section className="turn">
-        <Square isSelected={turn === TURNS.X}>
+        <Square
+          index={-1}
+          isSelected={turn === TURNS.X}
+        >
           {TURNS.X}
         </Square>
-        <Square isSelected={turn === TURNS.O}>
+        <Square
+          index={-1}
+          isSelected={turn === TURNS.O}
+        >
           {TURNS.O}
         </Square>
       </section >
