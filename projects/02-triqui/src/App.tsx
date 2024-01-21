@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import './App.css'
 import { Square } from './components/Square'
 import { WinnerModal } from './components/WinnerModal'
 
