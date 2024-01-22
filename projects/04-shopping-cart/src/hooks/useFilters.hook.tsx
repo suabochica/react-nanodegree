@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FiltersContext } from "../context/useFilters.context";
+import { FiltersContext } from "../context/filter.context";
 
 // Custom Hooks
 // ------------

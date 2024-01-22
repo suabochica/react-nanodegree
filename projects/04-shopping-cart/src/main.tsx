@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 
 import App from './App.tsx'
-import { FiltersProvider } from './context/useFilters.context.tsx'
+import { FiltersProvider } from './context/filter.context.tsx'
 
 import './index.css'
 

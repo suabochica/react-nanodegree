@@ -1,5 +1,6 @@
+import { AddToCartIcon, RemoveFromCartIcon } from './Icons';
 
-import { AddToCartIcon } from "./Icons";
+import { useCart } from '../hooks/useCart.hook'
 import './Products.css';
 
 type Product = {
@@ -10,31 +11,51 @@ type Product = {
 }
 
 export function Products({ products }: Product[]) {
+  const { addToCart, removeFromCart, cart } = useCart();
+
+  const checkProductInCart = (product) => {
+    return cart.some(item => item.id === product.id)
+  }
+
   return (
     <main className="products">
       <ul>
-        {products.slice(0, 10).map(product => (
-          <li
-            key={product.id}
-          >
-            <img
-              src={product.thumbnail}
-              alt={product.title}
-            />
+        {products.slice(0, 10).map(product => {
+          const isProductInCart = checkProductInCart(product)
 
-            <div>
-              <strong>{product.title} - </strong>
-              <span>$ {product.price}</span>
-            </div>
+          return (
+            <li
+              key={product.id}
+            >
+              <img
+                src={product.thumbnail}
+                alt={product.title}
+              />
 
-            <div>
-              <button>
-                <AddToCartIcon />
-              </button>
-            </div>
+              <div>
+                <strong>{product.title} - </strong>
+                <span>$ {product.price}</span>
+              </div>
 
-          </li>
-        ))}
+              <div>
+                <button onClick={() => {
+                  isProductInCart
+                    ? removeFromCart(product)
+                    : addToCart(product)
+                }}
+                >
+                  {
+                    isProductInCart
+                      ? <RemoveFromCartIcon />
+                      : <AddToCartIcon />
+                  }
+                </button>
+              </div>
+
+            </li>
+          )
+        }
+        )}
       </ul>
     </main>
   )
