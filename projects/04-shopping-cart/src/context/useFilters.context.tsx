@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 // 1. Crear el contexto
 // Habilita el contexto que se va a consumir
+// Esto es un singleton
 
 export const FiltersContext = createContext();
 

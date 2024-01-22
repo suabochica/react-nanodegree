@@ -5,6 +5,7 @@
 - [x] Muestra una lista de los production que vienen en el `data/products.json`.
 - [x] Añade un filtro por categoría.
 - [x] Añade un filtro por precio a partir de determinado valor.
+- [x] Haz uso de `useContext` para evitar pasar props innecesarias.
 
 2. Shopping cart
 

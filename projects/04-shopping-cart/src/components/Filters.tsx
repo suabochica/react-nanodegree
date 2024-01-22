@@ -1,12 +1,11 @@
-import { ChangeEvent, useState, useId } from 'react';
+import { ChangeEvent, useId } from 'react';
 
 import './Filters.css';
 import { useFilters } from '../hooks/useFilters.hook';
 
 export function Filters() {
 
-  // Fuente de verdad 1: estado global
-  const { setFilters } = useFilters()
+  const { filters, setFilters } = useFilters()
 
   // Ids: para el orden de llamada del elemento
   //-------------------------------------------
@@ -14,20 +13,10 @@ export function Filters() {
   const minPriceFilterId = useId()
   const categoryFilterId = useId()
 
-  // States
-  //-------
-
-  // Fuente de verdad 2: estado local del componente
-  const [minPrice, setMinPrice] = useState(0)
-
   // Functions
   //----------
 
   function handleChangeMinPrice(event: ChangeEvent<HTMLInputElement>) {
-    // 👇 Esto huele mal
-    // Tenemos dos fuentes de verdad
-    setMinPrice(Number(event.target.value))
-
     setFilters(prevState => ({
       ...prevState,
       minPrice: Number(event.target.value)
@@ -35,9 +24,6 @@ export function Filters() {
   }
 
   function handleChangeCategory(event) {
-    // 👇 Esto huele mal
-    // Estamos pasandlo la función de actualizar estado
-    // nativa de React a un componente hijo
     setFilters(prevState => ({
       ...prevState,
       category: event.target.value
@@ -54,8 +40,9 @@ export function Filters() {
           min="0"
           max="1000"
           onChange={handleChangeMinPrice}
+          value={filters.minPrice}
         />
-        <span>${minPrice}</span>
+        <span>${filters.minPrice}</span>
       </div>
       <div><label htmlFor={categoryFilterId}></label>
         <select
