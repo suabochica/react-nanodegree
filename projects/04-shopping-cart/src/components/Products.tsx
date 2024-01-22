@@ -23,7 +23,7 @@ export function Products({ products }: Product[]) {
             />
 
             <div>
-              <strong>{product.title}</strong>
+              <strong>{product.title} - </strong>
               <span>$ {product.price}</span>
             </div>
 

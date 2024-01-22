@@ -2,11 +2,16 @@ import { useState } from "react"
 import { Products } from "./components/Products"
 
 import { products as initialProducts } from "./data/products.json"
+import { Header } from "./components/Header";
 
-function App() {
+// Custom Hooks
+// ------------
+
+function useFilters() {
+
   // States
-  //-------
-  const [products] = useState(initialProducts);
+  // ------
+
   const [filters, setFilters] = useState({
     category: 'all',
     minPrice: 0
@@ -14,7 +19,7 @@ function App() {
 
 
   // Functions
-  //----------
+  // ---------
 
   const filterProducts = (products: any[]) => {
     return products.filter(product => {
@@ -28,8 +33,24 @@ function App() {
     })
   }
 
+  return { filterProducts, setFilters }
+}
+
+function App() {
+
+  // States
+  // ------
+
+  const [products] = useState(initialProducts);
+  const { filterProducts, setFilters } = useFilters();
+
+  const filteredProducts = filterProducts(products)
+
   return (
-    <Products products={filterProducts(products)} />
+    <>
+      <Header changeFilters={setFilters} />
+      <Products products={filteredProducts} />
+    </>
   )
 }
 
