@@ -1,12 +1,12 @@
 import { ChangeEvent, useState, useId } from 'react';
 
 import './Filters.css';
+import { useFilters } from '../hooks/useFilters.hook';
 
-type FiltersProps = {
-  onChange: (minPrice: number) => void;
-};
+export function Filters() {
 
-export function Filters({ onChange }: FiltersProps) {
+  // Fuente de verdad 1: estado global
+  const { setFilters } = useFilters()
 
   // Ids: para el orden de llamada del elemento
   //-------------------------------------------
@@ -17,6 +17,7 @@ export function Filters({ onChange }: FiltersProps) {
   // States
   //-------
 
+  // Fuente de verdad 2: estado local del componente
   const [minPrice, setMinPrice] = useState(0)
 
   // Functions
@@ -27,7 +28,7 @@ export function Filters({ onChange }: FiltersProps) {
     // Tenemos dos fuentes de verdad
     setMinPrice(Number(event.target.value))
 
-    onChange(prevState => ({
+    setFilters(prevState => ({
       ...prevState,
       minPrice: Number(event.target.value)
     }))
@@ -37,7 +38,7 @@ export function Filters({ onChange }: FiltersProps) {
     // 👇 Esto huele mal
     // Estamos pasandlo la función de actualizar estado
     // nativa de React a un componente hijo
-    onChange(prevState => ({
+    setFilters(prevState => ({
       ...prevState,
       category: event.target.value
     }))
