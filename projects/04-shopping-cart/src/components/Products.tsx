@@ -1,5 +1,6 @@
 
 import { AddToCartIcon } from "./Icons";
+import './Products.css';
 
 type Product = {
   id: number,
@@ -12,7 +13,7 @@ export function Products({ products }: Product[]) {
   return (
     <main className="products">
       <ul>
-        {products.map(product => (
+        {products.slice(0, 10).map(product => (
           <li
             key={product.id}
           >
@@ -22,8 +23,8 @@ export function Products({ products }: Product[]) {
             />
 
             <div>
-              <h3>{product.title}</h3>
-              <span>{product.price}</span>
+              <strong>{product.title}</strong>
+              <span>$ {product.price}</span>
             </div>
 
             <div>
