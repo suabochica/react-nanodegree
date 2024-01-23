@@ -22,3 +22,11 @@
 3. Consumir el contexto
 
 Habilita la inyección de dependencias. Un caso de uso es el tema de la página, ya que se pueden manejar valores estáticos.
+
+## `useReducer`
+
+Manejo del estado de una manera escalable, a través de una interacción entre el estado actual y una acción que se ejecuta para generar un nuevo estado.
+
+Es más facil te probar, porque la lógica de estado queda aislada a la renderización del componente.
+
+Si tienes muchos `useState` en tú código, significa que el estado esta fragmentado. Este es un sintoma para reemplazar los `useState` por un reducer.
