@@ -38,11 +38,13 @@ export function Products({ products }: Product[]) {
               </div>
 
               <div>
-                <button onClick={() => {
-                  isProductInCart
-                    ? removeFromCart(product)
-                    : addToCart(product)
-                }}
+                <button
+                  style={{ backgroundColor: isProductInCart ? 'red' : '#09f' }}
+                  onClick={() => {
+                    isProductInCart
+                      ? removeFromCart(product)
+                      : addToCart(product)
+                  }}
                 >
                   {
                     isProductInCart

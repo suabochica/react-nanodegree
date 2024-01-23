@@ -9,10 +9,10 @@
 
 2. Shopping cart
 
-- [ ] Haz que se puedan añadir los productos al carrito.
-- [ ] Haz que se puedan eliminar los productos al carrito.
-- [ ] Haz que se puedan modificar la cantidad los productos al carrito.
-- [ ] Sincroniza los cambios del carrito con la lista de productos.
+- [x] Haz que se puedan añadir los productos al carrito.
+- [x] Haz que se puedan eliminar los productos al carrito.
+- [x] Haz que se puedan modificar la cantidad los productos al carrito.
+- [x] Sincroniza los cambios del carrito con la lista de productos.
 - [ ] Guarda en un `localStorage` el carrito para recuperarlo luego de cargar la página.
 
 ## `useContext`

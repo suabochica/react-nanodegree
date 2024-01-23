@@ -21,7 +21,7 @@ export function CartProvider({ children }) {
 
       newCart[productInCardIndex].quantity += 1
 
-      return setCart
+      return setCart(newCart)
     }
 
     // El producto no esta en el carrito
