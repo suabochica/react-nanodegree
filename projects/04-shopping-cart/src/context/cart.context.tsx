@@ -1,50 +1,7 @@
 import { createContext, useReducer, useState } from "react";
+import { CART_ACTION_TYPES, cartInitialState, cartReducer } from "../reducers/cart.reducer";
 
 export const CartContext = createContext();
-
-const initialState = [];
-
-
-const reducer = (state, action) => {
-  const { type: actionType, payload: actionPayload } = action;
-
-  switch (actionType) {
-    case 'ADD_TO_CART': {
-      const { id } = actionPayload;
-      const productInCardIndex = state.findIndex(item => item.id === id)
-
-      if (productInCardIndex >= 0) {
-        // Válido para arreglo pequeños
-        const newState = structuredClone(state)
-
-        newState[productInCardIndex].quantity += 1
-
-        return newState
-      }
-
-      return [
-        ...state,
-        {
-          ...actionPayload, // product
-          quantity: 1
-        }
-      ]
-    }
-
-    case 'REMOVE_FROM_CART': {
-      const { id } = actionPayload;
-
-      return state.filter(item => item.id !== id)
-    }
-
-    case 'CLEAR_CART': {
-      return initialState
-    }
-  }
-
-  return state
-}
-
 
 // Version for context
 // -------------------
@@ -105,22 +62,33 @@ function CartProviderContext({ children }) {
 // Version for Reducer
 // -------------------
 
-export function CartProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+function useCartReducer() {
+  const [state, dispatch] = useReducer(cartReducer, cartInitialState);
 
   const addToCart = product => dispatch({
-    type: 'ADD_TO_CART',
+    type: CART_ACTION_TYPES.ADD_TO_CART,
     payload: product
   })
 
   const removeFromCart = product => dispatch({
-    type: 'REMOVE_FROM_CART',
+    type: CART_ACTION_TYPES.REMOVE_FROM_CART,
     payload: product
   })
 
   const clearCart = () => dispatch({
-    type: 'CLEAR_CART'
+    type: CART_ACTION_TYPES.CLEAR_CART
   })
+
+  return {
+    state,
+    addToCart,
+    removeFromCart,
+    clearCart
+  }
+}
+
+export function CartProvider({ children }) {
+  const { state, addToCart, removeFromCart, clearCart } = useCartReducer();
 
   return (
     <CartContext.Provider value={{
