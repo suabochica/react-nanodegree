@@ -6,14 +6,12 @@ import { useStore } from './hook/useStore'
 import './App.css'
 import { AUTO_LANGUAGE } from './constants'
 import { SwapIcon } from './components/Icons'
+import { LanguageSelector } from './components/LanguageSelector'
+import { SectionType } from './types.d'
 
 function App() {
 
-  function handleClick() {
-    setFromLanguage('es')
-  }
-
-  const { fromLanguage, toLanguage, setFromLanguage, interchangeLanguages } = useStore()
+  const { fromLanguage, toLanguage, setFromLanguage, setToLanguage, interchangeLanguages } = useStore()
 
   return (
     <Container fluid>
@@ -21,7 +19,11 @@ function App() {
 
       <Row>
         <Col>
-          <h2>From</h2>
+          <LanguageSelector
+            type={SectionType.From}
+            value={fromLanguage}
+            onChange={setFromLanguage}
+          />
           {fromLanguage}
         </Col>
 
@@ -36,7 +38,11 @@ function App() {
         </Col>
 
         <Col>
-          <h2>To</h2>
+          <LanguageSelector
+            type={SectionType.To}
+            value={toLanguage}
+            onChange={setToLanguage}
+          />
           {toLanguage}
         </Col>
       </Row>
