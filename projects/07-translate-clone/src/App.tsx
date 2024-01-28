@@ -1,30 +1,48 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
 
 import { useStore } from './hook/useStore'
 
 import './App.css'
 import { AUTO_LANGUAGE } from './constants'
 import { SwapIcon } from './components/Icons'
+import { TextArea } from './components/TextArea'
 import { LanguageSelector } from './components/LanguageSelector'
 import { SectionType } from './types.d'
 
 function App() {
 
-  const { fromLanguage, toLanguage, setFromLanguage, setToLanguage, interchangeLanguages } = useStore()
+  const { 
+    fromLanguage,
+    toLanguage,
+    fromText,
+    result,
+    setFromLanguage,
+    setToLanguage,
+    setFromText,
+    setResult,
+    interchangeLanguages
+  } = useStore()
 
   return (
     <Container fluid>
       <h1>🔣 Translate Clone</h1>
 
       <Row>
-        <Col>
+        <Col xs="auto">
+          <Stack gap={2}>
           <LanguageSelector
             type={SectionType.From}
             value={fromLanguage}
             onChange={setFromLanguage}
           />
-          {fromLanguage}
+          <TextArea
+            placeholder="Introducir texto..."
+            type={SectionType.From}
+            value={fromText}
+            onChange={setFromText}
+          />
+          </Stack>
         </Col>
 
         <Col>
@@ -37,14 +55,21 @@ function App() {
           </Button>
         </Col>
 
-        <Col>
+        <Col xs="auto">
+          <Stack gap={2}>
           <LanguageSelector
             type={SectionType.To}
             value={toLanguage}
             onChange={setToLanguage}
           />
-          {toLanguage}
-        </Col>
+          <TextArea
+            placeholder="Traducción"
+            type={SectionType.To}
+            value={result}
+            onChange={setResult}
+          />
+          </Stack>
+       </Col>
       </Row>
     </Container>
   )
