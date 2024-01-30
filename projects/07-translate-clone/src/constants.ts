@@ -3,7 +3,7 @@ export const SUPPORTED_LANGUAGES = {
   es: 'Español',
   de: 'Deutsche',
   fr: 'Français',
-  pr: 'Portugues'
+  pr: 'Português'
 }
 
 export const AUTO_LANGUAGE = 'auto'
