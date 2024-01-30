@@ -2,6 +2,8 @@ import { ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from "
 import { FromLanguage, Language } from "../types"
 import { SUPPORTED_LANGUAGES } from "../constants"
 
+// TODO: Read the new updates in openAI v 4.4.0, ChatCompletionRequestMessageRoleEnum is deprecated.
+
 // Move to a back end service
 const apiKey = import.meta.env.VITE_OPENAI_API_KEY
 
@@ -57,7 +59,7 @@ export async function translate({
   const completion = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
     messages: [
-      ...messages
+      ...messages,
       {
         role: ChatCompletionRequestMessageRoleEnum.User,
         content: `${text} {{${fromCode}}} [[${toCode}]]`

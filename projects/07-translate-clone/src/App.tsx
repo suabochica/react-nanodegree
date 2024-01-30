@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
+import { useEffect } from 'react'
 
 import { useStore } from './hook/useStore'
 
@@ -9,6 +10,7 @@ import { SwapIcon } from './components/Icons'
 import { TextArea } from './components/TextArea'
 import { LanguageSelector } from './components/LanguageSelector'
 import { SectionType } from './types.d'
+import { translate } from './services/translate'
 
 function App() {
 
@@ -24,6 +26,17 @@ function App() {
     setResult,
     interchangeLanguages
   } = useStore()
+
+  useEffect(() => {
+    if (fromText === '') return
+
+    translate({ fromLanguage, toLanguage, text: fromText })
+      .then(result => {
+        if (result == null) return
+        setResult(result)
+      })
+      .catch((error) => { setResult('error') })
+  }, [fromText, fromLanguage, toLanguage])
 
   return (
     <Container fluid>
