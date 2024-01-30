@@ -12,6 +12,7 @@ export const LanguageSelector: FC<Props> = ({ onChange, type, value }) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(event.target.value as Language)
   }
+
   return (
     <Form.Select
       aria-label='Selecciona el idioma'

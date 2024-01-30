@@ -12,7 +12,8 @@ import { SectionType } from './types.d'
 
 function App() {
 
-  const { 
+  const {
+    loading,
     fromLanguage,
     toLanguage,
     fromText,
@@ -31,17 +32,16 @@ function App() {
       <Row>
         <Col xs="auto">
           <Stack gap={2}>
-          <LanguageSelector
-            type={SectionType.From}
-            value={fromLanguage}
-            onChange={setFromLanguage}
-          />
-          <TextArea
-            placeholder="Introducir texto..."
-            type={SectionType.From}
-            value={fromText}
-            onChange={setFromText}
-          />
+            <LanguageSelector
+              type={SectionType.From}
+              value={fromLanguage}
+              onChange={setFromLanguage}
+            />
+            <TextArea
+              type={SectionType.From}
+              value={fromText}
+              onChange={setFromText}
+            />
           </Stack>
         </Col>
 
@@ -57,19 +57,19 @@ function App() {
 
         <Col xs="auto">
           <Stack gap={2}>
-          <LanguageSelector
-            type={SectionType.To}
-            value={toLanguage}
-            onChange={setToLanguage}
-          />
-          <TextArea
-            placeholder="Traducción"
-            type={SectionType.To}
-            value={result}
-            onChange={setResult}
-          />
+            <LanguageSelector
+              type={SectionType.To}
+              value={toLanguage}
+              onChange={setToLanguage}
+            />
+            <TextArea
+              loading={loading}
+              type={SectionType.To}
+              value={result}
+              onChange={setResult}
+            />
           </Stack>
-       </Col>
+        </Col>
       </Row>
     </Container>
   )
