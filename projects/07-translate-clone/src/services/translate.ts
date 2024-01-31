@@ -2,10 +2,13 @@ import { ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from "
 import { FromLanguage, Language } from "../types"
 import { SUPPORTED_LANGUAGES } from "../constants"
 
-// TODO: Read the new updates in openAI v 4.4.0, ChatCompletionRequestMessageRoleEnum is deprecated.
+// Read the new updates in openAI v 4.4.0, ChatCompletionRequestMessageRoleEnum is deprecated.
 
 // Move to a back end service
+// TODO: Check why the apiKey value is always undefined
 const apiKey = import.meta.env.VITE_OPENAI_API_KEY
+
+console.log('apiKey', apiKey)
 
 const configuration = new Configuration({ apiKey })
 const openai = new OpenAIApi(configuration)
@@ -26,7 +29,6 @@ export async function translate({
       role: ChatCompletionRequestMessageRoleEnum.System,
       content: 'You are a AI that translate text. You receive a text from the use and you do not answer, just translate the text. The original language is surrounded by `{{` and `}}` and the target language is surrounded by `[[` and `]]`. You can will receive an {{auto}} which means that you have to detect the language.'
     },
-
     {
       role: ChatCompletionRequestMessageRoleEnum.User,
       content: `Hola mundo {{Español}} [[English]]: ${text}`
@@ -67,5 +69,5 @@ export async function translate({
     ]
   })
 
-  return completion.data.choices[0]?.messages[0].content
+  return completion.data.choices[0]?.message?.content
 }
