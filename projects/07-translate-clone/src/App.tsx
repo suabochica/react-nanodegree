@@ -6,14 +6,17 @@ import { useStore } from './hook/useStore'
 import { useDebounce } from './hook/useDebounce'
 
 import './App.css'
-import { AUTO_LANGUAGE } from './constants'
-import { SwapIcon } from './components/Icons'
+import { AUTO_LANGUAGE, VOICE_FOR_LANGUAGE } from './constants'
+import { ClipboardIcon, MicrophoneIcon, SwapIcon } from './components/Icons'
 import { TextArea } from './components/TextArea'
 import { LanguageSelector } from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import { translate } from './services/translate'
 
 function App() {
+
+  // Hooks
+  // -----
 
   const {
     loading,
@@ -30,6 +33,9 @@ function App() {
 
   const debouncedFromText = useDebounce(fromText, 250)
 
+  // Effects
+  // --------
+
   useEffect(() => {
     if (fromText === '') return
 
@@ -41,6 +47,19 @@ function App() {
       })
       .catch(() => { setResult('Error') })
   }, [debouncedFromText, fromLanguage, toLanguage])
+
+  // Handlers
+  // --------
+
+  const handleClipboard = () => { navigator.clipboard.writeText(result) }
+  const handleSpeaker = () => {
+    const utterance = new SpeechSynthesisUtterance(result)
+
+    utterance.lang = VOICE_FOR_LANGUAGE[toLanguage]
+    utterance.rate = 0.8
+
+    speechSynthesis.speak(utterance)
+  }
 
   return (
     <Container fluid>
@@ -79,12 +98,29 @@ function App() {
               value={toLanguage}
               onChange={setToLanguage}
             />
-            <TextArea
-              loading={loading}
-              type={SectionType.To}
-              value={result}
-              onChange={setResult}
-            />
+            <div style={{ position: 'relative' }}>
+              <TextArea
+                loading={loading}
+                type={SectionType.To}
+                value={result}
+                onChange={setResult}
+              />
+              <div style={{ position: 'absolute', left: 0, bottom: 0, display: 'flex' }}>
+                <Button
+                  variant='link'
+                  onClick={handleClipboard}
+                >
+                  <ClipboardIcon />
+                </Button>
+
+                <Button
+                  variant='link'
+                  onClick={handleSpeaker}
+                >
+                  <MicrophoneIcon />
+                </Button>
+              </div>
+            </div>
           </Stack>
         </Col>
       </Row>

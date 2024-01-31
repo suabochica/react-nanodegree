@@ -22,8 +22,12 @@ const reducer = (state: State, action: Action) => {
       // lógica del estado dentro del reducer y no en el componente
       if (state.fromLanguage === AUTO_LANGUAGE) return state
 
+      const loading = state.fromText !== ''
+
       return {
         ...state,
+        loading,
+        result: '',
         fromLanguage: state.toLanguage,
         toLanguage: state.fromLanguage,
       }
