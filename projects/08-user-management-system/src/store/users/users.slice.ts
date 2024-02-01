@@ -12,7 +12,7 @@ export interface UserWithId extends User {
   id: UserId
 }
 
-const initialState: UserWithId[] = [
+const DEFAULT_USER_STATE = [
   {
     id: "1",
     name: 'John Doe',
@@ -31,7 +31,20 @@ const initialState: UserWithId[] = [
     email: 'johnsmith@midu.com',
     github: 'midudev'
   }
+
 ]
+
+// Use of and IIFE to get the initial state from localStorage
+
+const initialState: UserWithId[] = (() => {
+  const persistedState = localStorage.getItem("__redux_state__")
+  if (persistedState) {
+    return JSON.parse(persistedState).users
+  }
+
+  return DEFAULT_USER_STATE
+})()
+
 
 export const userSlice = createSlice({
   name: 'users',
@@ -46,7 +59,7 @@ export const userSlice = createSlice({
     },
     // rollbackUSer: (state, action) => {
     // }
-  }
+  },
 })
 
 export default userSlice.reducer
