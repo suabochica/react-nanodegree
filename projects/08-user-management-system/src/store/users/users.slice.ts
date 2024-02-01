@@ -34,7 +34,8 @@ const DEFAULT_USER_STATE = [
 
 ]
 
-// Use of and IIFE to get the initial state from localStorage
+// Use of and IIFE to get the initial state from localStorage and enable
+// the possibility of have two returns
 
 const initialState: UserWithId[] = (() => {
   const persistedState = localStorage.getItem("__redux_state__")
@@ -50,8 +51,11 @@ export const userSlice = createSlice({
   name: 'users',
   initialState: initialState,
   reducers: {
-    // addUser: (state, action) => {
-    // },
+    addUser: (state, action: PayloadAction<User>) => {
+      const id = crypto.randomUUID()
+
+      return [...state, { ...action.payload, id }]
+    },
     deleteUserById: (state, action: PayloadAction<UserId>) => {
       const id = action.payload
 
@@ -66,4 +70,4 @@ export default userSlice.reducer
 
 // Actions
 // -------
-export const { deleteUserById } = userSlice.actions
+export const { addUser, deleteUserById } = userSlice.actions
