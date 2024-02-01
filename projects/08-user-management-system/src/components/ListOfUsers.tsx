@@ -10,33 +10,24 @@ import {
   Title
 } from '@tremor/react'
 
-const users: {
-  id: number
-  name: string
-  email: string
-  github: string
-}[] = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'johndoe@midu.com',
-      github: 'johndoe'
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'janedoe@midu.com',
-      github: 'janedoe'
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'johnsmith@midu.com',
-      github: 'johnsmith'
-    }
-  ]
+import { useUsersSelector, useUsersDispatch } from '../hooks/store.type.hook'
+import { deleteUserById, UserId } from '../store/users/users.slice'
 
 export function ListOfUsers() {
+
+  // Bring users from state
+  // ----------------------
+
+  const users = useUsersSelector((state) => state.users)
+  const usersDispatch = useUsersDispatch()
+
+  const handleRemoveUser = (id: UserId) => {
+    usersDispatch(deleteUserById(id))
+  }
+
+  // Render
+  // ------
+
   return (
     <Card>
       <Title>
@@ -88,7 +79,7 @@ export function ListOfUsers() {
                     />
                   </svg>
                 </button>
-                <button onClick={() => removeUser(item.id)} type='button'>
+                <button onClick={() => handleRemoveUser(item.id)} type='button'>
                   <svg
                     aria-label='Remove element'
                     xmlns='http://www.w3.org/2000/svg'
