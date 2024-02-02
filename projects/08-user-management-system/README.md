@@ -1,6 +1,11 @@
 User Management System
 =====================
 
+✅ To Dos
+-------------
+
+- [ ] Implement modify user
+
 🧰 Tech stack
 -------------
 
@@ -28,3 +33,8 @@ Reducer vs Context
 Es una técnica para hacer creer al usuario a través de la UI que sus interacciones se estan comportando de manera esperada. Posteriormente, dicho comportamiendo se registra en la base de datos en caso de que todo el flujo haya sido exitoso. De lo contrario se devuelve la interacción a su estado anterior.
 
 En resumen, se le va a dar la impresión al usuario de que todo funciona, y en caso de que no funcoine, visualmente se retorna al estado anterior. (e.g., el clic de un like en twitter).
+
+⚛️ Redux Toolkit
+----------------
+
+Una funcionalidad que ofrece redux toolkit es que ahora se puede mutar el estado directamente con el método `state.push` ya que por debajo usa `immer` que son actualizaciones inmutables.

@@ -1,5 +1,5 @@
 import { configureStore, type Middleware } from '@reduxjs/toolkit'
-import usersReducer, { rollbackUser } from './users/users.slice'
+import usersReducer, { rollbackUser, UserId } from './users/users.slice'
 import { toast } from 'sonner'
 
 // Middlewares
@@ -11,10 +11,10 @@ const persistanceLocalStorageMiddleware: Middleware = (store) => (next) => (acti
 }
 
 const syncWithDatabasaeMiddleware: Middleware = (store) => (next) => (action) => {
-  const { type, payload } = action
-  const previousState = store.getState() as RootState
+  const { type, payload } = action as { type: string, payload: UserId };
+  const previousState = store.getState() as RootState;
   // Fase 1: Del dispatch al store
-  next(action)
+  next(action);
 
   if (type === 'users/deleteUserById') {
     const userIdToRemove = payload
