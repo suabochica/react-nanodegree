@@ -1,5 +1,7 @@
 import './App.css'
 import { Card } from '@tremor/react';
+import { Toaster } from 'sonner';
+
 import { ListOfUsers } from './components/ListOfUsers'
 import { CreateNewUser } from './components/CreateNewUser';
 
@@ -12,6 +14,7 @@ function App() {
       </Card>
       <ListOfUsers />
       <CreateNewUser />
+      <Toaster richColors />
     </>
   )
 }
