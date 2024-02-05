@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 import { type User } from './types.d'
+import { UsersTable } from './components/UsersTable'
 
 function App() {
   const [users, setUsers] = useState<User[]>([])
@@ -21,7 +22,7 @@ function App() {
   return (
     <>
       <h1>Operation on Large Datasets</h1>
-      {JSON.stringify(users)}
+      <UsersTable users={users} />
     </>
   )
 }
