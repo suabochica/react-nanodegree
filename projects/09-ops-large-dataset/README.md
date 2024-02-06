@@ -10,7 +10,7 @@ Create an application to interact with large datasets. You must use the API prov
 - [x] Display the data in a table format.
 - [x] Provide the option to color rows.
 - [x] Allow the data to be sorted by country.
-- [] Enable the ability to delete a row.
+- [x] Enable the ability to delete a row.
 - [] Allow the user to restore the initial state.
 - [] Handle potential errors.
 - [] Allow the user to filter by country.
@@ -22,3 +22,4 @@ Create an application to interact with large datasets. You must use the API prov
 
 - El método `toSorted` para ordenar un arreglo sin cambiar el arregla original.
 - Tener un estado y hacer cálculos sobre ese estado.
+- Intenta no usar el índice de un arreglo como criterio para borrar un usuario, ya que dichos indices se actualizan a medida que se edita el arreglo.
