@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 
 import './App.css'
@@ -14,6 +14,11 @@ function App() {
   const [showColors, setShowColors] = useState(false)
   const [sortByCountry, setSortByCountry] = useState(false)
 
+  // Ref
+  // ---
+
+  const originalUsers = useRef<User[]>([])
+
   // Effects
   // -------
 
@@ -22,6 +27,7 @@ function App() {
       .then(async response => await response.json())
       .then(response => {
         setUsers(response.results)
+        originalUsers.current = response.results
       })
       .catch(err => {
         console.error(err)
@@ -47,6 +53,9 @@ function App() {
     setUsers(filteredUsers)
   }
 
+  const handleReset = () => {
+    setUsers(originalUsers.current)
+  }
 
   // Utils
   // -------
@@ -69,6 +78,10 @@ function App() {
 
         <button onClick={toggleSortByCountry}>
           {sortByCountry ? 'No ordenar por país' : 'Ordenar por País'}
+        </button>
+
+        <button onClick={handleReset}>
+          Reiniciar Usuarios
         </button>
       </header>
       <main>
