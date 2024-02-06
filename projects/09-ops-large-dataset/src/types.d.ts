@@ -1,12 +1,8 @@
-// To parse this data:
-//
-//   import { Convert, Welcome } from "./file";
-//
-//   const welcome = Convert.toWelcome(json);
-//
-// These functions will throw an error if the JSON doesn't
-// match the expected interface, even if the JSON is valid.
-
+declare global {
+  interface Array<T> {
+    toSorted(compareFn?: (a: T, b: T) => number): T[];
+  }
+}
 export interface APIResponse {
   results: User[];
   info: Info;

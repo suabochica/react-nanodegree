@@ -8,9 +8,14 @@ import { UsersTable } from './components/UsersTable'
 function App() {
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
+  const [sortByCountry, setSortByCountry] = useState(false)
 
   const toggleColors = () => {
     setShowColors(!showColors)
+  }
+
+  const toggleSortByCountry = () => {
+    setSortByCountry(prevState => !prevState)
   }
 
   useEffect(() => {
@@ -24,6 +29,14 @@ function App() {
       })
   }, [])
 
+  const sortedUsers = sortByCountry
+  // Se muta el array original
+  ? users.toSorted((a, b) => {
+    // Order ascendente
+    return a.location.country.localeCompare(b.location.country)
+  })
+  : users
+
   return (
     <>
       <h1>Operation on Large Datasets</h1>
@@ -31,8 +44,15 @@ function App() {
         <button onClick={toggleColors}>
           Colorear Filas
         </button>
+
+        <button onClick={toggleSortByCountry}>
+          {sortByCountry ? 'No ordenar por país' : 'Ordenar por País'}
+        </button>
       </header>
-      <UsersTable users={users} showColors={showColors} />
+      <main>
+
+      <UsersTable users={sortedUsers} showColors={showColors} />
+      </main>
     </>
   )
 }
