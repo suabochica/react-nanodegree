@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useMemo } from 'react'
 
 
 import './App.css'
@@ -13,6 +13,7 @@ function App() {
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
   const [sortByCountry, setSortByCountry] = useState(false)
+  const [filterCountry, setFilterCountry] = useState(null)
 
   // Ref
   // ---
@@ -60,13 +61,46 @@ function App() {
   // Utils
   // -------
 
-  const sortedUsers = sortByCountry
-  // Se muta el array original
-  ? users.toSorted((a, b) => {
-    // Order ascendente
-    return a.location.country.localeCompare(b.location.country)
-  })
-  : users
+  const filteredUsers = useMemo(() => {
+      return filterCountry !== null && filterCountry.length > 0
+      ? users.filter(user => {
+        return user.location.country.toLowerCase().includes(filterCountry.toLowerCase())
+      })
+      : users
+  }, [users, filterCountry])
+
+  const sortedUsers = useMemo(() => {
+    return sortByCountry
+      // Se muta el array original
+      ? filteredUsers.toSorted((a, b) =>
+      // Order ascendente
+      a.location.country.localeCompare(b.location.country)
+    )
+    : filteredUsers
+  }, [filteredUsers, sortByCountry])
+
+  // 👇🏾 Code below promotes a performance problem of filter and sort the users
+  // with every render, even if the users array has not changed. useMemo to the rescue
+  // -----------------------------------------------------------
+
+  // const filteredUsers = (() => {
+  //   console.log('calculate filteredUsers')
+  //   return filterCountry != null && filterCountry.length > 0
+  //     ? users.filter(user => {
+  //       return user.location.country.toLowerCase().includes(filterCountry.toLowerCase())
+  //     })
+  //     : users
+  // })()
+
+  // const sortedUsers = (() => {
+  //   console.log('calculate sortedUsers')
+
+  //   return sortByCountry
+  //     ? filteredUsers.toSorted(
+  //       (a, b) => a.location.country.localeCompare(b.location.country)
+  //     )
+  //     : filteredUsers
+  // })()
 
   return (
     <>
@@ -83,6 +117,12 @@ function App() {
         <button onClick={handleReset}>
           Reiniciar Usuarios
         </button>
+
+        <input
+          placeholder="Filtra por país"
+          type="text"
+          onChange={(event) => setFilterCountry(event.target.value)}
+        />
       </header>
       <main>
         <UsersTable

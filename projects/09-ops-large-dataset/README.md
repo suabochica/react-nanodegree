@@ -13,7 +13,8 @@ Create an application to interact with large datasets. You must use the API prov
 - [x] Enable the ability to delete a row.
 - [x] Allow the user to restore the initial state.
 - [x] Handle potential errors.
-- [] Allow the user to filter by country.
+- [x] Allow the user to filter by country.
+- [x] Avoid sorting users when the user is changing filter by country.
 - [] Sort by clicking on the column header.
 - [] Explain your solution.
 
