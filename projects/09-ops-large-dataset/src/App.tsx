@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useMemo } from 'react'
 
 
 import './App.css'
-import { type User } from './types.d'
+import { SortBy, type User } from './types.d'
 import { UsersTable } from './components/UsersTable'
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
-  const [sortByCountry, setSortByCountry] = useState(false)
+  const [sorting, setSorting] = useState<SortBy>(SortBy.NONE)
   const [filterCountry, setFilterCountry] = useState(null)
 
   // Ref
@@ -43,7 +43,11 @@ function App() {
   }
 
   const toggleSortByCountry = () => {
-    setSortByCountry(prevState => !prevState)
+    const newSortingValue = sorting === SortBy.NONE
+      ? SortBy.COUNTRY
+      : SortBy.NONE
+
+    setSorting(newSortingValue)
   }
 
   // Handlers
@@ -58,11 +62,15 @@ function App() {
     setUsers(originalUsers.current)
   }
 
+  const handleChangeSort = (sort: SortBy) => {
+    setSorting(sort)
+  }
+
   // Utils
   // -------
 
   const filteredUsers = useMemo(() => {
-      return filterCountry !== null && filterCountry.length > 0
+    return filterCountry !== null && filterCountry.length > 0
       ? users.filter(user => {
         return user.location.country.toLowerCase().includes(filterCountry.toLowerCase())
       })
@@ -70,14 +78,22 @@ function App() {
   }, [users, filterCountry])
 
   const sortedUsers = useMemo(() => {
-    return sortByCountry
-      // Se muta el array original
-      ? filteredUsers.toSorted((a, b) =>
-      // Order ascendente
-      a.location.country.localeCompare(b.location.country)
-    )
-    : filteredUsers
-  }, [filteredUsers, sortByCountry])
+    if (sorting === SortBy.NONE) {
+      return filteredUsers
+    }
+
+    const compareProperties: Record<string, (user: User) => string> = {
+      [SortBy.COUNTRY]: user => user.location.country,
+      [SortBy.NAME]: user => user.name.first,
+      [SortBy.LAST]: user => user.name.last
+    }
+
+    return filteredUsers.toSorted((a, b) => {
+      const extractProperty = compareProperties[sorting]
+
+      return extractProperty(a).localeCompare(extractProperty(b))
+    })
+  }, [filteredUsers, sorting])
 
   // 👇🏾 Code below promotes a performance problem of filter and sort the users
   // with every render, even if the users array has not changed. useMemo to the rescue
@@ -111,7 +127,7 @@ function App() {
         </button>
 
         <button onClick={toggleSortByCountry}>
-          {sortByCountry ? 'No ordenar por país' : 'Ordenar por País'}
+          {sorting === SortBy.COUNTRY ? 'No ordenar por país' : 'Ordenar por País'}
         </button>
 
         <button onClick={handleReset}>
@@ -129,6 +145,7 @@ function App() {
           users={sortedUsers}
           showColors={showColors}
           deleteUser={handleDelete}
+          changeSorting={handleChangeSort}
         />
       </main>
     </>
