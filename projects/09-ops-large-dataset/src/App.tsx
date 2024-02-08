@@ -12,8 +12,10 @@ function App() {
 
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
-  const [sorting, setSorting] = useState<SortBy>(SortBy.NONE)
+  const [loading, setLoading] = useState(false)
+  const [errorLoading, setErrorLoading] = useState(false)
   const [filterCountry, setFilterCountry] = useState(null)
+  const [sorting, setSorting] = useState<SortBy>(SortBy.NONE)
 
   // Ref
   // ---
@@ -24,14 +26,24 @@ function App() {
   // -------
 
   useEffect(() => {
+    setLoading(true)
+    setErrorLoading(false)
+
     fetch('https://randomuser.me/api?results=100')
-      .then(async response => await response.json())
+      .then(async response => {
+        if (!response.ok) throw new Error('Error en la petición')
+        return await response.json()
+      })
       .then(response => {
         setUsers(response.results)
         originalUsers.current = response.results
       })
       .catch(err => {
+        setErrorLoading(err)
         console.error(err)
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }, [])
 
@@ -141,12 +153,18 @@ function App() {
         />
       </header>
       <main>
-        <UsersTable
-          users={sortedUsers}
-          showColors={showColors}
-          deleteUser={handleDelete}
-          changeSorting={handleChangeSort}
-        />
+        {/** TODO: Move the loading handling to a component, using early return */}
+        {loading && <p>Cargando...</p>}
+        {!loading && errorLoading && <p>Ha habido un error</p>}
+        {!loading && !errorLoading && users.length === 0 && <p>No hay usuarios</p>}
+        {!loading && !errorLoading && users.length > 0 &&
+          <UsersTable
+            users={sortedUsers}
+            showColors={showColors}
+            deleteUser={handleDelete}
+            changeSorting={handleChangeSort}
+          />
+        }
       </main>
     </>
   )
