@@ -11,11 +11,12 @@ function App() {
   // ------
 
   const [users, setUsers] = useState<User[]>([])
+  const [filterCountry, setFilterCountry] = useState(null)
+  const [sorting, setSorting] = useState<SortBy>(SortBy.NONE)
   const [showColors, setShowColors] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errorLoading, setErrorLoading] = useState(false)
-  const [filterCountry, setFilterCountry] = useState(null)
-  const [sorting, setSorting] = useState<SortBy>(SortBy.NONE)
+  const [currentPage, setCurrentPage] = useState(1)
 
   // Ref
   // ---
@@ -29,14 +30,18 @@ function App() {
     setLoading(true)
     setErrorLoading(false)
 
-    fetch('https://randomuser.me/api?results=100')
+    fetch(`https://randomuser.me/api?results=10&seed=suabochica&page=${currentPage}`)
       .then(async response => {
         if (!response.ok) throw new Error('Error en la petición')
         return await response.json()
       })
       .then(response => {
-        setUsers(response.results)
-        originalUsers.current = response.results
+        setUsers(prevUsers => {
+          const newUsers = prevUsers.concat(response.results)
+          originalUsers.current = newUsers
+
+          return newUsers
+        })
       })
       .catch(err => {
         setErrorLoading(err)
@@ -45,7 +50,7 @@ function App() {
       .finally(() => {
         setLoading(false)
       })
-  }, [])
+  }, [currentPage])
 
   // Toggles
   // -------
@@ -154,9 +159,6 @@ function App() {
       </header>
       <main>
         {/** TODO: Move the loading handling to a component, using early return */}
-        {loading && <p>Cargando...</p>}
-        {!loading && errorLoading && <p>Ha habido un error</p>}
-        {!loading && !errorLoading && users.length === 0 && <p>No hay usuarios</p>}
         {!loading && !errorLoading && users.length > 0 &&
           <UsersTable
             users={sortedUsers}
@@ -164,6 +166,14 @@ function App() {
             deleteUser={handleDelete}
             changeSorting={handleChangeSort}
           />
+        }
+        {loading && <p>Cargando...</p>}
+        {errorLoading && <p>Ha habido un error</p>}
+        {!errorLoading && users.length === 0 && <p>No hay usuarios</p>}
+
+        {!loading && !errorLoading && <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >Cargar más resultados</button>
         }
       </main>
     </>

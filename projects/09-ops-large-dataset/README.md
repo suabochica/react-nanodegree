@@ -17,7 +17,7 @@ Create an application to interact with large datasets. You must use the API prov
 - [x] Avoid sorting users when the user is changing filter by country.
 - [x] Sort by clicking on the column header.
 - [x] Add a loader while the page is loading.
-- [] Implement pagination.
+- [x] Implement pagination.
 - [] Implement an infinity scroll.
 
 🥡 Takeaways
@@ -31,3 +31,4 @@ Create an application to interact with large datasets. You must use the API prov
   1. `.then` para resolver la promesa.
   2. `.catch` para capturar los errores.
   3. `.finally` que se ejecuta siempre, independientemente del resultado de la promesa.
+- El concepto de _semilla_ se utiliza en programación para hacer operaciones aleatorias sobre una misma base.
