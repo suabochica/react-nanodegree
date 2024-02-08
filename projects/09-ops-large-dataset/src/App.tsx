@@ -1,56 +1,36 @@
 import { useEffect, useState, useRef, useMemo } from 'react'
-
+import { useQuery } from '@tanstack/react-query'
 
 import './App.css'
 import { SortBy, type User } from './types.d'
 import { UsersTable } from './components/UsersTable'
 
-function App() {
+const fetchUsers = async (page: number) => {
+  return await fetch(`https://randomuser.me/api?results=10&seed=suabochica&page=${page}`)
+    .then(async response => {
+      if (!response.ok) throw new Error('Error en la petición')
+      return await response.json()
+    })
+    .then(response => response.results)
+}
 
+function App() {
+  const { isLoading, isError, data: users = [] } = useQuery<User[]>(
+    ['users'],
+    async () => fetchUsers(1)
+  )
   // States
   // ------
 
-  const [users, setUsers] = useState<User[]>([])
   const [filterCountry, setFilterCountry] = useState(null)
   const [sorting, setSorting] = useState<SortBy>(SortBy.NONE)
   const [showColors, setShowColors] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [errorLoading, setErrorLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
 
   // Ref
   // ---
 
-  const originalUsers = useRef<User[]>([])
-
-  // Effects
-  // -------
-
-  useEffect(() => {
-    setLoading(true)
-    setErrorLoading(false)
-
-    fetch(`https://randomuser.me/api?results=10&seed=suabochica&page=${currentPage}`)
-      .then(async response => {
-        if (!response.ok) throw new Error('Error en la petición')
-        return await response.json()
-      })
-      .then(response => {
-        setUsers(prevUsers => {
-          const newUsers = prevUsers.concat(response.results)
-          originalUsers.current = newUsers
-
-          return newUsers
-        })
-      })
-      .catch(err => {
-        setErrorLoading(err)
-        console.error(err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [currentPage])
+  // const originalUsers = useRef<User[]>([])
 
   // Toggles
   // -------
@@ -71,12 +51,12 @@ function App() {
   // -------
 
   const handleDelete = (email: string) => {
-    const filteredUsers = users.filter((user) => user.email !== email)
-    setUsers(filteredUsers)
+    // const filteredUsers = users.filter((user) => user.email !== email)
+    // setUsers(filteredUsers)
   }
 
   const handleReset = () => {
-    setUsers(originalUsers.current)
+    // setUsers(originalUsers.current)
   }
 
   const handleChangeSort = (sort: SortBy) => {
@@ -159,7 +139,7 @@ function App() {
       </header>
       <main>
         {/** TODO: Move the loading handling to a component, using early return */}
-        {!loading && !errorLoading && users.length > 0 &&
+        {!isLoading && !isError && users.length > 0 &&
           <UsersTable
             users={sortedUsers}
             showColors={showColors}
@@ -167,11 +147,11 @@ function App() {
             changeSorting={handleChangeSort}
           />
         }
-        {loading && <p>Cargando...</p>}
-        {errorLoading && <p>Ha habido un error</p>}
-        {!errorLoading && users.length === 0 && <p>No hay usuarios</p>}
+        {isLoading && <p>Cargando...</p>}
+        {isError && <p>Ha habido un error</p>}
+        {!isLoading && !isError && users.length === 0 && <p>No hay usuarios</p>}
 
-        {!loading && !errorLoading && <button
+        {!isLoading && !isError && <button
           onClick={() => setCurrentPage(currentPage + 1)}
         >Cargar más resultados</button>
         }

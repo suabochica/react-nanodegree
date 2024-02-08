@@ -3,6 +3,12 @@
 
 Create an application to interact with large datasets. You must use the API provided by https://randomuser.me
 
+🧰 Tech Stack
+--------------
+
+- React v18
+- TanStack Query para manejar estados asíncronos. Limita el uso de herramientas como Redux.
+
 ✅ To Dos
 ---------
 
@@ -32,3 +38,4 @@ Create an application to interact with large datasets. You must use the API prov
   2. `.catch` para capturar los errores.
   3. `.finally` que se ejecuta siempre, independientemente del resultado de la promesa.
 - El concepto de _semilla_ se utiliza en programación para hacer operaciones aleatorias sobre una misma base.
+- Al momento de refactorizar una función que hace un búsqueda de datos, es recomendable no involucrar las funciones de react como el `useState`. El propósito de esa función debe ser solor recuperar los datos. El manejo de los estado si debe ser responsabilidad del componente.
