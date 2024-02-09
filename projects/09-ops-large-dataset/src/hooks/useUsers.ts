@@ -15,7 +15,8 @@ export const useUsers = () => {
     ['users'],
     fetchUsers,
     {
-      getNextPageParam: (lastPage) => lastPage.nextPage
+      getNextPageParam: (lastPage) => lastPage.nextPage,
+      refetchOnWindowFocus: false
     }
   )
 

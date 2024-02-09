@@ -16,7 +16,7 @@ Create an application to interact with large datasets. You must use the API prov
 - [x] Display the data in a table format.
 - [x] Provide the option to color rows.
 - [x] Allow the data to be sorted by country.
-- [] Enable the ability to delete a row.
+- [x] Enable the ability to delete a row.
 - [x] Allow the user to restore the initial state.
 - [x] Handle potential errors.
 - [x] Allow the user to filter by country.
@@ -24,7 +24,7 @@ Create an application to interact with large datasets. You must use the API prov
 - [x] Sort by clicking on the column header.
 - [x] Add a loader while the page is loading.
 - [x] Implement pagination.
-- [] Implement an infinity scroll.
+- [x] Implement an infinity scroll.
 
 🥡 Takeaways
 ------------
@@ -39,3 +39,8 @@ Create an application to interact with large datasets. You must use the API prov
   3. `.finally` que se ejecuta siempre, independientemente del resultado de la promesa.
 - El concepto de _semilla_ se utiliza en programación para hacer operaciones aleatorias sobre una misma base.
 - Al momento de refactorizar una función que hace un búsqueda de datos, es recomendable no involucrar las funciones de react como el `useState`. El propósito de esa función debe ser solor recuperar los datos. El manejo de los estado si debe ser responsabilidad del componente.
+
+⚠️ Issues
+---------
+
+Al integrar la tecnología de `TanStack` las funcionalidades de borrar fila y reiniciar usuarios se pierden. En caso de querer usar estados internos en el componente `App.tsx` se exponen comportamiento inesperados por tener dos fuentes de verdad para el estado de los usuarios; El global de TanStack y el local del componente.
