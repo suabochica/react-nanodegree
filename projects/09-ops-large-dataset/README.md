@@ -16,7 +16,7 @@ Create an application to interact with large datasets. You must use the API prov
 - [x] Display the data in a table format.
 - [x] Provide the option to color rows.
 - [x] Allow the data to be sorted by country.
-- [x] Enable the ability to delete a row.
+- [] Enable the ability to delete a row.
 - [x] Allow the user to restore the initial state.
 - [x] Handle potential errors.
 - [x] Allow the user to filter by country.

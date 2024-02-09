@@ -1,44 +1,21 @@
 import { useState, useMemo } from 'react'
-import { useInfiniteQuery } from '@tanstack/react-query'
 
 import './App.css'
 import { SortBy, type User } from './types.d'
+import { useUsers } from './hooks/useUsers'
 import { UsersTable } from './components/UsersTable'
+import { Results } from './components/Results'
 
-const fetchUsers = async ({ pageParam = 1 }: { pageParam?: number }) => {
-  return await fetch(`https://randomuser.me/api?results=10&seed=suabochica&page=${pageParam}`)
-    .then(async response => {
-      if (!response.ok) throw new Error('Error en la petición')
-      return await response.json()
-    })
-    .then(response => {
-      const currentPage = Number(response.info.page)
-      const nextPage = currentPage > 10 ? undefined : currentPage + 1
-
-      return {
-        users: response.results,
-        nextPage
-      }
-    })
-}
 
 function App() {
   const {
     isLoading,
     isError,
-    data,
+    users,
     refetch,
     fetchNextPage,
     hasNextPage
-  } = useInfiniteQuery<{ nextPage?: number, users: User[] }>(
-    ['users'],
-    fetchUsers,
-    {
-      getNextPageParam: (lastPage) => lastPage.nextPage
-    }
-  )
-
-  const users: User[] = data?.pages?.flatMap(page => page.users) ?? []
+  } = useUsers()
 
   // States
   // ------
@@ -143,6 +120,7 @@ function App() {
   return (
     <>
       <h1>Operation on Large Datasets</h1>
+      <Results />
       <header>
         <button onClick={toggleColors}>
           Colorear Filas
