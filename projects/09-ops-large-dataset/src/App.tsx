@@ -1,31 +1,51 @@
-import { useEffect, useState, useRef, useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useMemo } from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 import './App.css'
 import { SortBy, type User } from './types.d'
 import { UsersTable } from './components/UsersTable'
 
-const fetchUsers = async (page: number) => {
-  return await fetch(`https://randomuser.me/api?results=10&seed=suabochica&page=${page}`)
+const fetchUsers = async ({ pageParam = 1 }: { pageParam?: number }) => {
+  return await fetch(`https://randomuser.me/api?results=10&seed=suabochica&page=${pageParam}`)
     .then(async response => {
       if (!response.ok) throw new Error('Error en la petición')
       return await response.json()
     })
-    .then(response => response.results)
+    .then(response => {
+      const currentPage = Number(response.info.page)
+      const nextPage = currentPage > 10 ? undefined : currentPage + 1
+
+      return {
+        users: response.results,
+        nextPage
+      }
+    })
 }
 
 function App() {
-  const { isLoading, isError, data: users = [] } = useQuery<User[]>(
+  const {
+    isLoading,
+    isError,
+    data,
+    refetch,
+    fetchNextPage,
+    hasNextPage
+  } = useInfiniteQuery<{ nextPage?: number, users: User[] }>(
     ['users'],
-    async () => fetchUsers(1)
+    fetchUsers,
+    {
+      getNextPageParam: (lastPage) => lastPage.nextPage
+    }
   )
+
+  const users: User[] = data?.pages?.flatMap(page => page.users) ?? []
+
   // States
   // ------
 
   const [filterCountry, setFilterCountry] = useState(null)
   const [sorting, setSorting] = useState<SortBy>(SortBy.NONE)
   const [showColors, setShowColors] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
 
   // Ref
   // ---
@@ -50,13 +70,18 @@ function App() {
   // Handlers
   // -------
 
+  // FIXME: Check how to handle the delete of a user
   const handleDelete = (email: string) => {
-    // const filteredUsers = users.filter((user) => user.email !== email)
+    console.log('users', users)
+    const filteredUsers = users.filter((user) => user.email !== email)
     // setUsers(filteredUsers)
+    console.log('filteredUsers', filteredUsers)
+
+    return users
   }
 
   const handleReset = () => {
-    // setUsers(originalUsers.current)
+    void refetch()
   }
 
   const handleChangeSort = (sort: SortBy) => {
@@ -150,10 +175,11 @@ function App() {
         {isLoading && <p>Cargando...</p>}
         {isError && <p>Ha habido un error</p>}
         {!isLoading && !isError && users.length === 0 && <p>No hay usuarios</p>}
-
-        {!isLoading && !isError && <button
-          onClick={() => setCurrentPage(currentPage + 1)}
+        {!isLoading && !isError && hasNextPage === true && <button
+          onClick={() => { void fetchNextPage() }}
         >Cargar más resultados</button>
+        }
+        {!isLoading && !isError && hasNextPage === false && <p>No hay más resultados</p>
         }
       </main>
     </>
