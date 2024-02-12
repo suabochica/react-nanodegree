@@ -9,8 +9,8 @@ Start with a plan! Here are some steps that I like to follow when building a pro
 
 - Outline the steps needed to build the project
 - Draw the application
-    - What individual screens would look like
-    - How the Components are connected to each other
+  - What individual screens would look like
+  - How the Components are connected to each other
 - Write down the architecture
 - Develop the app piece by piece
 
@@ -24,7 +24,7 @@ Take it slow and practice your newly acquired skills. This is my final assessmen
 🧰 Tech stack
 ------------
 
-- npm
+- npm v9.
 - React v16 + JavaScript
 
 🚀 Run the project

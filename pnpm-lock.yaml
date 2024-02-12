@@ -458,6 +458,30 @@ importers:
         specifier: ^5.0.8
         version: 5.0.12
 
+  projects/10-mental-maths-game:
+    dependencies:
+      react:
+        specifier: ^16.3.2
+        version: 16.14.0
+      react-dom:
+        specifier: ^16.3.2
+        version: 16.14.0(react@16.14.0)
+      react-scripts:
+        specifier: 1.1.4
+        version: 1.1.4(eslint@4.19.1)(react@16.14.0)
+
+  projects/11-user-favorite-movie-list:
+    dependencies:
+      react:
+        specifier: ^16.3.2
+        version: 16.14.0
+      react-dom:
+        specifier: ^16.3.2
+        version: 16.14.0(react@16.14.0)
+      react-scripts:
+        specifier: 1.1.4
+        version: 1.1.4(eslint@4.19.1)(react@16.14.0)
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
