@@ -8,7 +8,7 @@ It's time to introduce three concepts in our React learning:
 
 Before to start with our Contact app you should remove default files installed with `create-react-app` command.
 
-### The Backend Server
+## The Backend Server
 
 The Contacts app project that we're building is a front-end project. However, we'll eventually be storing the contacts on a backend server. Since we're only really focusing on the front-end for this course, we've gone ahead and built this server for you so you can focus on just the React parts of this program.
 
@@ -51,6 +51,7 @@ The whole purpose of the `<User />` component is to display a user to the UI. Th
 In fact, any attributes that are added to a component will be accessable on the `props` object from inside of that component.
 
 ### Pass Data With Props Recap
+
 A `prop` is any input that you pass to a React component. Just like an HTML attribute, a `prop` name and value are added to the Component.
 
 ```javascript
@@ -72,12 +73,14 @@ render() {
 ```
 
 ## Exercise Explanation
+
 There are two ways to approach this app. The first is a bottom-up approach and
 the second is a top-down approach.
 
 ## Bottom-Up Approach
 
 The bottom-up approach involves two steps:
+
 1. Putting all of our code into the `App./js` file and.
 2. Once the app renders what you want it to render, you break that code up into different components. This is a possible approach to the first step of the bottom-up strategy:
 
@@ -203,13 +206,14 @@ Now, the top-down approach to making this app involves identifying each componen
 
 An intuitive way of breaking an app into components is to draw what you want your resulting app to look like and then to physically draw boxes around each piece of our application - take a look at this article to see an example of that: https://brotzky.co/blog/react-thinking-in-components.
 
-### How to Know What should be a Component:
+### How to Know What should be a Component
 
 Components are reusable chunks that can be nested inside of each other, like Russian nesting dolls. Each component needs to follow the Single Responsibility Principle - that is, do only 1 thing.
 
 Oftentimes, the number of components an app should have is subjective, but it is always the case that they should follow the Single Responsibility Principle, be reusable, and manageable in size.
 
 ## Functional components
+
 Until this point, we have used JavaScript class syntax with a render method to build out our components. Eventually, we'll be adding more methods to these classes, but for now, it's good to know that if all your components have a render method you can  use a regular old function to create your component.
 
 > If a component is only using a `render()` method to display content, then it can be converted into a _Stateless Functional Component_.
@@ -225,7 +229,8 @@ function User(props) {
 ```
 
 ### Stateless Functional Components Recap
-If your component does not keep track of internal state (i.e., all it has is a `render()` method), you cand delcare the component as _Stateless Functional Component_.
+
+If your component does not keep track of internal state (i.e., all it has is a `render()` method), you can declare the component as _Stateless Functional Component_.
 
 Remember that a React component is a JavaScript function that returns HTML for rendering. As such, the following two example of a simple Email component are equivalent:
 
@@ -252,6 +257,7 @@ const Email = (props) => (
 In the latter example (written as an ES6 function with an implicit return), rather than accessing `props` from `this.props`, we can pass in props directly as an argument to the function itself. In turn, this regular JavaScript function can serve as the Email component's `render()` method.
 
 ### Further Research
+
 - [Creating Stateless Function Components](https://www.reactenlightenment.com/react-state/8.4.html) from the React Enlightenment book
 - [Functional Components vs. Stateless Functional Components vs. Stateless Component](https://tylermcginnis.com/functional-components-vs-stateless-functional-components-vs-stateless-components/) from Tyler
 
@@ -266,6 +272,7 @@ At this point you're learned:
 However, we still have not talked about what may be the best part of React, **State Management.** Because of React's component model, we are able to encapsulate the complexity of the state management to individual components. This allow us to build a large application by building out a bunch of smaller applications -really, components–.
 
 ### State
+
 We learned that `props` refer to attributes from parent components. In the end, props represent "read-only" data that are _immutable_.
 
 A component's `state`, on the other hand, represents _mutable_ data that ultimately affects what is rendered on the page. State is managed internally by the component itself and is meant to change over time, commonly due to user input (e.g., clicking on a button on the page).
@@ -287,6 +294,7 @@ class User extends React.Component {
 ```
 
 ### (Warning) Props in Initial State
+
 When defining a component's initial state, avoid initializing that state with `props`. This is an error-prone _anti-pattern_, since state will only be initialized with `props` when the component is first created.
 
 ```js
@@ -302,11 +310,13 @@ In the above example, if `props` are ever updated, the current state will not ch
 > In our `contacts-app` example, the contacts array should be part of the `state` object because we can add or remove contact from our contacts array.
 
 ### State Recap
+
 By having a component manage its own state, any time there are changes made to that state, React will know and _automatically_ make the necessary updates to the page.
 
 This is one of the key benefits of using React to build UI components: when it comes to re-rendering the page, we just have to think about updating state. We don't have to keep track of exactly which parts of the page change each time there are updates. We don't need to decide how we will efficiently re-render the page. React compares the previous output and new output, determines what has changed, and makes these decisions for us. This process of determining what has changed in the previous and new outputs is called `Reconciliation`.
 
 ### Further Research
+
 - [Identify Where Your State Should Live](https://facebook.github.io/react/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live)
 
 ## Update state with setState
@@ -317,7 +327,7 @@ State reflects _mutable_ information that ultimately affects rendered output, a 
 
 > In React your UI is just a function of your state. When your UI changes your UI will automatically update accordingly.
 
-There are two ways to use `setState()`: usign an object or using a callback function. The first is to merge state updates. Consider a snippet of the following component:
+There are two ways to use `setState()`: using an object or using a callback function. The first is to merge state updates. Consider a snippet of the following component:
 
 ```js
 class Email extends React.Component {
@@ -352,9 +362,11 @@ Here, the function passed in takes a single `prevState` argument. When a compone
 The difference between the two ways is: If you are not updating the state of the component based on the previous state, then use the object set state. If not, then use the functional set state.
 
 ### `setState()` Recap
+
 While a component can set its state when it initializes, we expect that state to change over time, usually due to user input. The component is able to change its own internal state using `this.setState()`. Each time state is changed, React knows and will call `render()` to re-render the component. This allows for fast, efficient updates to your app's UI.
 
 ### Further Research
+
 - [Using State Correctly](https://facebook.github.io/react/docs/state-and-lifecycle.html) from the React Docs
 - [Build with React](http://buildwithreact.com/tutorial/state)'s article on State
 
@@ -364,11 +376,15 @@ As we implement additional features into our app, we may soon find ourselves deb
 
 To user PropType in our app, we need to install [prop-types](https://facebook.github.io/react/docs/typechecking-with-proptypes.html):
 
+```sh
     npm install --save prop-types
+```
 
 If you are using yarn to manage package use:
 
+```sh
     yarn add prop-type
+```
 
 Now check the next snippet to see how to use PropTypes:
 
@@ -391,9 +407,11 @@ Email.propTypes = {
 Here, we are validating that the data type of the `text` prop should be a string.
 
 ### PropTypes Recap
+
 PropTypes is a great way to validate intended data types in our React app. Type checking our data with PropTypes helps us identify these bugs during development to ensure a smooth experience for our app's users.
 
 ### Further Research
+
 - [Typechecking With Proptypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html) from the React Docs
 
 ## Controlled Components
@@ -429,11 +447,13 @@ class NameForm extends React.Component {
   }
 }
 ```
+
 The critical action to connect the form with React is assigning to the `value` attribute value of the `state` object. Then every time you update the state object, this change will reflect in the form. If we want the input field to change, we create a `handleChange()` method that uses `setState()` to update the email address. Whenever the input email change, we can call this method by passing it to the `onChange` attribute.
 
 > The heart of React: If the state of out application changes, then our UI updates based off of that new state.
 
 ### Controlled Components Recap
+
 Controlled components refer to components that render a form, but the "source of truth" for that form state lives inside of the component state rather than inside of the DOM. The benefits of Controlled Components are:
 
 - Instant input validation
