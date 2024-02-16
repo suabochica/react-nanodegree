@@ -16,6 +16,7 @@ import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { gruvboxLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Footer } from "./Footer";
 
 // Función que se crea una sola vez.
 // 👀 Si la ponemos dentro de la función Question, se estaría creando cada vez que se renderiza el componente.
@@ -97,6 +98,7 @@ export const Game = () => {
         </IconButton>
       </Stack>
       <Question info={questionInfo} />
+      <Footer />
     </>
   );
 };
