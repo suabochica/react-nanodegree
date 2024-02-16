@@ -1,13 +1,15 @@
 import { create } from "zustand"
-import { Question } from "./question.types"
+import { type Question } from "./question.types"
+import confetti from "canvas-confetti"
 
 interface State {
   questions: Question[]
   currentQuestion: number
-  fetchQuestions: (limit: number) => void
+  fetchQuestions: (limit: number) => Promise<void>
+  selectAnswer:(questionId: number, answerIndex: number) => void
 }
 
-export const useQuestionsStore = create<State>((set) => {
+export const useQuestionsStore = create<State>((set, get) => {
   return {
     questions: [],
     currentQuestion: 0,
@@ -17,6 +19,27 @@ export const useQuestionsStore = create<State>((set) => {
       const questions = json.sort(() => Math.random() - 0.5).slice(0, limit)
 
       set({questions})
+    },
+    selectAnswer: (questionId: number, answerIndex: number) => {
+      const { questions } = get()
+      const copyQuestions = structuredClone(questions)
+      const questionIndex = copyQuestions.findIndex((question) => question.id === questionId)
+      const questionInfo = copyQuestions[questionIndex]
+      const isCorrectUserAnswer = questionInfo.correctAnswer === answerIndex
+      if (isCorrectUserAnswer) confetti()
+
+      // Actualizar la información de las preguntas copiadas
+
+      copyQuestions[questionIndex] = {
+        ...questionInfo,
+        userSelectAnswer: answerIndex,
+        isCorrectUserAnswer
+      }
+
+      // Actualizar el estado
+
+      set({questions: copyQuestions})
+
     }
   }
 })
