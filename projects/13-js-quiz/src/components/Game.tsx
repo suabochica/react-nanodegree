@@ -4,12 +4,16 @@ import { Question as QuestionType } from "../store/question.types";
 
 import {
   Card,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  Stack,
   Typography,
 } from "@mui/material";
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
+
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { gruvboxLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
@@ -69,10 +73,29 @@ const Question = ({ info }: { info: QuestionType }) => {
 export const Game = () => {
   const questions = useQuestionsStore((state) => state.questions);
   const currentQuestion = useQuestionsStore((state) => state.currentQuestion);
+  const nextQuestion = useQuestionsStore((state) => state.nextQuestion);
+  const previousQuestion = useQuestionsStore((state) => state.previousQuestion);
   const questionInfo = questions[currentQuestion];
 
   return (
     <>
+      <Stack
+        direction="row"
+        gap={2}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <IconButton onClick={previousQuestion} disabled={currentQuestion === 0}>
+          <ArrowBackIosNew />
+        </IconButton>
+        {currentQuestion + 1} / {questions.length}
+        <IconButton
+          onClick={nextQuestion}
+          disabled={currentQuestion >= questions.length - 1}
+        >
+          <ArrowForwardIos />
+        </IconButton>
+      </Stack>
       <Question info={questionInfo} />
     </>
   );
