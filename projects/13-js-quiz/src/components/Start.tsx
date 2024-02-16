@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
 import { useQuestionsStore } from "../store/questions";
 
+const LIMIT_QUESTIONS = 4;
+
 export const Start = () => {
   const fetchQuestions = useQuestionsStore((state) => state.fetchQuestions);
 
   const handleClick = () => {
-    fetchQuestions(3);
+    fetchQuestions(LIMIT_QUESTIONS);
   };
 
   return (

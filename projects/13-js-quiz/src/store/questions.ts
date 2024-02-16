@@ -12,23 +12,11 @@ export const useQuestionsStore = create<State>((set) => {
     questions: [],
     currentQuestion: 0,
     fetchQuestions: async (limit: number) => {
-      set({
-        questions: [
-          {
+      const response = await fetch('http://localhost:5173/data.json')
+      const json = await response.json()
+      const questions = json.sort(() => Math.random() - 0.5).slice(0, limit)
 
-              id: 1,
-              question: "¿Cuál es la salida de este código?",
-              code: "console.log(typeof NaN)",
-              answers: [
-                "undefined",
-                "NaN",
-                "string",
-                "number"
-              ],
-              correctAnswer: 3
-          }
-        ]
-      })
+      set({questions})
     }
   }
 })
