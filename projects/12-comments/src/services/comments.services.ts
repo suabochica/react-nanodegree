@@ -1,7 +1,7 @@
 export interface Comment {
   title: string
   message: string
-  preview: boolean
+  preview?: boolean
 }
 
 export interface CommentWithId extends Comment {
@@ -42,7 +42,7 @@ export const createComment = async (comment: Comment): Promise<CommentWithId> =>
 
   const id = crypto.randomUUID()
   const newComment = { ...comment, id }
-  const commentToSave = { ...comments, newComment }
+  const commentToSave = [...comments, newComment]
 
   const response = await fetch(`https://api.jsonbin.io/v3/b/${accountId}`, {
     method: 'PUT',
