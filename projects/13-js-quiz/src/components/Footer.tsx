@@ -1,19 +1,8 @@
-import { useQuestionsStore } from "../store/questions";
+import { useQuizData } from "../hooks/useQuizData";
+
 
 export const Footer = () => {
-  const questions = useQuestionsStore((state) => state.questions);
-
-  let correct = 0;
-  let incorrect = 0;
-  let unanswered = 0;
-
-  questions.forEach((question) => {
-    const { userSelectAnswer, correctAnswer } = question;
-
-    if (userSelectAnswer == null) unanswered++;
-    else if (userSelectAnswer === correctAnswer) correct++;
-    else incorrect++;
-  });
+  const { correct, incorrect, unanswered } = useQuizData();
 
   return (
     <footer>

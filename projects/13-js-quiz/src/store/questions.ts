@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { persist } from "zustand/middleware"
 import { type Question } from "./question.types"
 import confetti from "canvas-confetti"
 
@@ -6,12 +7,12 @@ interface State {
   questions: Question[]
   currentQuestion: number
   fetchQuestions: (limit: number) => Promise<void>
-  selectAnswer:(questionId: number, answerIndex: number) => void
+  selectAnswer: (questionId: number, answerIndex: number) => void
   nextQuestion: () => void
   previousQuestion: () => void
 }
 
-export const useQuestionsStore = create<State>((set, get) => {
+export const useQuestionsStore = create<State>()(persist((set, get) => {
   return {
     questions: [],
     currentQuestion: 0,
@@ -20,7 +21,7 @@ export const useQuestionsStore = create<State>((set, get) => {
       const json = await response.json()
       const questions = json.sort(() => Math.random() - 0.5).slice(0, limit)
 
-      set({questions})
+      set({ questions })
     },
     selectAnswer: (questionId: number, answerIndex: number) => {
       const { questions } = get()
@@ -40,17 +41,20 @@ export const useQuestionsStore = create<State>((set, get) => {
 
       // Actualizar el estado
 
-      set({questions: copyQuestions})
+      set({ questions: copyQuestions })
     },
     nextQuestion: () => {
       const { questions, currentQuestion } = get()
       const nextQuestion = currentQuestion + 1
-      if (nextQuestion < questions.length) set({currentQuestion: nextQuestion})
+      if (nextQuestion < questions.length) set({ currentQuestion: nextQuestion })
     },
     previousQuestion: () => {
       const { currentQuestion } = get()
       const previousQuestion = currentQuestion + 1
-      if (previousQuestion >= 0) set({currentQuestion: previousQuestion})
+      if (previousQuestion >= 0) set({ currentQuestion: previousQuestion })
     }
   }
-})
+}, {
+  name: 'questions',
+  getStorage: () => localStorage
+}))
