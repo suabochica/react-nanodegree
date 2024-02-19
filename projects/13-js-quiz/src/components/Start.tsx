@@ -11,7 +11,7 @@ export const Start = () => {
   };
 
   return (
-    <Button onClick={handleClick} variant="contained">
+    <Button onClick={handleClick} variant="contained" style={{ marginTop: '16px' }}>
       ¡Empezar el quiz!
     </Button>
   );

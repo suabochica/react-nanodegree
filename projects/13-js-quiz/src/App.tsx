@@ -23,9 +23,7 @@ function App() {
           justifyContent="center"
         >
           <JavaScriptLogo />
-          <Typography variant="h2" component="h1">
-            🤯 JavaScript Quiz
-          </Typography>
+          <Typography variant="h2" component="h2">JavaScript Quiz</Typography>
         </Stack>
 
         {questions.length === 0 && <Start />}
