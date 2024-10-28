@@ -1,6 +1,10 @@
 # 🛒 Shopping cart
 
-1. Ecommerce
+Carrito de compras creado con React usando contextos y reductores para manejo de estados.
+
+![Shopping Cart](public/shopping-cart.webp)
+
+1. E-commerce
 
 - [x] Muestra una lista de los production que vienen en el `data/products.json`.
 - [x] Añade un filtro por categoría.

@@ -10,12 +10,12 @@
             "stock": 54,
             "brand": "Golden",
             "category": "home-decoration",
-            "thumbnail": "https://i.dummyjson.com/data/products/30/thumbnail.jpg",
+            "thumbnail": "https://m.media-amazon.com/images/I/61OKw4yEimL._AC_SL1500_.jpg",
             "images": [
-                "https://i.dummyjson.com/data/products/30/1.jpg",
-                "https://i.dummyjson.com/data/products/30/2.jpg",
-                "https://i.dummyjson.com/data/products/30/3.jpg",
-                "https://i.dummyjson.com/data/products/30/thumbnail.jpg"
+                "https://m.media-amazon.com/images/I/61OKw4yEimL._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/61bjHH33OWL._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/61o7wW5xv5L._AC_SL1031_.jpg",
+                "https://m.media-amazon.com/images/I/81oFhInIekL._AC_SL1500_.jpg"
             ]
         },
         {
@@ -28,12 +28,12 @@
             "stock": 83,
             "brand": "Apple",
             "category": "laptops",
-            "thumbnail": "https://i.dummyjson.com/data/products/6/thumbnail.png",
+            "thumbnail": "https://m.media-amazon.com/images/I/619L9jf3-rL._AC_SX522_.jpg",
             "images": [
-                "https://i.dummyjson.com/data/products/6/1.png",
-                "https://i.dummyjson.com/data/products/6/2.jpg",
-                "https://i.dummyjson.com/data/products/6/3.png",
-                "https://i.dummyjson.com/data/products/6/4.jpg"
+                "https://m.media-amazon.com/images/I/619L9jf3-rL._AC_SX522_.jpg",
+                "https://m.media-amazon.com/images/I/71u7ZoxwLkL._AC_SX679_.jpg",
+                "https://m.media-amazon.com/images/I/71XSEMx26HL._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/51k92mFqIcL._AC_SL1500_.jpg"
             ]
         },
         {
@@ -46,12 +46,12 @@
             "stock": 34,
             "brand": "Apple",
             "category": "smartphones",
-            "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+            "thumbnail": "https://m.media-amazon.com/images/I/51z1UO6N6LL._AC_SL1000_.jpg",
             "images": [
-                "https://i.dummyjson.com/data/products/2/1.jpg",
-                "https://i.dummyjson.com/data/products/2/2.jpg",
-                "https://i.dummyjson.com/data/products/2/3.jpg",
-                "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+                "https://m.media-amazon.com/images/I/51z1UO6N6LL._AC_SL1000_.jpgg",
+                "https://m.media-amazon.com/images/I/41HNIwtMW5L._AC_SL1000_.jpg",
+                "https://m.media-amazon.com/images/I/41+bUI4jjQL._AC_SL1000_.jpg",
+                "https://m.media-amazon.com/images/I/41+bUI4jjQL._AC_SL1000_.jpg"
             ]
         },
         {
@@ -64,9 +64,12 @@
             "stock": 36,
             "brand": "Samsung",
             "category": "smartphones",
-            "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+            "thumbnail": "https://m.media-amazon.com/images/I/41vU1u8DZXL._AC_SL1000_.jpg",
             "images": [
-                "https://i.dummyjson.com/data/products/3/1.jpg"
+                "https://m.media-amazon.com/images/I/41vU1u8DZXL._AC_SL1000_.jpg",
+                "https://m.media-amazon.com/images/I/511SiDhfOpL._AC_SL1000_.jpg",
+                "https://m.media-amazon.com/images/I/51Xy+2X+ryL._AC_SL1000_.jpg",
+                "https://m.media-amazon.com/images/I/51uM64hwcaL._AC_SL1000_.jpg"
             ]
         },
         {
@@ -79,13 +82,12 @@
             "stock": 123,
             "brand": "OPPO",
             "category": "smartphones",
-            "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
+            "thumbnail": "https://english.onlinekhabar.com/wp-content/uploads/2021/03/oppo-f.jpg",
             "images": [
-                "https://i.dummyjson.com/data/products/4/1.jpg",
-                "https://i.dummyjson.com/data/products/4/2.jpg",
-                "https://i.dummyjson.com/data/products/4/3.jpg",
-                "https://i.dummyjson.com/data/products/4/4.jpg",
-                "https://i.dummyjson.com/data/products/4/thumbnail.jpg"
+                "https://english.onlinekhabar.com/wp-content/uploads/2021/03/oppo-f.jpg",
+                "https://i.blogs.es/51ea4f/oppo-f19-pro-3/1366_2000.jpg",
+                "https://www.alkomprar.com/medias/6932169339742-001-750Wx750H?context=bWFzdGVyfGltYWdlc3wyNDUxNnxpbWFnZS93ZWJwfGFHVmlMMmhqWXk4eE5ETTJOamcxTmpNNE1EUTBOaTgyT1RNeU1UWTVNek01TnpReVh6QXdNVjgzTlRCWGVEYzFNRWd8Y2RlYzM4MWQ1NzcwMWVlMTZjNGNmYzFhNDdlZmVjMGY3Y2Y1OTBmMGI4NjRiYjBiYTU1ZDdlNGMzZjg2YzExNw",
+                "https://www.alkomprar.com/medias/6932169339742-004-750Wx750H?context=bWFzdGVyfGltYWdlc3wzMzI4MHxpbWFnZS93ZWJwfGFESXhMMmd5WWk4eE5EWXdNalkyT0RrNU9EWTROaTgyT1RNeU1UWTVNek01TnpReVh6QXdORjgzTlRCWGVEYzFNRWd8YTUyMGZhZjdkYzU1MTYxMTA3MWI0ZGQzZTY5MmNlNjFkYWU0YzMxZTExMGU4NjRjMDEyZmJkODU5OTFjMTFmNQ"
             ]
         },
         {
@@ -98,11 +100,11 @@
             "stock": 32,
             "brand": "Huawei",
             "category": "smartphones",
-            "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+            "thumbnail": "https://fdn2.gsmarena.com/vv/pics/huawei/huawei-p30-1.jpg",
             "images": [
-                "https://i.dummyjson.com/data/products/5/1.jpg",
-                "https://i.dummyjson.com/data/products/5/2.jpg",
-                "https://i.dummyjson.com/data/products/5/3.jpg"
+                "https://fdn2.gsmarena.com/vv/pics/huawei/huawei-p30-1.jpg",
+                "https://fdn2.gsmarena.com/vv/pics/huawei/huawei-p30-2.jpg",
+                "https://fdn2.gsmarena.com/vv/pics/huawei/huawei-p30-3.jpg"
             ]
         },
         {
@@ -115,12 +117,12 @@
             "stock": 50,
             "brand": "Samsung",
             "category": "laptops",
-            "thumbnail": "https://i.dummyjson.com/data/products/7/thumbnail.jpg",
+            "thumbnail": "https://i.ebayimg.com/images/g/pjoAAOSw9eZh6b2e/s-l1600.webp",
             "images": [
-                "https://i.dummyjson.com/data/products/7/1.jpg",
-                "https://i.dummyjson.com/data/products/7/2.jpg",
-                "https://i.dummyjson.com/data/products/7/3.jpg",
-                "https://i.dummyjson.com/data/products/7/thumbnail.jpg"
+                "https://i.ebayimg.com/images/g/hEUAAOSwRiBh6b2d/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/hEUAAOSwRiBh6b2e/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/h4oAAOSwpVdh6b2f/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/h4oAAOSwpVdh6b2g/s-l1600.webp"
             ]
         },
         {
@@ -133,13 +135,12 @@
             "stock": 94,
             "brand": "Apple",
             "category": "smartphones",
-            "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+            "thumbnail": "https://i.ebayimg.com/images/g/9GsAAOSwzediDIoH/s-l1600.webp",
             "images": [
-                "https://i.dummyjson.com/data/products/1/1.jpg",
-                "https://i.dummyjson.com/data/products/1/2.jpg",
-                "https://i.dummyjson.com/data/products/1/3.jpg",
-                "https://i.dummyjson.com/data/products/1/4.jpg",
-                "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+                "https://i.ebayimg.com/images/g/9GsAAOSwzediDIoH/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/ezQAAOSw15xiDIoL/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/-YQAAOSwCc5iDIoO/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/WEAAAOSwbDJiDIoT/s-l1600.webp"
             ]
         },
         {
@@ -152,13 +153,12 @@
             "stock": 68,
             "brand": "Microsoft Surface",
             "category": "laptops",
-            "thumbnail": "https://i.dummyjson.com/data/products/8/thumbnail.jpg",
+            "thumbnail": "https://i.ebayimg.com/images/g/gTkAAOSw031l5prt/s-l1600.webp",
             "images": [
-                "https://i.dummyjson.com/data/products/8/1.jpg",
-                "https://i.dummyjson.com/data/products/8/2.jpg",
-                "https://i.dummyjson.com/data/products/8/3.jpg",
-                "https://i.dummyjson.com/data/products/8/4.jpg",
-                "https://i.dummyjson.com/data/products/8/thumbnail.jpg"
+                "https://i.ebayimg.com/images/g/gTkAAOSw031l5prt/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/CscAAOSwcQ9l5prt/s-l1600.webpg",
+                "https://i.ebayimg.com/images/g/r90AAOSw4m1l5prt/s-l1600.webp",
+                "https://i.ebayimg.com/images/g/G2oAAOSwkLVl5pru/s-l1600.webp"
             ]
         },
         {
@@ -171,13 +171,12 @@
             "stock": 96,
             "brand": "Infinix",
             "category": "laptops",
-            "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+            "thumbnail": "https://m.media-amazon.com/images/I/51C4jS94QYL._AC_SL1000_.jpg",
             "images": [
-                "https://i.dummyjson.com/data/products/9/1.jpg",
-                "https://i.dummyjson.com/data/products/9/2.png",
-                "https://i.dummyjson.com/data/products/9/3.png",
-                "https://i.dummyjson.com/data/products/9/4.jpg",
-                "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
+                "https://m.media-amazon.com/images/I/51C4jS94QYL._AC_SL1000_.jpg",
+                "https://m.media-amazon.com/images/I/61cbnf64SPL._AC_SL1000_.jpgg",
+                "https://m.media-amazon.com/images/I/61GKHL0hvbL._AC_SL1000_.jpg",
+                "https://m.media-amazon.com/images/I/71-BENoTYoL._AC_SL1000_.jpg"
             ]
         },
         {
