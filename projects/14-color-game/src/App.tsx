@@ -45,8 +45,6 @@ function App() {
 
   function handlePlay() {
     setStatus("playing");
-    setTime(0);
-    setScore(0);
 
     const [correctColor, wrongColor] = COLORS.slice().sort(() => Math.random() - 0.5);
 
@@ -54,6 +52,12 @@ function App() {
       { ...correctColor, correct: true },
       wrongColor
     ].sort(() => Math.random() - 0.5));
+  }
+
+  function handleReset() {
+    setStatus("initial");
+    setTime(0);
+    setScore(0);
   }
 
   function handleColorClick(clickedColor: Color) {
@@ -103,7 +107,7 @@ function App() {
 
       <footer>
         {status === "initial" && <button onClick={handlePlay}>Jugar</button>}
-        {status === "finished" && <button onClick={() => setStatus("initial")}>Reiniciar</button>}
+        {status === "finished" && <button onClick={handleReset}>Reiniciar</button>}
         {status === "playing" &&  <>
           <button onClick={() => handleColorClick(gameColors[0])} style={{width: 128, height: 128, backgroundColor: gameColors[0].color}}></button>
           <button onClick={() => handleColorClick(gameColors[1])} style={{width: 128, height: 128, backgroundColor: gameColors[1].color}}></button>
