@@ -3,6 +3,8 @@
 
 Debemos implementar un juego en el que debemos clickear el color que diga la palabra. Para hacer el juego más complicado, el color de texto de la palabra podría no coincidir con el color que debemos clickear. Abajo deberíamos ver dos botones, uno con el color correcto y uno con el color incorrecto.
 
+![Game Color](public/game-color.webp)
+
 ☑️ Requisitos
 ------------
 

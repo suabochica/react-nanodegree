@@ -69,7 +69,7 @@ When you navigate back to the main page from the search page, you should instant
 - `<Bookshelf />` Stateless Component that represent a bookshelf.
 - `<Book />`, Stateless Component that represent a book with a title, an author and a cover.
 - `<Search />` Statefull Component that retrieve the query a executes the search.
-- `<Shelfchanger />` Statless Component that hande the event to change the book shelf
+- `<Shelfchanger />` Statless Component that handle the event to change the book shelf
 
 🎋 Hierarchy components
 -----------------------

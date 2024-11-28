@@ -1,4 +1,9 @@
-# React + TypeScript + Vite
+🔣 Translate Clone
+==================
+
+Proyecto que consume Open AI para traducir palabras:
+
+![Translate Clone](public/translate-clone.webp)
 
 🧰 Tech stack
 -------------
