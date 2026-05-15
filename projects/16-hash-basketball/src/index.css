@@ -1,9 +1,9 @@
 @import url("https://ui.dev/font");
 
 :root {
-  --black: #2A2A2A;
-  --white: #DEDEDE;
-  --yellow: #f4f73e;
+  --black: #282828;
+  --white: #fbf1c7;
+  --yellow: #fabd2f;
 }
 
 *,
