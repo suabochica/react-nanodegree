@@ -4,7 +4,7 @@ import {
   Routes
 } from 'react-router-dom'
 
-import Navbar from './Navbar'
+import Navbar from './NavBar'
 
 import Home from '../pages/Home'
 import Teams from '../pages/Teams'
