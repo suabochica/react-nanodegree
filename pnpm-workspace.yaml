@@ -3,6 +3,8 @@ packages:
 allowBuilds:
   '@swc/core': true
   core-js: true
+  core-js-pure: true
+  ejs: true
   es5-ext: true
   esbuild: true
   uglifyjs-webpack-plugin: true
