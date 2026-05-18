@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Navbar from "./NavBar";
 
+import Article from "../pages/Article";
+import Articles from "../pages/Articles";
 import Home from "../pages/Home";
 import Team from "../pages/Team";
 import Teams from "../pages/Teams";
@@ -21,6 +23,9 @@ export default function App() {
           </Route>
           <Route path="/teams" element={<Teams />} />
           <Route path="/:teamId" element={<Team />} />
+          <Route path='/:teamId/articles' element={<Articles />}>
+            <Route path=':articleId' element={<Article />} />
+          </Route>
         </Routes>
       </div>
     </Router>
