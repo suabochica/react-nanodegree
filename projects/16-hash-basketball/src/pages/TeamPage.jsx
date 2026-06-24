@@ -4,9 +4,9 @@ import useTeamNames from '../hooks/useTeamNames'
 import useTeamsArticles from '../hooks/useTeamsArticles'
 import useTeam from '../hooks/useTeam'
 
-import { slugify } from '../utils'
-
 import TeamLogo from '../components/TeamLogo'
+
+import { slugify } from '../utils'
 
 function useTeamPageData (teamId) {
   const {

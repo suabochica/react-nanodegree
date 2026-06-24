@@ -9,7 +9,7 @@ export default function Articles () {
   const {
     response: articles,
     loading
-  } = useTeamsArticles(teamId)
+  } = useTeamArticles(teamId)
   if (loading === true) {
     return <p>LOADING</p>
   }
