@@ -5,6 +5,7 @@ import useTeamsArticles from '../hooks/useTeamsArticles'
 import useTeam from '../hooks/useTeam'
 
 import TeamLogo from '../components/TeamLogo'
+import Loading from '../components/Loading'
 
 import { slugify } from '../utils'
 
@@ -43,7 +44,7 @@ export default function TeamPage () {
   } = useTeamPageData(teamId)
 
   if (loading === true) {
-    return <p>LOADING</p>
+    return <Loading />
   }
 
   if (!teamNames.includes(teamId)) {

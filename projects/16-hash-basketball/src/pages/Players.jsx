@@ -4,6 +4,8 @@ import { useLocation, useSearchParams, Link, Outlet } from 'react-router-dom'
 import usePlayerNames from '../hooks/usePlayerNames'
 import { slugify } from '../utils'
 
+import Loading from '../components/Loading'
+
 function CustomLink ({ to, children }) {
   const location = useLocation()
   const playerId = location.pathname.split('/')[2]
@@ -67,7 +69,7 @@ export default function Players () {
   } = usePlayerNames(team)
 
   if (loading === true) {
-    return null
+    return <Loading />
   }
 
   return (
