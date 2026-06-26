@@ -8,7 +8,7 @@ A fictional basketball league browser built to demonstrate React Router v6 patte
 
 ---
 
-## 💹 Value Proposition
+## 💡 Value Proposition
 
 This application serves as a reference implementation of React Router v6 in a data-driven single-page application. It consumes a REST API to display teams, players, and articles with deeply nested routing — no global state manager, no UI framework, just React and React Router.
 
@@ -110,7 +110,7 @@ All data fetches go through a single `useFetch` hook that constructs requests to
 
 ---
 
-## 💁‍♂️ Contribution
+## 🤝 Contribution
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
