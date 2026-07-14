@@ -22,8 +22,16 @@
     "devDependencies": {
       "standard": "17.0.0"
     },
-    "eslintConfig": {
-      "extends": "./node_modules/standard/eslintrc.json"
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  },
+  "pnpm": {
+    "overrides": {
+      "eslint": "8.56.0"
+    },
+    "patchedDependencies": {
+      "eslint-loader@1.9.0": "patches/eslint-loader@1.9.0.patch"
     }
   }
+}
 }

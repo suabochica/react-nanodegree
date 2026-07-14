@@ -22,5 +22,5 @@ Generate a comprehensive, professional `README.md` for the current project.
 - Do not skip the Configuration or Contribution sections.
 
 ## Examples
-User Prompt: "Generate a README for this repository."
+User Prompt: "Generate a README for this project."
 Agent Action: Parse code -> Write to `README.md` -> Output success status.

@@ -1,0 +1,30 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index 5bc1a6b5436c97dd1d2ec102039a40d1fecb0238..0000000000000000000000000000000000000000
+diff --git a/index.js b/index.js
+index 5d251f47c23e8ad56ed1498b10c0200324c44815..d5c9fb1dda12bf66eb2f4138a7433319af764c0f 100644
+--- a/index.js
++++ b/index.js
+@@ -153,7 +153,21 @@ module.exports = function(input, map) {
+   var config = assign(
+     // loader defaults
+     {
+-      formatter: require("eslint/lib/formatters/stylish"),
++      formatter: function(results) {
++        var output = "", total = 0;
++        results.forEach(function(result) {
++          var messages = result.messages;
++          output += "\n" + result.filePath + "\n";
++          messages.forEach(function(msg) {
++            total++;
++            output += "  " + (msg.line || 0) + ":" + (msg.column || 0) + "  " +
++              (msg.severity === 2 ? "error" : "warning") + "  " +
++              msg.message + "  " + (msg.ruleId || "") + "\n";
++          });
++        });
++        if (total > 0) output += "\n\u2716 " + total + " problem" + (total !== 1 ? "s" : "") + "\n";
++        return output;
++      },
+       cacheIdentifier: JSON.stringify({
+         "eslint-loader": pkg.version,
+         eslint: require(userOptions.eslintPath || "eslint").version,
