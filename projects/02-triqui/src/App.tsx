@@ -22,7 +22,7 @@ function App() {
 
     return turnFromStorage ?? TURNS.X
   })
-  const [winner, setWinner] = useState<boolean | null>(null)
+  const [winner, setWinner] = useState<string | boolean | null>(null)
 
   // Functions
   //----------------------------------------

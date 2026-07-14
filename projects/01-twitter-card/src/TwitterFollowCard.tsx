@@ -21,7 +21,7 @@ export function TwitterFollowCard({ formatTag, tag = "unknown", name, initialIsF
             <header className='tw-follow-card-header'>
                 <img
                     className='tw-follow-card-avatar'
-                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpng.pngtree.com%2Fpng-clipart%2F20200224%2Foriginal%2Fpngtree-cartoon-color-simple-male-avatar-png-image_5230557.jpg&f=1&nofb=1&ipt=fe435481e7d9aeb2c937ef2b1021afff9d61cfbcf08d7c4a3bb991c5d40fc1fc&ipo=images"
+                    src="https://cdn-icons-png.flaticon.com/512/6858/6858504.png"
                     alt="Avatar"
                 />
                 <div className='tw-follow-card-info'>

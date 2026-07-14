@@ -8,7 +8,8 @@ type WinnerModalProps = {
 export function WinnerModal({ winner, resetGame }: WinnerModalProps) {
   if (winner === null) return null;
 
-  const winnerText = winner === false ? 'Empate' : 'Ganó';
+  const isDraw = winner === false;
+  const winnerText = isDraw ? 'Empate' : 'Ganó';
 
   return (
     <section className="winner">
@@ -18,11 +19,13 @@ export function WinnerModal({ winner, resetGame }: WinnerModalProps) {
           {winnerText}
         </h2>
 
-        <header className="win">
-          {
-            winner && <Square>{winner}</Square>
-          }
-        </header>
+        {
+          typeof winner === 'string' && (
+            <header className="win">
+              <Square index={-1}>{winner}</Square>
+            </header>
+          )
+        }
 
         <footer>
           <button onClick={resetGame}>Nuevo Juego</button>

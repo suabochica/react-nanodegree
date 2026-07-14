@@ -8,5 +8,3 @@ allowBuilds:
   es5-ext: true
   esbuild: true
   uglifyjs-webpack-plugin: true
-patchedDependencies:
-  eslint-loader@1.9.0: patches/eslint-loader@1.9.0.patch
