@@ -4,8 +4,15 @@ import './Cart.css'
 
 import { CartIcon, ClearCartIcon } from "./Icons"
 import { useCart } from "../hooks/useCart.hook"
+import type { CartItem } from "../types"
 
-function CartItem({ thumbnail, price, title, quantity, addToCart }) {
+function CartItem({ thumbnail, price, title, quantity, addToCart }: {
+  thumbnail: string
+  price: number
+  title: string
+  quantity: number
+  addToCart: () => void
+}) {
   return (
     <li>
       <img src={thumbnail} alt={title} />
@@ -22,7 +29,7 @@ function CartItem({ thumbnail, price, title, quantity, addToCart }) {
 
 export function Cart() {
   const cartCheckboxId = useId()
-  const { cart, addToCart, removeFromCart, clearCart } = useCart()
+  const { cart, addToCart, clearCart } = useCart()
 
   return (
     <>
@@ -33,7 +40,7 @@ export function Cart() {
       <aside className="cart">
         <ul>
           {
-            cart.map(product => (
+            cart.map((product: CartItem) => (
               <CartItem
                 key={product.id}
                 addToCart={() => addToCart(product)}

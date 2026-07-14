@@ -1,16 +1,10 @@
-import { createContext, useState } from "react";
+import { createContext, useState, type ReactNode } from "react";
+import type { Filters, FiltersContextType } from "../types";
 
-// 1. Crear el contexto
-// Habilita el contexto que se va a consumir
-// Esto es un singleton
+export const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 
-export const FiltersContext = createContext();
-
-// 2. Crear el provider, para proveer el contexto
-// Provee el acceso al contexto
-
-export function FiltersProvider({ children }) {
-  const [filters, setFilters] = useState({
+export function FiltersProvider({ children }: { children: ReactNode }) {
+  const [filters, setFilters] = useState<Filters>({
     category: 'all',
     minPrice: 0
   });
@@ -25,4 +19,3 @@ export function FiltersProvider({ children }) {
     </FiltersContext.Provider>
   );
 }
-

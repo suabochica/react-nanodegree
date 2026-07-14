@@ -1,19 +1,13 @@
 import { AddToCartIcon, RemoveFromCartIcon } from './Icons';
 
 import { useCart } from '../hooks/useCart.hook'
+import type { Product } from '../types';
 import './Products.css';
 
-type Product = {
-  id: number,
-  title: string,
-  price: number,
-  thumbnail: string,
-}
-
-export function Products({ products }: Product[]) {
+export function Products({ products }: { products: Product[] }) {
   const { addToCart, removeFromCart, cart } = useCart();
 
-  const checkProductInCart = (product) => {
+  const checkProductInCart = (product: Product) => {
     return cart.some(item => item.id === product.id)
   }
 

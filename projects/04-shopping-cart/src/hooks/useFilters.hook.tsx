@@ -1,20 +1,17 @@
 import { useContext } from "react";
 import { FiltersContext } from "../context/filter.context";
-
-// Custom Hooks
-// ------------
+import type { Product } from "../types";
 
 export function useFilters() {
+  const context = useContext(FiltersContext);
 
-  // States
-  // ------
+  if (context === undefined) {
+    throw new Error('useFilters must be used within a FiltersProvider')
+  }
 
-  const { filters, setFilters } = useContext(FiltersContext);
+  const { filters, setFilters } = context;
 
-  // Functions
-  // ---------
-
-  const filterProducts = (products) => {
+  const filterProducts = (products: Product[]) => {
     return products.filter(product => {
       return (
         product.price >= filters.minPrice &&
