@@ -23,7 +23,7 @@ cd /contacts-be
 Install the project dependencies with yarn:
 
 ```bash
-yarn install
+pnpm install
 ```
 
 Run the node server with the next command:
@@ -47,13 +47,13 @@ cd /contacts-fe
 Install the project dependencies with yarn:
 
 ```bash
-yarn install
+pnpm install
 ```
 
 Run the frontend  server with the next command:
 
-```
-yarn run start
+```bash
+pnpm run start
 ```
 
 You should get the next view in the `localhost:3000` of your browser:
