@@ -1,5 +1,5 @@
 {
-  "name": "reactnd_slbenitezd_project_would_you_rather",
+  "name": "18-would-you-rather",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,14 +8,17 @@
     "react-redux": "^5.0.7",
     "react-redux-loading": "^1.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.0",
+    "vite": "^6.3.0"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   }
 }
