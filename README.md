@@ -9,4 +9,3 @@ Repository with React projects with different flavors
 - `/docs`: notepad for the react nanodegree.
 - `/projects`: projects doing with react.
 - `/react_native` (to move): notes and projects with react native to achieve the requires of teh nanodegree.
-- `/react_redux`(to move to projects): specific project that use react redux.
