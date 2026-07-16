@@ -1,5 +1,244 @@
+:root {
+  --color-todo: #00bf7d;
+  --color-goal: #5928ed;
+  --color-primary: #0073e6;
+  --color-heading: #2546f0;
+  --color-accent: #00b4c5;
+  --color-bg: #f0f4f3;
+  --color-surface: #ffffff;
+  --color-text: #1a1a2e;
+  --color-muted: #6b7280;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-border: #e5e7eb;
+  --color-hover: #f9fafb;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ───────── App Container ───────── */
+
+.app {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+
+.app-loading {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 80px 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ───────── Section Cards ───────── */
+
+.section {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 28px;
+  margin-bottom: 24px;
+  border-left: 4px solid transparent;
+  transition: box-shadow 0.2s ease;
+}
+
+.section:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.section--todos {
+  border-left-color: var(--color-todo);
+}
+
+.section--goals {
+  border-left-color: var(--color-goal);
+}
+
+.section-title {
+  margin: 0 0 20px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  letter-spacing: -0.01em;
+}
+
+/* ───────── Form ───────── */
+
+.section-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.section-input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.section-input::placeholder {
+  color: var(--color-muted);
+}
+
+.section-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 115, 230, 0.15);
+}
+
+/* ───────── Buttons ───────── */
+
+.btn {
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--add {
+  background-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 115, 230, 0.25);
+}
+
+.btn--add:hover {
+  background-color: var(--color-heading);
+}
+
+.btn--todo {
+  background-color: var(--color-todo);
+  box-shadow: 0 2px 4px rgba(0, 191, 125, 0.25);
+}
+
+.btn--todo:hover {
+  background-color: #00a86b;
+}
+
+.btn--goal {
+  background-color: var(--color-goal);
+  box-shadow: 0 2px 4px rgba(89, 40, 237, 0.25);
+}
+
+.btn--goal:hover {
+  background-color: #4a20c9;
+}
+
+.btn--danger {
+  background: transparent;
+  color: var(--color-danger);
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+}
+
+.btn--danger:hover {
+  background-color: #fef2f2;
+}
+
+/* ───────── List ───────── */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s ease;
+  animation: slideIn 0.3s ease;
+}
+
+.list-item:hover {
+  background-color: var(--color-hover);
+}
+
+.list-item--exiting {
+  animation: slideOut 0.2s ease forwards;
+}
+
+.list-item--done .list-item-text {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+
+.list-item-text {
+  cursor: pointer;
+  font-size: 0.95rem;
+  user-select: none;
+  transition: opacity 0.2s ease, text-decoration 0.2s ease;
+  word-break: break-word;
+  flex: 1;
+}
+
+/* ───────── Animations ───────── */
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }

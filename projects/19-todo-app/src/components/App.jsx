@@ -15,11 +15,15 @@ class App extends React.Component {
 
   render() {
       if (this.props.loading === true) {
-          return <h3>Loading...</h3>
+          return (
+              <div className="app-loading">
+                  Loading...
+              </div>
+          )
       }
 
       return (
-          <div>
+          <div className="app">
               <ConnectedTodos />
               <ConnectedGoals />
           </div>
@@ -30,5 +34,3 @@ class App extends React.Component {
 export default connect((state) => ({
   loading: state.loading
 }))(App)
-
-
