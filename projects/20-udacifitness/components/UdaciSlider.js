@@ -1,6 +1,7 @@
 
 import React from 'react'
-import { View, Text, Slider, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import Slider from '@react-native-community/slider'
 import { gray } from '../utils/colors'
 
 export default function UdaciSlider ({ max, unit, step, value, onChange }) {

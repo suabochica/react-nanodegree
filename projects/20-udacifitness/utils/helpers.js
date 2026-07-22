@@ -1,7 +1,8 @@
 import React from 'react'
-import { AsyncStorage, StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { Notifications, Permissions } from 'expo'
+import * as Notifications from 'expo-notifications'
 import { red, orange, blue, lightPurp, pink, white } from './colors'
 
 const NOTIFICATION_KEY = 'UdaciFitness:notifications'
@@ -165,49 +166,55 @@ export function timeToString (time = Date.now()) {
   return todayUTC.toISOString().split('T')[0]
 }
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+})
+
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationsAsync)
+    .then(() => Notifications.cancelAllScheduledNotificationsAsync())
 }
 
 function createNotification () {
   return {
     title: 'Log your stats!',
     body: "👋 don't forget to log your stats for today!",
-    ios: {
-      sound: true,
-    },
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true,
-    }
+    sound: true,
   }
 }
 
 export function setLocalNotification () {
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.HIGH,
+      vibrationPattern: [0, 250, 250, 250],
+    })
+  }
+
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
       if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS)
-          .then(({ status }) => {
+        Notifications.requestPermissionsAsync()
+          .then(({ status } = {}) => {
             if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync()
 
-              let tomorrow = new Date()
-              tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.setHours(20)
-              tomorrow.setMinutes(0)
-
-              Notifications.scheduleLocalNotificationAsync(
-                createNotification(),
-                {
-                  time: tomorrow,
-                  repeat: 'day',
-                }
-              )
+              Notifications.scheduleNotificationAsync({
+                content: createNotification(),
+                trigger: {
+                  type: Notifications.SchedulableTriggerInputTypes.DAILY,
+                  hour: 20,
+                  minute: 0,
+                  repeats: true,
+                },
+              })
 
               AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
             }

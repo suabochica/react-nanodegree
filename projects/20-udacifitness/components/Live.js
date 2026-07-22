@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ActivityIndicator, Animated, Text, TouchableOpacity, StyleSheet, View  } from 'react-native'
-import { Location, Permissions } from 'expo'
+import * as Location from 'expo-location'
 import { Foundation } from '@expo/vector-icons'
 import { purple, white } from '../utils/colors'
 import { calculateDirection } from '../utils/helpers'
@@ -17,7 +17,7 @@ export default class Live extends Component {
   }
 
   componentDidMount () {
-    Permissions.getAsync(Permissions.LOCATION)
+    Location.getForegroundPermissionsAsync()
       .then(({ status }) => {
         if (status === 'granted') {
           return this.setLocation()
@@ -33,7 +33,7 @@ export default class Live extends Component {
   }
 
   askPermision = () => {
-    Permissions.askAsync(Permissions.LOCATION)
+    Location.requestForegroundPermissionsAsync()
       .then(({ status }) => {
         if (status === 'granted') {
           return this.setLocation()

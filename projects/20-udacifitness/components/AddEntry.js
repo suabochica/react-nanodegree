@@ -1,7 +1,6 @@
 import  React, { Component } from 'react'
 import { View, StyleSheet ,TouchableOpacity, Text, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 
 import { submitEntry, removeEntry } from '../utils/api'
@@ -113,7 +112,7 @@ class AddEntry extends Component {
   }
 
   toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back({key: 'AddEntry'}))
+    this.props.navigation.navigate('History')
   }
 
   render () {
@@ -123,7 +122,7 @@ class AddEntry extends Component {
       return (
         <View style={styles.center}>
           <Ionicons
-            name={Platform.OS === 'ios' ? 'ios-happy-outline' : 'md-happy'}
+            name='happy-outline'
             size={100}
           />
           <Text>You already logged your information for today</Text>

@@ -10,17 +10,6 @@ import MetricCard from './MetricCard'
 import TextButton from './TextButton'
 
 class EntryDetail extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const { entryId } = navigation.state.params
-    const year = entryId.slice(0, 4)
-    const month = entryId.slice(5, 7)
-    const day = entryId.slice(8)
-
-    return {
-      title: `${month}/${day}/${year}`,
-    }
-  }
-
   reset = () => {
     const { remove, goBack, entryId } = this.props
 
@@ -54,8 +43,8 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps (state, { navigation }) {
-  const { entryId } = navigation.state.params
+function mapStateToProps (state, { route }) {
+  const { entryId } = route.params
 
   return {
     entryId,
@@ -63,8 +52,8 @@ function mapStateToProps (state, { navigation }) {
   }
 }
 
-function mapDispatchToProps (dispatch, { navigation }) {
-  const { entryId } = navigation.state.params
+function mapDispatchToProps (dispatch, { navigation, route }) {
+  const { entryId } = route.params
 
   return {
     remove: () => dispatch(

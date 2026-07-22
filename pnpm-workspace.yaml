@@ -1,5 +1,14 @@
 packages:
   - 'projects/**'
+  # 20-udacifitness is intentionally EXCLUDED: it is an Expo/React Native app
+  # pinned to react 19 / react-native 0.81, while most web projects here hoist
+  # react 18 to the shared root node_modules. Sharing one node_modules produces
+  # duplicate/conflicting react and react-native copies that break Metro and
+  # jest. It has its own pnpm-workspace.yaml, lockfile and node_modules.
+  - '!projects/20-udacifitness'
+# Metro and jest-expo resolve packages more reliably with a classic hoisted
+# node_modules layout instead of pnpm's default symlinked (isolated) layout.
+nodeLinker: hoisted
 allowBuilds:
   '@swc/core': true
   core-js: true
