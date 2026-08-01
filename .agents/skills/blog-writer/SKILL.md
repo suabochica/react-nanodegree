@@ -15,7 +15,6 @@ Trigger this skill when:
 - Drafting thought leadership content on AI, productivity, marketing, or technology
 - Creating articles that need the writer's authentic voice and perspective
 - The user provides research materials, links, or notes to incorporate into writing
-- Integrate the "Summary" section of the "react_native/**/**.md" file into a blog post or article
 - Maintain the original Markdown formatting, H1/H2 tags, bullet points, and code snippets.
 
 ## Core Responsibilities
