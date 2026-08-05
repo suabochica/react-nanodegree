@@ -1,54 +1,126 @@
 # Isomorphic React
 
-Takeaways and parcitcal project of the course [Isomorphic React](https://app.pluralsight.com/library/courses/isomorphic-react/table-of-contents)
-by Daniel Stern.
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
+[![React](https://img.shields.io/badge/React-16-61DAFB.svg)](https://reactjs.org/)
+[![Node](https://img.shields.io/badge/Node-24.15-brightgreen.svg)](https://nodejs.org/)
 
-## 👨‍💻 About The Application
+Takeaways and practical project of the course [Isomorphic React](https://app.pluralsight.com/library/courses/isomorphic-react/table-of-contents) by Daniel Stern.
 
-This application is a basic API client which gathers data from an outside API (in this case, Stackoverflow) and generates an isomorphic, single-page application (SPA).
+## 🧭 About
 
-## 🧰 Major Libreries
+A universal (isomorphic) React application that pre-renders HTML on the server via Express and hydrates the client bundle for SPA navigation. Data is fetched from the Stack Overflow API or a local mock, managed through Redux and Redux Saga, and routed with React Router across both environments.
 
-- Babel
-- React
-- Express
-- Webpack
+## 🏗 Architecture
 
-Babel is translating the ES2015 into compatible ES5.
+| Layer | Technology |
+|-------|------------|
+| Runtime | Node.js 24.15, pnpm workspace |
+| Bundler | Webpack 5 + Babel 7 |
+| Server | Express with generator-based middleware |
+| State | Redux 3 + Redux Saga 0.15 |
+| Routing | React Router 4 (browser + memory history) |
+| Styling | CSS with masonry grid, Fira Sans/Code |
+| Testing | Jest + React Test Renderer |
 
-Webpack is using Babel to transform the all the client files `.js` and `.jsx` into ES5.
+## 🚀 Getting Started
 
-Express is handling API functions and serving the bundle created by Babel.
+```bash
+git clone https://github.com/suabochica/isomorphic-react.git
+cd isomorphic-react
+pnpm install
+```
 
-## 🤔 Why Isomorphic React?
+### Development
 
-Great question!
+```bash
+pnpm dev
+```
 
-    Uses React / Redux as main application engine
-    Supports hot reloading and server rendering!
-    Uses React Router (in a combination with server rendering that is truly amazing)
-    No fluff, just the good stuff
+Starts the server with hot module replacement, mock data, and server-side rendering enabled. Open http://localhost:3000.
 
-## 👣 Getting Started
+### Production
 
-1. Clone the repository
-2. Install dependencies `npm install && npm run postinstall`
-3. Run the dev server `npm run start-dev`
-4. Navigate to the application's url http://localhost:3000/
+```bash
+pnpm start
+```
 
-## 🥡 Takeaways
-- React is integrating with Redux to create our client view
-- React Router is rendering different component based on path
-- Express is assembling state but leaving rendering details to router
-- Browser History and Memory History are powering React Router on the client and on the server, respectively
-- Hot Module Reload is being used to hot reload the client development view on source update
-- Production setting are implemented
-## 📓 Functional components of the application
-- Routing
-- Server Rendering
-- Isomorphic data fetching
+Builds the client bundle with Webpack in production mode, then starts the server with live Stack Overflow data and SSR.
 
-## 💬 Troubleshooting
+### Testing
 
-- Remember that in `.jsx` compontents use the arrow function followed by parenthesis `()` instead of braces `{}`.
-- In PROGRESS: Cannot get `questions/12313` when we try to visualize the question details
+```bash
+pnpm test
+```
+
+## ⚙️ Configuration
+
+Server flags (passed via `cross-env` in package scripts):
+
+| Flag | Type | Description |
+|------|------|-------------|
+| `--useLiveData` | `"true"` / `"false"` | Toggle between live API and local mock data |
+| `--useServerRender` | `"true"` / `"false"` | Enable or disable server-side rendering |
+
+Environment variables:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `NODE_ENV` | — | `development` activates HMR middleware; `production` serves static assets from `/dist` |
+| `PORT` | `3000` | Server listen port |
+
+## 🖌 Styling
+
+The UI uses a masonry CSS grid for the question listing, glassmorphism cards, and a warm earth palette:
+
+| Color | Hex |
+|-------|-----|
+| Yellow | `#FEF2A0` |
+| Peach | `#F3CD97` |
+| Orange | `#E98B50` |
+| Burgundy | `#BC4F4F` |
+
+Typography uses [Fira Sans](https://fonts.google.com/specimen/Fira+Sans) for headings and body (weights 300–800) and [Fira Code](https://fonts.google.com/specimen/Fira+Code) for monospace elements (weights 400–700).
+
+## 📁 Project Structure
+
+```
+src/
+  App.jsx              Root component and routes
+  index.jsx            Client entry point (hydration)
+  getStore.js          Redux store factory
+  styles.css           Global styles
+  components/
+    QuestionList.jsx    Masonry question grid
+    QuestionDetail.jsx  Single question view
+    NotificationViewer.jsx
+    TagsList.jsx
+  reducers/
+    questions.js        Question state reducer
+  sagas/
+    fetch-questions-saga.js
+    fetch-question-saga.js
+  services/
+    NotificationService.js
+server/
+  index.jsx            Express server with SSR and API routes
+public/
+  index.html           HTML template for SSR
+data/
+  api-real-url.js      Stack Overflow API endpoint config
+  mock-questions.json  Local question fixture
+```
+
+## 🔄 Data Flow
+
+1. Browser requests a route (e.g. `/` or `/questions/:id`)
+2. Express matches the route, fetches data from the API or mock
+3. Redux store is seeded with the fetched initial state
+4. React renders the component tree to an HTML string on the server
+5. The string replaces the `<%= preloadedApplication %>` placeholder in the template
+6. The browser displays pre-rendered HTML instantly
+7. The client bundle loads and hydrates the existing DOM
+8. Subsequent navigation is handled client-side by React Router and Redux Saga
+
+## 📄 License
+
+ISC
