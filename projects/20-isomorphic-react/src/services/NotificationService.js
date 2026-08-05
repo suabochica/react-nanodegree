@@ -1,10 +1,8 @@
-import { delay } from 'redux-saga'
-
 export default {
     async getNotifications() {
-        console.warn("Notificaiton Service");
+        console.warn("Notification Service");
 
-        await delay(1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         return { count: 42 }
     }

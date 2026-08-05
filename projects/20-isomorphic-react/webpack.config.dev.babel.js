@@ -32,13 +32,17 @@ export default {
 		extensions: ['.js', '.json', '.jsx']
 	},
 	module: {
-		loader: [
+		rules: [
 			{
 				test: /\.jsx?$/,
 				use: {
 					loader: 'babel-loader'
 				},
-				include: path.resove(__dirname, 'src')
+				include: path.resolve(__dirname, 'src')
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
 			}
 		]
 	}

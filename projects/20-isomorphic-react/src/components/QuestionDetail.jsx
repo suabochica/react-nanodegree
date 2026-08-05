@@ -5,19 +5,21 @@ import { connect } from 'react-redux';
 import TagsList from './TagsList';
 
 export const QuestionDetailDisplay = ({ title, body, answer_count, tags }) => (
-    <div>
-        <h3 className="mb-2">{title}</h3>
+    <div className='question-detail'>
         {body ?
             <div>
-                <div className="mb-3">
+                <h3 className='detail-title'>{title}</h3>
+                <div className='detail-tags'>
                     <TagsList tags={tags} />
                 </div>
-                <Markdown source={body} />
-                <div>
+                <div className='detail-body'>
+                    <Markdown source={body} />
+                </div>
+                <div className='detail-answers'>
                     {answer_count} Answers
                 </div>
             </div> :
-            <div>
+            <div className='loading-text'>
                 <h4>Loading Question ...</h4>
             </div>
         }

@@ -6,6 +6,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import getStore from './getStore';
 import App from './App';
+import './styles.css';
 
 const history = createHistory()
 const store = getStore(history);

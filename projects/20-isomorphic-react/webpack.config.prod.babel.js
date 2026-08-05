@@ -36,6 +36,10 @@ export default {
 					loader: 'babel-loader'
 				},
 				include: path.resolve(__dirname, 'src')
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
 			}
 		]
 	}

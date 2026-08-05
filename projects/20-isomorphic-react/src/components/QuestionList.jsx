@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 import TagsList from './TagsList';
 
 const QuestionListItem = ({ title, tags, question_id }) => (
-    <div className='mb-3'>
+    <div className='question-card'>
         <h3>{title}</h3>
-        <div className='mb-2'>
+        <div className='tags'>
             <TagsList tags={tags} />
         </div>
         <div>
             <Link to={`/questions/${question_id}`}>
-                <button>More Info!</button>
+                <button className='more-btn'>More Info!</button>
             </Link>
         </div>
     </div>
@@ -21,7 +21,7 @@ const QuestionListItem = ({ title, tags, question_id }) => (
 const QuestionList = ({ questions }) => (
     <div>
         {questions ?
-            <div>
+            <div className='masonry-grid'>
                 {questions.map(
                     questions =>
                         <QuestionListItem
@@ -30,7 +30,7 @@ const QuestionList = ({ questions }) => (
                         />
                 )}
             </div> :
-            <div>
+            <div className='loading-text'>
                 Loading questions ...
             </div>
         }
