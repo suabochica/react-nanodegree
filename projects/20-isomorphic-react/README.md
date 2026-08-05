@@ -10,6 +10,12 @@ Takeaways and practical project of the course [Isomorphic React](https://app.plu
 
 A universal (isomorphic) React application that pre-renders HTML on the server via Express and hydrates the client bundle for SPA navigation. Data is fetched from the Stack Overflow API or a local mock, managed through Redux and Redux Saga, and routed with React Router across both environments.
 
+## 🖼 Screenshots
+
+| Home — Masonry Grid | Notifications |
+|---------------------|---------------|
+| ![Home page showing masonry question grid](./public/01-home.png) | ![Notification bar with count](./public/02-notification.png) |
+
 ## 🏗 Architecture
 
 | Layer | Technology |
@@ -105,6 +111,8 @@ server/
   index.jsx            Express server with SSR and API routes
 public/
   index.html           HTML template for SSR
+  01-home.png           Home page screenshot
+  02-notification.png   Notification bar screenshot
 data/
   api-real-url.js      Stack Overflow API endpoint config
   mock-questions.json  Local question fixture
