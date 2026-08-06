@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React hooks — useEffect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@19.2.8",
+          "react-dom/client": "https://esm.sh/react-dom@19.2.8/client"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a href="/">useState</a>
+        <a href="/mouse-over.html">useRef</a>
+        <a href="/scroll.html" class="active">useEffect</a>
+      </nav>
+    </header>
+    <main class="container">
+      <h1 class="page-title">useEffect</h1>
+      <p class="explanation">
+        <code>useEffect</code> synchronizes a component with systems outside
+        React by running side effects after the render is committed to the
+        screen. The dependency array controls when it re-runs, and the optional
+        cleanup function runs before the next effect or when the component
+        unmounts. In this demo, the effect updates the document title whenever
+        <code>currentHashiraId</code> changes, and each card registers — and
+        cleans up — its own scroll listener.
+      </p>
+      <div id="root"></div>
+    </main>
+    <script type="module">
+      import { createElement } from "react";
+      import { createRoot } from "react-dom/client";
+      import ImageChangeOnScroll from "/src/ImageChangeOnScroll.js";
+
+      createRoot(document.getElementById("root")).render(
+        createElement(ImageChangeOnScroll),
+      );
+    </script>
+  </body>
+</html>
