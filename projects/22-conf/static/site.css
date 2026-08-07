@@ -1,0 +1,33 @@
+.card-min-width {
+  min-width: 300px;
+}
+
+.card-width {
+  width: 20rem;
+}
+
+.checkbox-bigger {
+  zoom: 1.5;
+}
+
+.large { 
+  padding: 50px;
+}
+
+.large-text { 
+  font-size: x-large;
+}
+
+.margin-top-bottom-base {
+  margin: 20px 0;
+}
+
+.margin-top-bottom-medium {
+  margin: 10px 0;
+}
+
+.margin-top-bottom-small {
+  margin: 5px 0;
+}
+
+
