@@ -23,7 +23,7 @@ const data = {
   answers: [
     {
       answerId: "A1",
-      questionId: 1,
+      questionId: "Q1",
       upvotes: 2,
       content: "Apache",
     },
@@ -61,6 +61,8 @@ const data = {
 };
 
 app.use(express.static("dist"));
+// index: false -> keep the SSR route below in charge of "/"
+app.use(express.static("public", { index: false }));
 
 app.get("/data", async (_request, response) => {
   response.json(data);
