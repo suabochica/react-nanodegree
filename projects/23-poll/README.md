@@ -1,5 +1,12 @@
 # Server Rendered Poll App
-Server rendered poll app with React
+
+Server rendered poll app with React. Express renders the Q&A list on the
+server, serves a JSON API, and handles live voting through + / - buttons.
+
+![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)
+![Node: >=25](https://img.shields.io/badge/Node-%3E%3D25-green.svg)
+
+![Poll app screenshot](public/01-poll.webp)
 
 ## 🧰 Tech Stack
 
@@ -61,3 +68,28 @@ when files in `client/` change.
 > In dev mode the page is client rendered, so React logs a hydration fallback
 > warning in the console — this is expected. Server side rendering is exercised
 > through the `pnpm run build` + `pnpm start` flow on `:7777`.
+
+## ⚙️ Configuration
+
+| Setting | Value | Where |
+| --- | --- | --- |
+| Express port | `7777` | `server/index.js` (`app.listen`) |
+| Dev server port | `8080` | `webpack.config.js` (`devServer.port`) |
+| API proxy | `/data`, `/vote` → `http://localhost:7777` | `webpack.config.js` (`devServer.proxy`) |
+| Static assets | `dist/` (client bundle), `public/` (HTML/CSS, `index: false` keeps SSR on `/`) | `server/index.js` |
+| Poll data | In-memory `questions`/`answers` seed; votes reset on restart | `server/index.js` |
+
+## 🤝 Contributing
+
+1. Fork the repository and create a feature branch from `master`.
+2. Run `pnpm install`, then `pnpm run build` and `pnpm start`.
+3. Verify your changes with the **Steps to Test** above.
+4. Open a pull request describing the change and its motivation.
+
+Please keep the code style consistent with the existing sources and do not
+commit `node_modules/`, `build/`, or `dist/`.
+
+## 📄 License
+
+This project is licensed under the ISC License — see the [LICENSE](LICENSE)
+file for details.
