@@ -1,5 +1,5 @@
 {
-  "name": "user_favorite_movie_list",
+  "name": "user-favorite-movie-list",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
