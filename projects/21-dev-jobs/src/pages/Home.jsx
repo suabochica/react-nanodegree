@@ -25,26 +25,28 @@ export default function HomePage () {
 
         <p>Únete a la comunidad más grande de desarrolladores y encuentra tu próxima oportunidad.</p>
 
-        <form role="search" onSubmit={handleSearch}>
-          <div>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"
-              >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-              <path d="M21 21l-6 -6" />
-            </svg>
+        <div className="jobs-search">
+          <form role="search" onSubmit={handleSearch}>
+            <div className="search-bar">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"
+                >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                <path d="M21 21l-6 -6" />
+              </svg>
 
-            <input
-              name="search"
-              required
-              type="search"
-              placeholder="Buscar empleos por título, habilidad o empresa"
-            />
+              <input
+                name="search"
+                required
+                type="text"
+                placeholder="Buscar empleos por título, habilidad o empresa"
+              />
 
-            <button type="submit">Buscar</button>
-          </div>
-        </form>
+              <button type="submit">Buscar</button>
+            </div>
+          </form>
+        </div>
       </section>
 
       <section className={styles.section}>
